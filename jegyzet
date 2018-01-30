@@ -1,0 +1,128 @@
+
+kép kezelő:
+https://github.com/Intervention/image
+
+!!!!migration figyelni!!!
+--------------------------------------------------------------
+a decimal(4.2) 4 jegyü szám két tizeds törtel (pl: daytype, timetype-> szorzo) 
+csak decimal(4.0) lesz.(4 jegyú egész szám)
+ a php myadminban is csak sql prancsal lehet beállítani.
+pl.: ALTER TABLE `timetypes` CHANGE `szorzo` `szorzo` DECIMAL(4,2) NULL DEFAULT '1';
+
+
+//változtatások----------------------------------------------
+worker mentéshiba miatt ( error: 1364,  column not found)
+ worker_id, workergroup_id-et nem volt hajlandó menteni pedig a pstban benne volt 
+ és a model fillable tömbjében is, Továbbá nem szerepelt a guarded tömbben.
+ezért: config/database.php
+'connections' => 'mysql' =>'strict' => false, ra lett állítva (true-ról)
+
+//saját taskban az Auth::id();  null-al tér vissza:--------------------------------
+app/http/kernel.php
+$middlewareGroups ból $middleware-be másolni a következő sorokat
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+             \Illuminate\Session\Middleware\AuthenticateSession::class, //
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+           \App\Http\Middleware\VerifyCsrfToken::class, 
+//----------------------------------------------------------
+tervezés:
+
+days:-
+worker_id(workers)-null-key1,datum-key2,daytype_id(daytypes),note
+belongsTo:('App\\Worker'),('App\\Daytype')
+
+daytype_ch:-
+day_id(days),daytype_id(daytypes),pub-def0,workernote-null,managernote-null,$table->timestamps()
+tipus változás kérelmek(szabi) jóváhagyás után kerülnek át a days-be
+belongsTo('App\\Day'),('App\\Daytype')
+
+daytypes:-
+napok tipusának beállítása (szabadság ,ünnepnap,stb)
+name,szorzo(decimal,4,2)-null,fixplusz-null,color-null,dt_note-null,pub-def0
+hasMany('App\\Timeunit');
+hasOne('App\\Day');
+
+---------------------------------------------------------------------------------
+workers:-
+user_id(users), 
+workrole_id(workrole)
+status_id(statuses)-null,
+workertype_id(workertypes)-null,
+workergroup_id(workertypes)-null,
+sallary,
+sallary_type(órabér,napi,heti,havi),position,foto-null,
+fullname,cim,tel-null,birth,ado-null,tb-null,start,end-null,pub-def(0),timestamp()
+
+belongsTo('App\\User');('App\\Workrole');('App\\Status');('App\Workergroup');
+
+belongsToMany('App\\Timeframe');
+
+hasMany('App\\Day');('App\\Daych');('App\\TimeUnitch')
+--------------------------------------------------------------------------
+workergroup:-
+name,value,note-nullable
+
+timeunits:-
+egy időszakat jelöl ki (1hét ,2hónap stb) 
+csatol hozzá egy naptipusokból álló tömböt(munanap,ünnepnap stb)
+3vv3n az időszakban ezekre a naptipusokra lehet szabályt írni
+name,unit(day,week,month,year),long,note
+hasMany(app\\Timeframe);
+belongsToMany('App\\Daytype');
+
+timeframes:-
+timeunit_id,name, start
+hourmin(kötelezö óraszám)-null,hourmax-null;pub-def(0)
+belongsTo('App\\Timeunit');
+belongsToMany('App\\Worker');
+
+//---------------------------
+workroles:-
+name, workrole_note,start
+hasMany(App\\WorkroleUnit);('App\\worker);
+
+workrole_units:-
+workrole_id:1(workroles), timeunit_id(timeunits),worktime_id(worktimes)_
+belongsTo(App\\Workrole);(App\\Timeunit);(App\\Worktime);
+
+worktimes:-
+name,note,
+belongsToMany(App\\WorktimeUnit);
+hasMany(App\\WorkroleUnit);
+
+worktimeunits:-
+worktimetype_id,start,end-null, hour,note-null,pub-def(0)
+belongsTo(App\\Worktimetype);
+
+
+worktimetypes-
+name(alap,túlóra,túlóra éjszakai,ledolg,csúsztatás stb),
+szorzó(elszámoláshoz)-null,fixplus-null,color-null,wt_note-null 
+hasOne('App\Worktimeunit');
+
+daytime_ch:-
+ledolgozottidők változtatás kérelme
+day_id,worktimetypes_id,start,end-null, hour ,usernote-null,mangernote-null,pub-def(0)
+
+belongsTo(App\\worktimetypes);(App\\Worktime;
+
+daytimes:-
+ledolgozott idők napok hoz rendelve (a napok workerekhez)
+day_id,type_id,start,end-null, hour ,usernote-null,mangernote-null,pub-def(0)
+belongsTo(App\\Day);(App\\Worktimetype;
+
+
+config:-
+name,value-null,note-null
+zárás: 0:hónap utolsó napja,egyéb szám: dátum  
+
+
+//--------------------------------
+funkciók:                     
+years: 
+új év hozzáadásakor lekérdezi az ünnepnapokat és beirja a days táblába
+
+month
+új hónap hozzáadásakor beirja a dolgozók munkarendjét  

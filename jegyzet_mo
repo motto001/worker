@@ -1,0 +1,17 @@
+kép kezelő:
+https://github.com/Intervention/image
+A controller minden viewwl megoszt egy param tömböt.
+ez tartalmazza :
+    baseview: alap view mappa 
+    baseroute: alap rout
+    crudview: az alap crud ájlok(create,index stb)
+    tablebuttonT: gombok
+  
+    getT: a link get részét ebből rakja össze a MoHand::link_param() és a MoHand::url()
+    linkT: az alap crud felülírása vagy plusz link, ha viewnek szüksége van rá
+    modal: ha létezik a kulcs (értéke mindegy )a view nem csatolja be keretet(head,sidebar)
+A data['param'] -vel felülirható az aktuális taskból a felülírást a templateben kell megvalósítani 
+pl.:app.blade backend.blade:
+ @if(isset($data['param']))
+    @php $param=array_merge($param,$data['param']); @endphp
+ @endif
