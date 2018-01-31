@@ -5,6 +5,6 @@ class MoCal  extends Facade
 { 
     protected static function getFacadeAccessor() 
     { 
-        return \App\Handler\Mocal ::class;
+        return \App\Handler\MoCal ::class;
     } 
 }
