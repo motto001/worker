@@ -1,46 +1,55 @@
 <?php
-
 namespace App\Http\Controllers\Manager;
-
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Handler\MoController;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Session;
 
-class UsersController extends Controller
+class UsersController extends MoController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return void
-     */
-    public function index(Request $request)
-    {
-        $keyword = $request->get('search');
-        $perPage = 15;
+    use \App\Handler\trt\crud\CrudWithSetfunc;
+    use  \App\Handler\trt\SetController;
 
-        if (!empty($keyword)) {
-            $users = User::where('name', 'LIKE', "%$keyword%")->orWhere('email', 'LIKE', "%$keyword%")
-                ->paginate($perPage);
-        } else {
-            $users = User::paginate($perPage);
-        }
+    protected $par= [
+         'get_key'=>'user',
+        'routes'=>['base'=>'workadmin/workertimes','worker'=>'manager/worker'],
+        //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
+        'view'=>'Manager.users', //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
+        'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
+        'cim'=>'Felhasználók',
+        'getT'=>[],  
+        
 
-        return view('manager.users.index', compact('users'));
-    }
+    ];
+  
+    protected $base= [
+       // 'search_column'=>'daytype_id,datum,managernote,usernote',
+        'get'=>['ev'=>null,'ho'=>null], //a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
+       // 'get_post'=>['ev'=>null,'ho'=>null],//a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be ha van ilyen kulcs a postban azzal felülírja
+        'obname'=>'\App\User',
+        'ob'=>null,
+       // 'func'=>[  'set_task', 'set_getT','set_date', 'set_redir','set_routes','set_ob'],
+      //  'with'=>['worker','timetype'],
 
+    ];
+
+
+    protected $val= ['name' => 'required', 'email' => 'required', 'password' => 'required', 'roles' => 'required'];
+    protected $editval=  ['name' => 'required', 'email' => 'required', 'roles' => 'required'];
     /**
      * Show the form for creating a new resource.
      *
      * @return void
      */
-    public function create()
+    public function create_set()
     {
         $roles = Role::select('id', 'name', 'label')->get();
-        $roles = $roles->pluck('label', 'name');
-
-        return view('manager.users.create', compact('roles'));
+        $this->BASE['data']['roles'] = $roles->pluck('label', 'name');
     }
 
     /**
@@ -50,36 +59,18 @@ class UsersController extends Controller
      *
      * @return void
      */
-    public function store(Request $request)
+    public function store_set(Request $request)
     {
-        $this->validate($request, ['name' => 'required', 'email' => 'required', 'password' => 'required', 'roles' => 'required']);
 
-        $data = $request->except('password');
-        $data['password'] = bcrypt($request->password);
-        $user = User::create($data);
+        $this->BASE['data']['password'] = bcrypt( $this->BASE['request']->password);
 
-        foreach ($request->roles as $role) {
+
+        foreach ($this->BASE['request']->roles as $role) {
             $user->assignRole($role);
         }
-
-        Session::flash('flash_message', 'User added!');
-
-        return redirect('manager/users');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return void
-     */
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-
-        return view('manager.users.show', compact('user'));
-    }
+  
 
     /**
      * Show the form for editing the specified resource.
@@ -88,18 +79,16 @@ class UsersController extends Controller
      *
      * @return void
      */
-    public function edit($id)
+    public function edit_set($id)
     {
         $roles = Role::select('id', 'name', 'label')->get();
-        $roles = $roles->pluck('label', 'name');
-
-        $user = User::with('roles')->select('id', 'name', 'email')->findOrFail($id);
-        $user_roles = [];
+        $this->BASE['data']['roles'] = $roles->pluck('label', 'name');
+        $this->BASE['data']['user'] = User::with('roles')->select('id', 'name', 'email')->findOrFail($id);
+       
+        $this->BASE['data']['user_roles'] = [];
         foreach ($user->roles as $role) {
-            $user_roles[] = $role->name;
+            $this->BASE['data']['user_roles'] = $role->name;
         }
-
-        return view('manager.users.edit', compact('user', 'roles', 'user_roles'));
     }
 
     /**
@@ -110,41 +99,16 @@ class UsersController extends Controller
      *
      * @return void
      */
-    public function update($id, Request $request)
-    {
-        $this->validate($request, ['name' => 'required', 'email' => 'required', 'roles' => 'required']);
-
-        $data = $request->except('password');
-        if ($request->has('password')) {
-            $data['password'] = bcrypt($request->password);
-        }
-
-        $user = User::findOrFail($id);
-        $user->update($data);
-
-        $user->roles()->detach();
-        foreach ($request->roles as $role) {
+    public function update_set($id, Request $request)
+    {     
+        if ($this->BASE['request']->has('password')) {
+        $this->BASE['data']['password'] = bcrypt( $this->BASE['request']->password);
+        }   
+        foreach ($this->BASE['request']->roles as $role) {
             $user->assignRole($role);
         }
 
-        Session::flash('flash_message', 'User updated!');
-
-        return redirect('manager/users');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return void
-     */
-    public function destroy($id)
-    {
-        User::destroy($id);
-
-        Session::flash('flash_message', 'User deleted!');
-
-        return redirect('manager/users');
-    }
+  
 }
