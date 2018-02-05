@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+ <!-- login használja -->  
+
 <head>
+ 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +16,28 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<!--login form középre igazítás  -->
+    <style>
+        .outer {
+            display: table;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color:#214761
+        }
+        
+        .middle {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        
+        .inner {
+            margin-left: auto;
+            margin-right: auto; 
+            width: 700px; /*whatever width you want*/
+        }
+</style>
+  <!-- / középre igazítás  -->
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -21,35 +45,36 @@
         ]) !!};
     </script>
 </head>
-<body>
+<body style="background-color:#2d3d56;">
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+          
+       <!--  <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
+                    <!-- Collapsed Hamburger
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                         <span class="sr-only">Toggle Navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button>
+                    </button> -->
 
-                    <!-- Branding Image -->
+                    <!-- Branding Image
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
+                <div class="collapse navbar-collapse" id="app-navbar-collapse"> -->
+                    <!-- Left Side Of Navbar 
                     <ul class="nav navbar-nav">
                         &nbsp;
-                    </ul>
+                    </ul>-->
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
+                    <!-- Right Side Of Navbar
+                    <ul class="nav navbar-nav navbar-right"> -->
+                        <!-- Authentication Links 
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
@@ -77,7 +102,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>-->
 
         @yield('content')
     </div>

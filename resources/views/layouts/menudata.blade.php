@@ -1,8 +1,9 @@
-         
+@php  
+       
 $menuT=[
 'admin'=>[                                          
-['/root/proba' , 'proba']                                
-['/root/conf'  ' Config'],
+['/root/proba','proba'],                                
+['/root/conf' ,' Config'],
 ['/root/roles' ,'Jogok'],
 ],
 
@@ -19,27 +20,28 @@ $menuT=[
 ['/manager/wroles', 'Munkarendek'],
 ['/manager/wroleunits', 'Műszakok'],
 ['/manager/wroletimes',  'Műszak idők'],
-['/workadmin/workerdays') , 'Költdég térítés'],
+['/workadmin/workerdays' , 'Költdég térítés'],
 ],
 
 'workadmin'=>[
-['/workadmin/workerwroles',Dolgozói munkarendek],
-['/workadmin/workertimeframes ', Dolgozói időkere,tek]
-['/workadmin/workerwroleunit', Dolgpzói műszakok],
-['/workadmin/workerdays',  Napok],
-['/workadmin/workertimes', Munkaidők],
-['/workadmin/workertimeswish', Munkaidő kérelmek],
-['/workadmin/', Szabadság, betegállomány],
-['/workadmin/workerdays',  kiküldetés],
+['/workadmin/workerwroles','Dolgozói munkarendek'],
+['/workadmin/workertimeframes ', 'Dolgozói időkeretek'],
+['/workadmin/workerwroleunit', 'Dolgpzói műszakok'],
+['/workadmin/workerdays',  'Napok'],
+['/workadmin/workertimes', 'Munkaidők'],
+['/workadmin/workertimeswish', 'Munkaidő kérelmek'],
+['/workadmin/', ' Szabadság,betegállomány'],
+['/workadmin/workerdays',  'kiküldetés'],
 ],
 'worker'=>[
-['/worker/workertimeswish', Munkaidők],
-['/worker/workerwroleunits', Műszakcsere],
-['/worker/workerdays', Saját adatok],
-['/worker/workerdays',  Naptár],
-['/worker/workerdays', Szabadság, betegállomány],
-['/workadmin/workerdays', kiküldetés],
-['/workadmin/workerdays', Munkaidő nyilvántartás],
-['/workadmin/workerdays', költdég térítés]
+['/worker/workertimeswish', 'Munkaidők'],
+['/worker/workerwroleunits', 'Műszakcsere'],
+['/worker/workerdays', 'Saját adatok'],
+['/worker/workerdays',  'Naptár'],
+['/worker/workerdays', 'Szabadság, betegállomány'],
+['/workadmin/workerdays', 'kiküldetés'],
+['/workadmin/workerdays', 'Munkaidő nyilvántartás'],
+['/workadmin/workerdays', 'költdég térítés']
 ]
-]
+];
+@endphp

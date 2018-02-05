@@ -1,11 +1,17 @@
 @extends('layouts.app')
-
+ <div style="background-color:#000033; max-height:150px;">   
+@include('layouts.mo_worker_script2')  
+ </div>
 @section('content')
-<div class="container">
+
     <div class="row">
+        <div style="padding:50px;">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <div class="panel-heading" style="background-color:#000033;color:white;">
+                    Login
+               
+                </div>
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
@@ -50,11 +56,11 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button style="background-color:#000033" type="submit" class="btn btn-primary">
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <a  style="background-color:#2d3d56" class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?
                                 </a>
                             </div>
@@ -63,6 +69,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </div></div>
+
 @endsection

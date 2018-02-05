@@ -42,7 +42,7 @@ protected $PAR= [
     'view'=>'', 
     //pl.:'manager.wrunit_times'
     //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
-    'crudview'=>'crudbase_2', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
+    'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
     'cim'=>'',  //a templétben megjelenő cím
     'getT'=>[], 
     //pl.: ['wru'=>'0']

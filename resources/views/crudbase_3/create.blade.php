@@ -7,6 +7,7 @@
     
 @endif   
 @php 
+if(!isset($param['getT'])) {$param['getT']=[];}
 $cancelurl=$param['routes']['redir'] ?? $param['routes']['base'];
 $cancelurl=$data['link_cancel'] ?? $cancelurl;
 @endphp
@@ -30,7 +31,7 @@ $cancelurl=$data['link_cancel'] ?? $cancelurl;
                                 @endforeach
                             </ul>
                         @endif
-
+    
                         {!! Form::open([
                             'url' => MoHandF::url($param['routes']['base'],$param['getT']), 
                         'class' => 'form-horizontal', 'files' => true]) !!}

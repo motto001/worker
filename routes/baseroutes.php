@@ -72,6 +72,7 @@ Route::group(['prefix' => '/worker','middleware' => ['auth', 'roles'], 'roles' =
     Route::resource('/workerwroleunits', 'Worker\\WorkerwroleunitsController');
     Route::resource('/workertimeswish', 'Worker\\WorkertimeswishController');
     Route::resource('/workerdays', 'Worker\\WorkerdaysController');
+    Route::resource('/naptar', 'Worker\\NaptarController');
     Route::resource('/personal', 'Worker\\WorkersController');
     
   //  Route::get('/worktimes/{year}/{month}/{day}/{user}', 'Worker\\WorktimesController@index2');

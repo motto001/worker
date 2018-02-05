@@ -1,4 +1,6 @@
-@php
+<!DOCTYPE html>
+
+ @php
 if(isset($data['param'])){$param=array_merge($param,$data['param']);}   
 if(!isset($param['getT'])){ $param['getT']=[]; }
 $modal= $param['modal'] ?? false ;
@@ -6,110 +8,138 @@ $header= $param['header'] ?? true;
 $sidebar = $param['sidebar'] ?? true ;
 @endphp
 
-@if(!$modal) 
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simple Responsive Admin</title>
-    <!-- BOOTSTRAP STYLES-->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
-    <!-- FONTAWESOME STYLES-->
-    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
-        <!-- CUSTOM STYLES-->
+    <title>DASHGUM - FREE Bootstrap Admin Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/style-responsive.css" rel="stylesheet">
+
     <link href="/assets/css/custom.css" rel="stylesheet" />
-    <!-- GOOGLE FONTS-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-<!-- CSRF Token -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]
+<script src="/assets/js/jquery-1.8.3.min.js"></script>
+-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
+  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+  <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<script>
-window.Laravel = <?php echo json_encode([
-    'csrfToken' => csrf_token(),
-]); ?>
+ <script>
+    window.Laravel = <?php echo json_encode([
+        'csrfToken' => csrf_token(),
+    ]); ?>
 </script>
-</head>
+ 
+ </head>
 
 <body>
-@endif     
-        
- <div id="wrapper">
 
-@if($header)           
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="adjust-nav">
-            <div class="navbar-header">
-                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                 </button>
-<!-- Moeorker script -------------------------------------- -->
-@include('layouts.mo_worker_script')
-<!--  /MOWorker script ----------------------------------------------------------------  -->                    
+<section id="container" >
+   <!--header start-->
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box"  >
+                <div style="position:relative;top:-5px;" class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            @include('layouts.mo_worker_script')       
             </div>
-            <span class="logout-spn" > 
-            <ul class="nav navbar-nav navbar-right">
-                <!-- Authentication Links -->
-                @if (Auth::guest())
-                    <li><a href="{{ url('/login') }}">Login</a></li>
-                    <li><a href="{{ url('/register') }}">Register</a></li>
-                @else
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
 
-                        <ul class="dropdown-menu" role="menu" >
-                            <li>
-                                <a href="{{ url('/logout') }} " 
-                                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
+  <center><span style="position:relative;top:25px;left:-50px;color:white;">Szép napot {{ Auth::user()->name }} !</span></center>
+        
+         <div style="max-width:100px;position:relative;top:15px;left:-20px; " class="nav navbar-nav navbar-right">
 
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                @endif
-            </ul>  
-        </span>      
-    </div> 
-</div> 
-@endif  
-<!--header end-->
+                <a href="{{ url('/logout') }}"
+                    onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                    Kijelentkezés
+                </a>
 
-@if($sidebar)
-@include('layouts.sidebar')
-@endif 
-@yield('content')
-</div>
+                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+                                          
+            </div>        
+        
+        </header>
+      <!--header end-->
 
-@if(!$modal)       
-<div class="footer">
-<div class="row">
-    <div class="col-lg-12" >
-        &copy;  2014 yourdomain.com | Design by: <a href="http://binarytheme.com" style="color:#fff;" target="_blank">www.binarytheme.com</a>
-    </div>
-</div>
-</div>
-          
+      @if (Session::has('flash_message'))
+            <div class="container">
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ Session::get('flash_message') }}
+                </div>
+            </div>
+        @endif 
+ 
+     @yield('content')
 
-  <!-- /. WRAPPER  -->
- <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
- <!-- JQUERY SCRIPTS -->
- <script src="/assets/js/jquery-1.10.2.js"></script>
-   <!-- BOOTSTRAP SCRIPTS -->
- <script src="/assets/js/bootstrap.min.js"></script>
-   <!-- CUSTOM SCRIPTS -->
- <script src="/assets/js/custom.js"></script>
+      <!--main content end-->
+ 
+  </section>
 
-</body>
+    <!-- js placed at the end of the document so the pages load faster -->
+<script src="/assets/js/jquery.js"></script>
+ 
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="/assets/js/jquery.sparkline.js"></script>
+
+
+    <!--common script for all pages-->
+    <script src="/assets/js/common-scripts.js"></script>
+    
+    <script type="text/javascript" src="/assets/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="/assets/js/gritter-conf.js"></script>
+
+    <!--script for this page-->
+    <script src="/assets/js/sparkline-chart.js"></script>    
+	<script src="/assets/js/zabuto_calendar.js"></script>	
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+    
+
+
+
+
+      
+
+	
+    <script type="application/javascript">
+        
+  $( ".datepicker" ).datepicker({
+  dateFormat: "yy-mm-dd"
+});
+$( ".datepickernoyear" ).datepicker({
+  dateFormat: "mm-dd",setDate: "10-10" 
+});
+      
+        $(document).ready(function () {
+            $('.printMe').click(function(){
+                $("#naptar").print();
+           });
+        });
+        
+    </script>
+  
+
+  </body>
 </html>
-@endif 

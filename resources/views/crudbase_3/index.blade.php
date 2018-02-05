@@ -1,26 +1,33 @@
 
+@if(!isset($param['modal']))
 @extends('layouts.backend')
 
-@php 
+@section('content')
+            @include('layouts.sidebar')          
+@endif 
+
+@php
+if(!isset($data)) {$data=[];}
+if(!isset($data['list'])) {$data['list']=$data;}
+if(!isset($param['getT'])) {$param['getT']=[];}
 $createlink=$param['routes']['create'] ?? MoHandF::url($param['routes']['base'].'/create',$param['getT']);
 $cim=$param['cim'] ?? '';
 $addbutton_label=$param['addbutton_label'] ?? 'Új '.$cim;
 if(!isset($param['search'])){$param['search']=true;}
 $create_button=$param['create_button'] ?? true;
+
 @endphp
 
-@section('content')
 
-<div id="page-wrapper" >
-        <div id="page-inner">
-        
-  
 
+<section id="main-content">  
+    <section class="wrapper">
         <div class="row">   
-            <div class="col-lg-12 ">
-               
-                    <h3>{{  $param['cim'] or ''  }} lista</h3>
+            <div class="col-lg-12 main-chart">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{  $param['cim'] or ''  }} lista</div>
                     <div class="panel-body">
+
                  
                 @if($create_button)
                       
@@ -51,10 +58,14 @@ $create_button=$param['create_button'] ?? true;
                         <br/>
  
                     </div>
-               
+                </div>
             </div>
         </div>
+           </div>
+</section>
+</section>      
+@if(!isset($param['modal']))        
     </div>
-</div>
-   @endsection
- 
+@endsection
+
+@endif

@@ -4,11 +4,15 @@
       
         
         svg {
-            display: block;
+            /*display: block;
             font: 10.5em 'Montserrat';
+            */
+            font:12em 'Montserrat';
             width: 260px;
-            height: 100px;
+            height: 30px;
             margin: 0 auto;
+            line-height:50px;
+            font-size:80px;
         }
         
         .text-copy {
@@ -50,17 +54,17 @@
         }
     </style>
 
-     <svg viewBox="0 0 960 150">
+     <svg viewBox="0 0 960 120">
         <symbol id="s-text">
-            <text text-anchor="middle" x="50%" y="80%">MO Work</text>
+            <text text-anchor="middle" x="50%" y="80%">MO Workadmin</text>
         </symbol>
-    
         <g class = "g-ants">
-            <use xlink:href="#s-text" class="text-copy"></use>
-            <use xlink:href="#s-text" class="text-copy"></use>
-            <use xlink:href="#s-text" class="text-copy"></use>
-            <use xlink:href="#s-text" class="text-copy"></use>
-            <use xlink:href="#s-text" class="text-copy"></use>
-                
-        </g>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                <use xlink:href="#s-text" class="text-copy"></use>
+                  
+            </g>
+ 
     </svg>

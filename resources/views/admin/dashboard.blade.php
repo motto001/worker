@@ -1,19 +1,19 @@
 @extends('layouts.backend')
-
+@include('layouts.sidebar')  
 @section('content')
-<div class="container">
-    <div class="row">
-      @include('admin.sidebar')  
-
-        <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    Your application's dashboard.
+ 
+<section id="main-content">  
+    <section class="wrapper">
+        <div class="row">   
+            <div class="col-lg-12 main-chart">
+                <div class="panel panel-default">
+                    <div style="background-color:#203047;color:white"  class="panel-heading"><h4>{{  $param['cim'] or ''  }} Dashboard</h4></div>
+                    <div class="panel-body">
+            Your application's dashboard.
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+</section>
 @endsection
