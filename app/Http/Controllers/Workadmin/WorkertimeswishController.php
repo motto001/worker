@@ -10,6 +10,7 @@ use App\Handler\MoController;
 use App\Workertime;
 use App\Workertimewish;
 use App\Worker;
+use App\User;
 use App\Daytype;
 use App\Timetype;
 use Illuminate\Http\Request;
@@ -29,7 +30,6 @@ class WorkertimeswishController extends MoController
         'cim'=>'Munkaidőkérelmek',
         'getT'=>[],  
         'create_button'=>false,
-
     ];
   
     protected $base= [
@@ -76,6 +76,8 @@ public function search(){
      {
         $user_id = \Auth::id();
         $this->BASE['data']['worker_id']=Worker::select('id')->where('user_id','=',$user_id)->first()->id;
+        //$this->BASE['data']['user']=User::get()->pluck('name','id');
+       // print_r($this->BASE['data']['user']);
         $this->BASE['where'][]= ['worker_id', '=', $this->BASE['data']['worker_id']]; 
 
      }

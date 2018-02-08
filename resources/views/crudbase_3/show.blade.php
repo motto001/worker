@@ -3,11 +3,15 @@
 @extends('layouts.backend')
 @section('content')
 @include('admin.sidebar')
-           
+@endif           
 @php 
-$cancelurl=$param['routes']['redir'] ?? $param['routes']['base'];
-$cancelurl=$data['link_cancel'] ?? $cancelurl;
+ use app\Http\Controllers\Worker\WorkersController;
+ /*   {{ NaptarController::proba('param') }}
+    {{ App::make("app\Http\Controllers\Worker\NaptarController")->proba2('param') }} */
+if(!isset($param['getT'])) {$param['getT']=[];}
+//print_r($data); echo '------------------';
 @endphp
+
 <section id="main-content">  
     <section class="wrapper">
         <div class="row">   
@@ -15,13 +19,22 @@ $cancelurl=$data['link_cancel'] ?? $cancelurl;
                 <div class="panel panel-default">
                     <div class="panel-heading">{{  $param['cim']  or ''  }}  szerkesztés</div>
                     <div class="panel-body">
-                        <a href="{{ $cancelurl }}" title="Cancel"><button class="btn btn-warning btn-xs">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Mégsem</button></a>
-                        <br />
-                        <br />
+                        <br/>
+                        <br/>
 
-                     @yield('datas')
-                  
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tbody>
+                            @foreach($param['show'] as $show)
+                            <tr>
+                                    <th>{{ App::make("WorkersController")->label($show) }} </th>
+                                    <td>{{ App::make("WorkersController")->label($show,$data) }}</td>
+                                </tr>
+                            @foreach
+                                </tbody>
+                            </table>
+                        </div>       
+
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@ class WorkertimeswishController extends MoController
 
     protected $par= [
          'get_key'=>'worktime',
-        'routes'=>['base'=>'worker/workertimes','worker'=>'manager/worker'],
+        'routes'=>['base'=>'worker/workertimeswish','worker'=>'manager/worker'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
         'view'=>'worker.workertimes', //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
         'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view

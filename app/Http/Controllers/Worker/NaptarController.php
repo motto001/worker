@@ -26,6 +26,15 @@ class NaptarController extends MoController
 {
     use \App\Handler\trt\crud\CrudWithSetfunc;
     use  \App\Handler\trt\SetController;
+
+    public static function proba($per)
+    {
+        return 'proba:'.$per;
+    }
+ public function proba2($per)
+    {
+        return 'proba2:'.$per;
+    }
     protected $par= [
         'create_button'=>false,
         'search'=>false,
@@ -67,14 +76,14 @@ class NaptarController extends MoController
         $worker_id=$worker->id;
         $data['form']=Input::get('form') ?? 'create' ;
         $formid=Input::get('id') ?? 0 ;
-        $data['formdata']=Workertimewish::find($formid);
+      //  $data['formdata']=Workertimewish::find($formid);
        
         $this->BASE['where'][]= ['id', '=', $worker_id]; 
        // $ob=$this->BASE['ob'];
         //$perPage=$this->PAR['perpage'] ?? 50;
        // $getT=$this->PAR['getT'] ?? ['a'=>'a'];
 //echo $worker_id;
-        $data['timetype']=Timetype::get()->pluck('name','id');
+       // $data['timetype']=Timetype::get()->pluck('name','id');
         $data['daytype']=Daytype::get()->pluck('name','id');
         $data['years']=['2017','2018','2019'];
         $dt = \Carbon::now();
@@ -88,7 +97,7 @@ class NaptarController extends MoController
         //cache-ek---------------------------------
         $wrole_wrunit=[]; 
         $wrunit_wrtime=Wroletime::get()->toarray() ?? []; 
-        $wrunit_wrtime=\MoHandF::setIndexFromKey($wrunit_wrtime,'wroleunit_id');
+       // $wrunit_wrtime=\MoHandF::setIndexFromKey($wrunit_wrtime,'wroleunit_id');
        // $wrtime=
         foreach( $data['calendar'] as $datum=>$dataT)
         {
@@ -116,11 +125,11 @@ class NaptarController extends MoController
            // print_r($wrtimes);
              $data['calendar'][$datum]['wrtimes']=$wrtimes;
             $wish=[];
-            $wish= Workertimewish::where('worker_id','=',$worker_id)
-            ->where('datum','=',$datum)
-            ->where('pub','>',0)->get()->toarray() ?? $wish ; 
+         //   $wish= Workertimewish::where('worker_id','=',$worker_id)
+          //  ->where('datum','=',$datum)
+         //   ->where('pub','>',0)->get()->toarray() ?? $wish ; 
            //print_r($wish);
-            $data['calendar'][$datum]['wishes']=$wish;
+        //    $data['calendar'][$datum]['wishes']=$wish;
 
 
         }

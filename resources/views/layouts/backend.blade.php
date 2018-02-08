@@ -62,7 +62,7 @@ $sidebar = $param['sidebar'] ?? true ;
 
   <center><span style="position:relative;top:25px;left:-50px;color:white;">Szép napot {{ Auth::user()->name }} !</span></center>
         
-         <div style="max-width:100px;position:relative;top:15px;left:-20px; " class="nav navbar-nav navbar-right">
+         <div style="max-width:100px;position:relative;left:-20px; " class="nav navbar-nav navbar-right">
 
                 <a href="{{ url('/logout') }}"
                     onclick="event.preventDefault();

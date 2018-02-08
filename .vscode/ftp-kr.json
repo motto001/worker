@@ -7,8 +7,8 @@
     "port": 21,
     "fileNameEncoding": "utf8",
     "ignoreWrongFileEncoding": false,
-    "autoUpload": true,
-    "autoDelete": true,
+    "autoUpload": false,
+    "autoDelete": false,
     "autoDownload": false,
     "ignore": [
         ".env",

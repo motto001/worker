@@ -2,7 +2,13 @@
 @section('table')
 @include($param['view'].'.style')
     @php
+
+/*  use app\Http\Controllers\Worker\NaptarController;
+    {{ NaptarController::proba('param') }}
+    {{ App::make("app\Http\Controllers\Worker\NaptarController")->proba2('param') }} */
+
     $yearnow[]=\Carbon::now()->year-2;
+    
     $yearnow[]=\Carbon::now()->year-1;
     $yearnow[]=\Carbon::now()->year;
     $yearnow[]=\Carbon::now()->year+1;
@@ -131,25 +137,7 @@ $('.print-button').on('click', function() {
                <span style="color:blue">            {{ str_limit($time['start'], 5,'' ).'-'.str_limit($time['end'], 5,'' )  }}    
                </div> 
                 @endforeach 
-
-                @foreach($dt['wishes'] as $wish)  
-                @if($wish['pub']==1) 
-                <div style="display: flex;width:100%;justify-content:flex-end;border: 1px solid silver; ">        
-                <span style="color:grey; ">  {{  str_limit($wish['start'], 5,'' ).'-'.str_limit($wish['end'], 5,'' )  }} </span>   
-            <!--     <a href="{!! MoHandF::url($param['routes']['base'],$param['getT'],['form'=>'editform','id'=>$wish['id']]) !!}"
-                  class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </a>
-                <a href="{!! MoHandF::url($param['routes']['base'],$param['getT'],['task'=>'deltime','id'=>$wish['id']]) !!}" 
-                  class="btn btn-danger btn-xs"><i class="fa fa-trash-o" aria-hidden="true"></i>
-                </a> -->
-            </div> 
-                @endif 
-                @if($wish['pub']==2) 
-                <div style="display: flex;width:100%;justify-content:flex-end;border: 1px solid silver; ">        
-                <span style="color: red; ">  {{  str_limit($wish['start'], 5,'' ).'-'.str_limit($wish['end'], 5,'' )  }}   </span>    
-                </div> 
-                @endif 
-                @endforeach          
+         
             </li>
      
         @if($dt['dayOfWeek']==6) 

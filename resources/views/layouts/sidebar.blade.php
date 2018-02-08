@@ -46,7 +46,7 @@ $menuT=[
 'worker'=>[
 ['/worker/workertimeswish', 'Munkaidők'],
 //['/worker/workerwroleunits', 'Műszakcsere'],
-['/worker/workerdays', 'Saját adatok'],
+['/worker/personal', 'Saját adatok'],
 ['/worker/naptar',  'Naptár'],
 ['/worker/workerdays',  'Naptár szerkesztés'],
 //['/worker/workerdays', 'Szabadság, betegállomány'],

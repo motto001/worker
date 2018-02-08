@@ -3,7 +3,7 @@
 @extends('layouts.backend')
 
 @section('content')
-            @include('layouts.sidebar')          
+@include('layouts.sidebar')          
 @endif 
 
 @php

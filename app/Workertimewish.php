@@ -29,7 +29,7 @@ class Workertimewish extends Model
    
     public function worker()
     {
-        return $this->belongsTo('App\Worker');
+        return $this->belongsTo('App\Worker')->with('user');
     }
     public function timetype()
     {

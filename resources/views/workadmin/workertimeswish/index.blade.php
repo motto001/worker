@@ -6,15 +6,15 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                     <th>Időtipus</th><th>Dátum</th><th>Start</th><th>End</th><th>Óra</th><th>Dolgozó megjegyzése</th><th>Admin megjegyzése</th><th>Elbírálás</th><th>Actions</th>
+                                    <th>User név</th> <th>Dátum</th><th>Start</th><th>End</th><th>Óra</th><th>Időtipus</th><th>Dolgozó megjegyzése</th><th>Admin megjegyzése</th><th>Elbírálás</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($data['list'] as $item)
-                                    <tr>
-                                       
-                                        <td>{{ $item['timetype']['name'] }}</td>
+                                    <tr>                                      
+                                        <td>{{ $item->worker->user->name }}</td>  
                                         <td>{{ $item->datum }}</td> <td>{{ $item->start }}</td><td>{{ $item->end }}</td><td>{{ $item->hour }}</td>
+                                       <td>{{ $item['timetype']['name'] }}</td>
                                         <td>
                                           {{ str_limit($item->workernote, 20,  '...') }}
                                         </td> 
@@ -59,11 +59,7 @@
                                                </a>
                                                @endif
 
-                                               {!! 
-                                                MoHandF::linkButton([
-                                                'link'=> MoHandF::url($param['routes']['base'].'/'.$item->id.'/edit',$param['getT']),
-                                                'fa'=>'pencil-square-o']) 
-                                            !!}
+                                        
                                <!--
                                     {!!
                                          MoHandF::delButton([
