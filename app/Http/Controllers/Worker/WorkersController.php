@@ -27,9 +27,15 @@ class WorkersController extends Controller
          'cim'=>'Személyes adatok',
          'show'=>[
              ['colname'=>'id','label'=>'Id'],
-             ['colname'=>'name','label'=>'név'],
+             ['colname'=>'fullname','label'=>'név'],
              ['colname'=>'foto','label'=>'Foto','func'=>'image'],
-         ],
+             ['colname'=>'cim','label'=>'Cím'],
+             ['colname'=>'birth','label'=>'Születési dátum'],
+             ['colname'=>'tel','label'=>'Telefon'],
+             ['colname'=>'ado','label'=>'Adószám'],
+             ['colname'=>'tb','label'=>'TBszám'],
+             ['colname'=>'start','label'=>'Kezdés'],
+            ]
         // 'search'=>false,   
      ];
 
@@ -38,7 +44,9 @@ class WorkersController extends Controller
 public function index()
     {
         $userid=\Auth::id();
-        $data=Worker::where('id','=',$userid)->first();
+        //echo 
+        $data=Worker::where('user_id','=',$userid)->first()->toarray();
+       // print_r($data);
         $param=$this->par;
         return view($this->par['view'], compact('data','param')); 
     }

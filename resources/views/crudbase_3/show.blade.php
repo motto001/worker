@@ -2,10 +2,10 @@
 
 @extends('layouts.backend')
 @section('content')
-@include('admin.sidebar')
+@include('layouts.sidebar') 
 @endif           
 @php 
- use app\Http\Controllers\Worker\WorkersController;
+ use \app\Http\Controllers\Worker\WorkersController;
  /*   {{ NaptarController::proba('param') }}
     {{ App::make("app\Http\Controllers\Worker\NaptarController")->proba2('param') }} */
 if(!isset($param['getT'])) {$param['getT']=[];}
@@ -17,7 +17,7 @@ if(!isset($param['getT'])) {$param['getT']=[];}
         <div class="row">   
             <div class="col-lg-12 main-chart">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{  $param['cim']  or ''  }}  szerkesztés</div>
+                    <div class="panel-heading">{{  $param['cim']  or ''  }}  </div>
                     <div class="panel-body">
                         <br/>
                         <br/>
@@ -27,10 +27,10 @@ if(!isset($param['getT'])) {$param['getT']=[];}
                                 <tbody>
                             @foreach($param['show'] as $show)
                             <tr>
-                                    <th>{{ App::make("WorkersController")->label($show) }} </th>
-                                    <td>{{ App::make("WorkersController")->label($show,$data) }}</td>
+                                    <th>{{ App::make("app\Http\Controllers\Worker\WorkersController")->label($show) }} </th>
+                                    <td>{!! App::make("app\Http\Controllers\Worker\WorkersController")->data($show,$data) !!}</td>
                                 </tr>
-                            @foreach
+                            @endforeach
                                 </tbody>
                             </table>
                         </div>       

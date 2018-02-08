@@ -8,16 +8,17 @@ Trait Show
 {
 public function image($data,$param=[])
 {
- $title=$param=['title'] ?? $data; 
- $class=$param=['class'] ?? 'imgclass';   
-return '<img src="'.$data.'" title="'.$data.'" class="'.$class.'">';
+ $title=$param['title'] ?? $data; 
+ $class=$param['class'] ?? 'imgclass';   
+return '<img src="/'.$data.'" title="'.$data.'" class="'.$class.'">';
 }
 public function data($paramRow,$dataRow=[])
 { 
 $colname=$paramRow['colname'];
 $data=$dataRow[$colname];
 if(isset($paramRow['func'])){
-    if(is_callable([$this, $paramRow['func']])) {$data=$this->$paramRow['func']($data,$paramRow=[],$dataRow=[]);}  
+    $func=$paramRow['func'];
+    if(is_callable([$this, $func])) {$data=$this->$func($data,$paramRow=[],$dataRow=[]);}  
 }
 return $data;
 }
