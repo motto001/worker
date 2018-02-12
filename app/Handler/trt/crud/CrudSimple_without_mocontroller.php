@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Session;
 //use Illuminate\Support\Facades\Input;
 //use Illuminate\Support\Facades\Image;
-Trait CrudSimple
+Trait CrudSimple_without_mocontroller
 {
 /*
     protected $PAR= [ 

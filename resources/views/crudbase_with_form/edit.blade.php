@@ -1,15 +1,13 @@
-
 @if(!isset($param['modal']))
 
 @extends('layouts.backend')
 @section('content')
 @include('layouts.sidebar')
-    
-@endif   
+@endif           
 @php 
 if(!isset($param['getT'])) {$param['getT']=[];}
 $cancelurl=$param['routes']['redir'] ?? $param['routes']['base'];
-$cancelurl=$data['link_cancel'] ?? $cancelurl;
+$cancelurl=$data['link_cancel'] ?? '/'.$cancelurl;
 @endphp
 
 <section id="main-content">  
@@ -17,7 +15,7 @@ $cancelurl=$data['link_cancel'] ?? $cancelurl;
         <div class="row">   
             <div class="col-lg-12 main-chart">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{  $param['cim'] or ''  }} felvitele</div>
+                    <div class="panel-heading">{{  $param['cim']  or ''  }}  szerkesztés</div>
                     <div class="panel-body">
                         <a href="{{ $cancelurl }}" title="Cancel"><button class="btn btn-warning btn-xs">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i> Mégsem</button></a>
@@ -31,12 +29,15 @@ $cancelurl=$data['link_cancel'] ?? $cancelurl;
                                 @endforeach
                             </ul>
                         @endif
-    
-                        {!! Form::open([
-                            'url' => MoHandF::url($param['routes']['base'],$param['getT']), 
-                        'class' => 'form-horizontal', 'files' => true]) !!}
 
-                    @yield('form')
+                        {!! Form::model($data, [
+                            'method' => 'PATCH',
+                            'url' => MoHandF::url($param['routes']['base'].'/'.$data['id'],$param['getT']),
+                            'class' => 'form-horizontal',
+                            'files' => true
+                        ]) !!}
+
+                     @yield('form')
 
                         {!! Form::close() !!}
 
@@ -44,9 +45,9 @@ $cancelurl=$data['link_cancel'] ?? $cancelurl;
                 </div>
             </div>
         </div>
-           </div>
+          </div>
 </section>
-</section>         
+</section>        
 @if(!isset($param['modal']))        
     </div>
 @endsection

@@ -1,0 +1,18 @@
+F:\www\larang2\worker>code --list-extensions
+dbaeumer.vscode-eslint
+ecmel.vscode-html-css
+EditorConfig.EditorConfig
+eg2.tslint
+felixfbecker.php-debug
+felixfbecker.php-intellisense
+felixfbecker.php-pack //nem  biztos hogy kell
+ikappas.phpcs
+KnisterPeter.vscode-github
+kokororin.vscode-phpfmt  //php formázó, jó
+lonefy.vscode-JS-CSS-HTML-formatter
+onecentlin.laravel-blade
+onecentlin.laravel-extension-pack
+onecentlin.laravel5-snippets
+ruakr.ftp-kr   //ftp, jó 
+ryannaddy.laravel-artisan
+ryannaddy.vscode-format

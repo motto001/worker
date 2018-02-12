@@ -14,20 +14,23 @@ Trait IndexSimple
         $keyword = $request->get('search');
         $perPage = 25;
         $search_columnT=$this->BASE['search_column'] ?? [];
-        $ob= new $this->BASE['obname']();
+
+        $ob=$this->BASE['ob']['base'] ?? $this->BASE['ob'];
+       // $ob= new $this->BASE['obname']();
         if (!empty($keyword)) {
             $ob = $ob->where('id', '<', "1");
             foreach($search_columnT as $col)
             {
                 $ob=$ob->orwhere('name', 'LIKE', "%$keyword%");
             }
-			$data=$ob->paginate($perPage);
+			$data['list']=$ob->paginate($perPage);
         } else {
-            $data = $ob->paginate($perPage);
+            $data['list'] = $ob->paginate($perPage);
         }
-        $param= $this->PAR;
-    
-        return view($this->PAR['view'].'.index', compact('data','param'));
-         
+        $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
+        $view=$this->PAR['view']['base'] ?? $this->PAR['view'];
+        if (is_callable([$this,$viewfunc ])) {return $this->$viewfunc();} 
+       else{return view($this->PAR['view'].'.index',compact('data'));} 
+        
     }
 }

@@ -18,7 +18,7 @@ Route::group(['prefix' => '/root','middleware' => ['auth', 'roles'], 'roles' => 
     Route::resource('/users', 'Admin\UsersController');
     
     Route::resource('/conf', 'Admin\ConfController');  
-    Route::resource('/roles', 'Admin\RolesController');
+    Route::resource('/roles', 'Admin\\RolesController');
     Route::resource('/permissions', 'Admin\PermissionsController'); 
     Route::get('/give-role-permissions', 'Admin\AdminController@getGiveRolePermissions');
     Route::get('/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);

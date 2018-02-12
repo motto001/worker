@@ -1,27 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Admin;
+//use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Input;
-use App\Http\Requests;
-use App\Handler\MoController2;
-use Route;
-use App\Day;
-use App\Worker;
-use App\Daytype;
 use Illuminate\Http\Request;
-use Session;
+use Illuminate\Support\Facades\Input;
+use App\Handler\MoController2;
 
-class DaysController extends Controller
+class RolesController extends MoController2
 {
-    protected $paramT= [
-        'baseroute'=>'manager/days',
-        'baseview'=>'manager.days', 
-        'crudview'=>'crudbase_1', 
-        'ob'=>'\App\Day', 
-        'cim'=>'Napok'
-      
-    ];
     use \App\Handler\trt\crud\IndexSimple;
     use \App\Handler\trt\crud\CrudSimple;
 //use  \App\Handler\trt\redirect\set\Base; //akkor kell ha csak kiegészítjük A paramétereket nem PAR-t csak par-t adunk meg
@@ -31,8 +18,8 @@ class DaysController extends Controller
 
 protected $PAR= [ 
     'view_varname'=>'param', // ezen a néven kapják meg a view-ek a $PAR-t
-      'routes'=>['base'=>'manager/days'],
-    'view'=>'manager.days', //lehet tömb is pl view/base traitel.
+      'routes'=>['base'=>'manager/wroletimes'],
+    'view'=>'', //lehet tömb is pl view/base traitel.
     // Ekkor a base-nek csak a gyökerét  kell megadni (pl. admin.role)
     // a tasknak a fájlt is (pl.. admin.role.edit)
     'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
@@ -58,13 +45,30 @@ protected $BASE= [
     'set_ob',   //$this, a fő objektumot állítja elő az 'ob'-ba az 'obname' alapján 
 ],
 ];
-    protected $valT= [
-       // 'worker_id' => 'required|integer',
-        'daytype_id' => 'integer',
-        'datum' => ['required','unique:days','regex:/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/'],
-        'note' => 'string|max:150',
-       // 'usernote' => 'string|max:150'
-    ];
-    
+/**
+ * taskok base értékei, a Handler\trt\SetController->set_task() az aktuális task kulcsa alatt szereplő értékekkel felül írja a $BASE értékeit
+ */
+protected $TBASE= [
+/* 'index'=> [  
+    'task_func'=>['index_base','index_set']//az aktuális task (index) által lefuttatni kívánt funkciók 
+    'base_func' =>['with',' where_or_search','order_by'],//index_base hívja meg
+    ], 
+ 
+    'create'=> ['task_func'=>['create_set']],
+    'store'=> ['task_func'=>['store_set']],
+    'edit'=> ['task_func'=>['edit_set']],
+    'update'=> ['task_func'=>['update_set']],
+    'destroy'=> ['task_func'=>['destroy_set']],
+    'show'=> ['task_func'=>['show_set']],*/
+];
+/**
+ * a create task validációs tömbje
+ */
+protected $val= [];//pl.:['wroleunit_id' => 'required|integer','end' => 'date_format:H:i','note' => 'string|max:200|nullable']   
+/**
+ *  az update task validációs tömbje ha üres az update is a $val-t használja 
+ */
+protected $val_update= [];
+
 
 }

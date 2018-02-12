@@ -15,3 +15,21 @@ pl.:app.blade backend.blade:
  @if(isset($data['param']))
     @php $param=array_merge($param,$data['param']); @endphp
  @endif
+
+ /*
+CRUD lánc késztíés:
+a  crud hívó linkjébe beletesszük a hívott crud viszarérő route azonosítóját
+pl hívó crud: 'Wrole' azonosítója(PAR['get_key']): 'wr' base routja: 'manager/wrole'
+hívott crud: 'Wroleunit' azonosítója: 'wrunit'
+a crud hívó linkbe (közvtlenül vagy a getT-el) be kell tenni a 'wrunit_redir=wr' értéket
+a hívott crud PAR['routes'] tömbjébe be kell állítani a 'wr'=>'manager/wrole' értéket
+valamint ha a lánc foltatódik akkor a hívott crud PAR['get']-be: 'wrunit_redir'=>null hogy tovább tudja adni
+és így tovább...
+-----------------------------
+minden hívó crud-nak ell kkell küldenie GET-ben aa saját redir route azonosítóját. Ami hagyományosan a PAR['get_key'];
+a GET kulcs a hívott crud azonosítójából és a '_redir' stringből áll
+----------------------------
+minden hívott crudnak tovább kell adnia az összes elző crud redir azonosítóját.
+valamint tartalmaznia kell a PAR['routes'] tömbben azon crud-ok routjait
+amik őt hívhatják a redir azonosítójuk kulcsával.
+ */

@@ -1,34 +1,24 @@
-@extends('layouts.backend')
-@section('content')
-@include('admin.sidebar')
-<section id="main-content">
-   <section class="wrapper">
-        <div class="row">   
-            <div class="col-lg-12 main-chart">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Create New Role</div>
-                    <div class="panel-body">
-                        <a href="{{ url('/admin/roles') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <br />
-                        <br />
 
-                        @if ($errors->any())
-                            <ul class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
+ @extends($param['crudview'].'.create')
+ @section('form')
+ <div class="form-group{{ $errors->has('name') ? ' has-error' : ''}}">
+    {!! Form::label('name', 'Name: ', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+<div class="form-group{{ $errors->has('label') ? ' has-error' : ''}}">
+    {!! Form::label('label', 'Label: ', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::text('label', null, ['class' => 'form-control']) !!}
+        {!! $errors->first('label', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-4 col-md-4">
+        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Mentés', ['class' => 'btn btn-primary']) !!}
+    </div>
+</div>
 
-                        {!! Form::open(['url' => '/admin/roles', 'class' => 'form-horizontal']) !!}
-
-                        @include ('admin.roles.form')
-
-                        {!! Form::close() !!}
-                    </div>
-                </div>
-            </div>
-         </div>
-    </section>
-</section>   
-@endsection
+ @endsection

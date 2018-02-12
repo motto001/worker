@@ -1,39 +1,23 @@
-@extends('layouts.backend')
-@section('content')
-@include('admin.sidebar')
-<section id="main-content">
-   <section class="wrapper">
-        <div class="row">   
-            <div class="col-lg-12 main-chart">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Edit Role</div>
-                    <div class="panel-body">
-                        <a href="{{ url('/admin/roles') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <br />
-                        <br />
+@extends($param['crudview'].'.edit')
+@section('form')
 
-                        @if ($errors->any())
-                            <ul class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-
-                        {!! Form::model($role, [
-                            'method' => 'PATCH',
-                            'url' => ['/admin/roles', $role->id],
-                            'class' => 'form-horizontal'
-                        ]) !!}
-
-                        @include ('admin.roles.form', ['submitButtonText' => 'Update'])
-
-                        {!! Form::close() !!}
-
-                    </div>
-                </div>
-            </div>
-         </div>
-    </section>
-</section>   
+<div class="form-group{{ $errors->has('name') ? ' has-error' : ''}}">
+    {!! Form::label('name', 'Name: ', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::text('name',$data->name, ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+<div class="form-group{{ $errors->has('label') ? ' has-error' : ''}}">
+    {!! Form::label('label', 'Label: ', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::text('label', $data->label, ['class' => 'form-control']) !!}
+        {!! $errors->first('label', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-4 col-md-4">
+        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Mentés', ['class' => 'btn btn-primary']) !!}
+    </div>
+</div>
 @endsection

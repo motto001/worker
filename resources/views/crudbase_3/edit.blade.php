@@ -2,17 +2,19 @@
 
 @extends('layouts.backend')
 @section('content')
-@include('admin.sidebar')
+@include('layouts.sidebar')
 @endif           
 @php 
 if(!isset($param['getT'])) {$param['getT']=[];}
 $cancelurl=$param['routes']['redir'] ?? $param['routes']['base'];
 $cancelurl=$data['link_cancel'] ?? '/'.$cancelurl;
+//print_r($data);
 @endphp
-
+  
 <section id="main-content">  
     <section class="wrapper">
         <div class="row">   
+            
             <div class="col-lg-12 main-chart">
                 <div class="panel panel-default">
                     <div class="panel-heading">{{  $param['cim']  or ''  }}  szerkesztés</div>
@@ -32,7 +34,7 @@ $cancelurl=$data['link_cancel'] ?? '/'.$cancelurl;
 
                         {!! Form::model($data, [
                             'method' => 'PATCH',
-                            'url' => MoHandF::url($param['routes']['base'].'/'.$data['id'],$param['getT']),
+                            'url' => MoHandF::url($param['routes']['base'].'/'.$data->id,$param['getT']),
                             'class' => 'form-horizontal',
                             'files' => true
                         ]) !!}
