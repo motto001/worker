@@ -10,6 +10,7 @@
 if(!isset($param['getT'])) {$param['getT']=[];}
 $cancelurl=$param['routes']['redir'] ?? $param['routes']['base'];
 $cancelurl=$data['link_cancel'] ?? $cancelurl;
+$form=$param['view']['form'] ?? $param['view']['include'].'.form';
 @endphp
 
 <section id="main-content">  
@@ -36,7 +37,7 @@ $cancelurl=$data['link_cancel'] ?? $cancelurl;
                             'url' => MoHandF::url($param['routes']['base'],$param['getT']), 
                         'class' => 'form-horizontal', 'files' => true]) !!}
 
-                    @yield('form')
+                        @include($form)
 
                         {!! Form::close() !!}
 

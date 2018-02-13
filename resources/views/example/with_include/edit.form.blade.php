@@ -1,5 +1,3 @@
-@extends($param['crudview'].'.create')
-@section('form')
 
 @if(isset($data['worker_id']))
  {!! Form::hidden('worker_id', $data['worker_id']) !!}
@@ -66,5 +64,3 @@
         {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Create', ['class' => 'btn btn-primary']) !!}
     </div>
 </div>
-
-@endsection

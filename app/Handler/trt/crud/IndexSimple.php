@@ -27,6 +27,8 @@ Trait IndexSimple
         } else {
             $data['list'] = $ob->paginate($perPage);
         }
+        //print_r($data);
+        $this->BASE['data']=$data;
         $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
         $view=$this->PAR['view']['base'] ?? $this->PAR['view'];
         if (is_callable([$this,$viewfunc ])) {return $this->$viewfunc();} 

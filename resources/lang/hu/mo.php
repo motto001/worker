@@ -2,5 +2,7 @@
 return [
 
     'deleted' => 'Rekord törölve!',
-  
+    'cancel' => 'Mégsem',
+    'new' => 'Új',
+    'save' => 'Mentés',
 ];

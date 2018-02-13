@@ -8,6 +8,8 @@
 if(!isset($param['getT'])) {$param['getT']=[];}
 $cancelurl=$param['routes']['redir'] ?? $param['routes']['base'];
 $cancelurl=$data['link_cancel'] ?? '/'.$cancelurl;
+$form=$param['view']['form'] ?? $param['view']['include'].'.form';
+$form=$param['view']['editform'] ?? $form;
 @endphp
 
 <section id="main-content">  
@@ -37,8 +39,8 @@ $cancelurl=$data['link_cancel'] ?? '/'.$cancelurl;
                             'files' => true
                         ]) !!}
 
-                     @yield('form')
-
+                        @include($form, ['submitButtonText' => trans('mo.save')])
+                       
                         {!! Form::close() !!}
 
                     </div>

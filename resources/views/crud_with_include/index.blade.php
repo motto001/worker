@@ -15,7 +15,7 @@ $cim=$param['cim'] ?? '';
 $addbutton_label=$param['addbutton_label'] ?? 'Új '.$cim;
 if(!isset($param['search'])){$param['search']=true;}
 $create_button=$param['create_button'] ?? true;
-
+$table=$param['view']['table'] ?? $param['view']['include'].'.table';
 @endphp
 
 
@@ -51,7 +51,7 @@ $create_button=$param['create_button'] ?? true;
 
                         {!! Form::close() !!}
          @endif            
-@yield('table')
+@include($table)
 
      <div class="pagination-wrapper"> {!! $data['list']->appends(['search' => Request::get('search')])->render() !!} </div>  
                         <br/>

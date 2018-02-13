@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Manager;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
-use App\Handler\MoController2;
 use Route;
 use App\Day;
 use App\Worker;
 use App\Daytype;
 use Illuminate\Http\Request;
 use Session;
+use App\Handler\MoController2;
 
-class DaysController extends Controller
+class DaysController extends MoController2
 {
     protected $paramT= [
         'baseroute'=>'manager/days',
         'baseview'=>'manager.days', 
-        'crudview'=>'crudbase_1', 
+        'crudview'=>'crudbase_3', 
         'ob'=>'\App\Day', 
         'cim'=>'Napok'
       
@@ -66,5 +66,7 @@ protected $BASE= [
        // 'usernote' => 'string|max:150'
     ];
     
-
+function edit_set(){
+    $this->BASE['data']['daytype']=Daytype::pluck('name','id');
+}
 }

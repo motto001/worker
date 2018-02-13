@@ -19,9 +19,8 @@ $cancelurl=$data['link_cancel'] ?? $cancelurl;
                 <div class="panel panel-default">
                     <div class="panel-heading">{{  $param['cim'] or ''  }} felvitele</div>
                     <div class="panel-body">
-                        <a href="{{ $cancelurl }}" title="Cancel"><button class="btn btn-warning btn-xs">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Mégsem</button></a>
-                        <br />
+                            <a href="/{{ $cancelurl }}" title="@lang('mo.cancel')"><button class="btn btn-warning btn-xs">
+                                    <i class="fa fa-arrow-left" aria-hidden="true"></i> @lang('mo.cancel')</button></a> <br />
                         <br />
 
                         @if ($errors->any())
