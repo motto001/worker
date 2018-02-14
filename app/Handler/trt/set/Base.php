@@ -10,12 +10,11 @@ Trait Base
     if(isset($this->base)){$this->BASE= array_merge($this->BASE, $this->base);}
     if(isset($this->tbase)){$this->TBASE= array_merge($this->TBASE, $this->tbase);}
     if(isset($this->tpar)){$this->TPAR= array_merge($this->TPAR, $this->tpar);}
-    $task=Input::get('task') ?? \Route::getCurrentRoute()->getActionMethod();
+    $task=$this->PAR['task'] ?? \Route::getCurrentRoute()->getActionMethod();
     
     if(isset($this->TPAR[$task])){$this->PAR= array_merge($this->PAR, $this->TPAR[$task]);} 
     if(isset($this->TBASE[$task])){$this->BASE= array_merge($this->BASE, $this->TBASE[$task]);} 
-    $this->PAR['task']=$task;
-    //if($task!= \Route::getCurrentRoute()->getActionMethod()) {return $this->$task();}
-    }
+    
+   }
     
 }
