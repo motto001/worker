@@ -1,17 +1,17 @@
 @if(!isset($param['modal']))
 @extends('layouts.backend')
-
 @section('content')
+@include('layouts.sidebar')          
+@endif
 
+@php 
+if(!isset($param['getT'])) {$param['getT']=[];}
+$cancelurl=$param['routes']['redir'] ?? $param['routes']['base'];
+$cancelurl=$data['link_cancel'] ?? '/'.$cancelurl;
+$formview=$param['view']['form'] ??  $param['view']['include'].'.form'; 
+$formview=$param['view']['editform'] ?? $formview;
+@endphp
 
-            @include('admin.sidebar')
-           
-@endif   
- @if(isset($data['cancelurl']))
-    @php $cancelurl='/'.$data['cancelurl']; @endphp
- @else
-    @php $cancelurl='/'.$param['baseroute'].$param['route_param']; @endphp   
- @endif
 <section id="main-content">  
     <section class="wrapper">
         <div class="row">   
@@ -39,7 +39,7 @@
                             'files' => true
                         ]) !!}
 
-                        @include ($param['baseview'].'.form', ['submitButtonText' => 'Update'])
+                        @include ($formview, ['submitButtonText' =>trans('mo.save' ])
 
                         {!! Form::close() !!}
 

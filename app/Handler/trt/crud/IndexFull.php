@@ -28,7 +28,7 @@ trait IndexFull
             }
         } else {
             if (is_callable([$this, 'set_orm'])) {
-                $ob = $this->set_orm($ob);
+              //  $ob = $this->set_orm($ob);
             }
         }
         $this->BASE['data']['list'] = $ob->paginate($perPage);
@@ -41,7 +41,8 @@ trait IndexFull
         $funcT = $this->TBASE['index']['task_func'] ?? ['index_base', 'index_set'];
         $this->call_func($funcT);
         $viewfunc = $this->BASE['viewfunc'] ?? 'mo_view';
-        if (is_callable([$this, $viewfunc])) {return $this->$viewfunc();} else {return view($this->PAR['view'] . '.index', compact('data'));}
+        if (is_callable([$this, $viewfunc])) {return $this->$viewfunc();} 
+        else {return view($this->PAR['view'] . '.index', compact('data'));}
 
     }
 }

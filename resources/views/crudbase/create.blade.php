@@ -1,13 +1,15 @@
-
 @if(!isset($param['modal']))
 @extends('layouts.backend')
-
 @section('content')
+@include('layouts.sidebar')    
+@endif  
 
- 
-            @include('admin.sidebar')
-    
-@endif   
+@php 
+if(!isset($param['getT'])) {$param['getT']=[];}
+$cancelurl=$param['routes']['redir'] ?? $param['routes']['base'];
+$cancelurl=$data['link_cancel'] ?? $cancelurl;
+$formview=$param['view']['form'] ??  $param['view']['include'].'.form'; 
+@endphp
 
  @if(isset($data['link_cancel']))
     @php $cancelurl='/'.$data['link_cancel']; @endphp
@@ -37,7 +39,7 @@
                         {!! Form::open(['url' => $param['baseroute'].$param['route_param'], 
                         'class' => 'form-horizontal', 'files' => true]) !!}
 
-                        @include ($param['baseview'].'.form')
+                        @include ($formview)
 
                         {!! Form::close() !!}
 

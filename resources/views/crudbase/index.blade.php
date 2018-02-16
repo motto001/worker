@@ -1,37 +1,61 @@
 @if(!isset($param['modal']))
 @extends('layouts.backend')
-
 @section('content')
-
-
-            @include('admin.sidebar')
-           
+@include('layouts.sidebar')               
 @endif 
+
+@php
+//adatok-----------------
+if(!isset($data)) {$data=[];}
+$list=$data['list'] ?? [];
+$getT=$param['getT'] ?? [];
+$tableview=$param['view']['table'] ??  $param['view']['include'].'.table'; 
+//urlek------------------------
+$createUrl=$param['routes']['create'] ?? MoHandF::url($param['routes']['base'].'/create',$getT);
+$cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
+$formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
+//gombok,mezők----------------------------------
+$search= $param['search'] ?? true;
+$create_button=$param['create_button'] ?? true;
+$cancel_button=$param['cancel_button'] ?? false;
+//feliratok----------------------
+$cim=$param['cim'] ?? '';
+$cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
+$addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
+
+
+
+@endphp  
+
 <section id="main-content">  
     <section class="wrapper">
         <div class="row">   
             <div class="col-lg-12 main-chart">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{  $param['cim'] or ''  }} lista</div>
-                    <div class="panel-body">
-                 
-                  <div class="pagination-wrapper"> {!! $data['list']->appends(['search' => Request::get('search')])->render() !!} </div>  
-                      
-                        <a href="/{{ $param['baseroute'].'/create'.$param['route_param'] }} " class="btn btn-success btn-sm" title="Add New Wroletime">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Új {{  $param['cim'] or ''  }}
-                        </a>
- @if(isset($data['link_cancel']))
- 
-    <a href="{{ '/'.$data['link_cancel'] }}" title="Cancel"><button class="btn btn-warning btn-sm">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i> Vissza</button></a>
 
- @endif
+                    <div class="panel-heading">{{  $cim  }} lista</div>
+                    <div class="panel-body">
+@if($search)                
+                  <div class="pagination-wrapper"> {!! $list->appends(['search' => Request::get('search')])->render() !!} </div>  
+@endif   
+@if($create_button)
+                       
+    <a href="{{ $createUrl }} " class="btn btn-success btn-sm" title="Add New Wroletime">
+        <i class="fa fa-plus" aria-hidden="true"></i> {{ $addbutton_label }}
+    </a>
+ @endif                       
+ @if($cancel_button)
+ 
+    <a href="{{ $canceleUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>{{ $cancel_label }}</button></a>
+
+@endif   
 
                         
                         <br />
                         <br />
      
-                        {!! Form::open(['method' => 'GET', 'url' => $param['baseroute'] , 
+                        {!! Form::open(['method' => 'GET', 'url' => $formurl, 
                         'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="Search...">
@@ -43,7 +67,7 @@
                         </div>
 
                         {!! Form::close() !!}
-@include ($param['baseview'].'.table')
+@include ($tableview)
                         <br/>
                         <br/>
  

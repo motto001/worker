@@ -1,0 +1,152 @@
+{
+  "ftp://ftp.processnet.hu:21@menku": {
+    "worker": {
+      ".env": {
+        "type": "-",
+        "size": 633,
+        "lmtime": 0,
+        "modified": false
+      },
+      ".env.example": {
+        "type": "-",
+        "size": 554,
+        "lmtime": 0,
+        "modified": false
+      },
+      ".git": {},
+      ".gitattributes": {
+        "type": "-",
+        "size": 116,
+        "lmtime": 0,
+        "modified": false
+      },
+      ".gitignore": {
+        "type": "-",
+        "size": 154,
+        "lmtime": 0,
+        "modified": false
+      },
+      ".vscode": {},
+      "README.md": {
+        "type": "-",
+        "size": 15,
+        "lmtime": 0,
+        "modified": false
+      },
+      "app": {},
+      "artisan": {
+        "type": "-",
+        "size": 1697,
+        "lmtime": 0,
+        "modified": false
+      },
+      "auth.json": {
+        "type": "-",
+        "size": 97,
+        "lmtime": 0,
+        "modified": false
+      },
+      "bootstrap": {},
+      "client_secret.json": {
+        "type": "-",
+        "size": 421,
+        "lmtime": 0,
+        "modified": false
+      },
+      "composer.json": {
+        "type": "-",
+        "size": 1700,
+        "lmtime": 0,
+        "modified": false
+      },
+      "composer.lock": {
+        "type": "-",
+        "size": 171730,
+        "lmtime": 0,
+        "modified": false
+      },
+      "config": {},
+      "database": {},
+      "jegyzet": {
+        "type": "-",
+        "size": 4559,
+        "lmtime": 0,
+        "modified": false
+      },
+      "jegyzet_mo": {
+        "type": "-",
+        "size": 782,
+        "lmtime": 0,
+        "modified": false
+      },
+      "moworker_ll.zip": {
+        "type": "-",
+        "size": 46204158,
+        "lmtime": 0,
+        "modified": false
+      },
+      "noregapp-lar2.zip": {
+        "type": "-",
+        "size": 9504680,
+        "lmtime": 0,
+        "modified": false
+      },
+      "package.json": {
+        "type": "-",
+        "size": 1084,
+        "lmtime": 0,
+        "modified": false
+      },
+      "phpunit.xml": {
+        "type": "-",
+        "size": 1074,
+        "lmtime": 0,
+        "modified": false
+      },
+      "public": {},
+      "public.1": {},
+      "quickstart.php": {
+        "type": "-",
+        "size": 3288,
+        "lmtime": 0,
+        "modified": false
+      },
+      "resources": {},
+      "routes": {},
+      "server.php": {
+        "type": "-",
+        "size": 584,
+        "lmtime": 0,
+        "modified": false
+      },
+      "storage": {},
+      "tests": {},
+      "todo": {
+        "type": "-",
+        "size": 58,
+        "lmtime": 0,
+        "modified": false
+      },
+      "unzip.php": {
+        "type": "-",
+        "size": 442,
+        "lmtime": 0,
+        "modified": false
+      },
+      "user())": {
+        "type": "-",
+        "size": 0,
+        "lmtime": 0,
+        "modified": false
+      },
+      "vendor": {},
+      "webpack.mix.js": {
+        "type": "-",
+        "size": 564,
+        "lmtime": 0,
+        "modified": false
+      }
+    }
+  },
+  "$version": 1
+}

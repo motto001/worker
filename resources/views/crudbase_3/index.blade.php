@@ -18,8 +18,6 @@ $create_button=$param['create_button'] ?? true;
 
 @endphp
 
-
-
 <section id="main-content">  
     <section class="wrapper">
         <div class="row">   
