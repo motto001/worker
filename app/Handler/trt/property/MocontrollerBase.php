@@ -1,4 +1,5 @@
 <?php
+namespace App\Handler\trt\property;
 trait MoControllerBase{
 protected $PAR = [
         'view_varname' => 'param', // ezen a néven kapják meg a view-ek a $PAR-t
@@ -35,10 +36,10 @@ protected $PAR = [
         'orm'=>[],// with,where,orwhere,
     ];
 
-    protected $TBASE = [];
+ //   protected $TBASE = [];
 
-    protected $val = []; //pl.:['wroleunit_id' => 'required|integer','end' => 'date_format:H:i','note' => 'string|max:200|nullable']
+ //   protected $val = []; //pl.:['wroleunit_id' => 'required|integer','end' => 'date_format:H:i','note' => 'string|max:200|nullable']
    
-    protected $val_update = [];
+ //   protected $val_update = [];
 }
 

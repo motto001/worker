@@ -13,8 +13,8 @@ class MoController extends Controller
     public function call_func($funcT)
     {
         foreach ($funcT as $func) {
-            if (is_callable([$this, $func])) {$this->$func();} else {
-                Log::error('Hiányzó controller funkció', ['func' => $func]);
+            if (method_exists($this, $func)) {$this->$func();} else {
+               \ Log::error('Hiányzó controller funkció', ['func' => $func]);
                 //error_log('Some message:Hiányzó controller funkció.');
                 //$output = new \Symfony\Component\Console\Output\ConsoleOutput(2);
                 //$output->writeln('hello');

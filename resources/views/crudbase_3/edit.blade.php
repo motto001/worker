@@ -34,7 +34,7 @@ $cancelurl=$data['link_cancel'] ?? '/'.$cancelurl;
 
                         {!! Form::model($data, [
                             'method' => 'PATCH',
-                            'url' => MoHandF::url($param['routes']['base'].'/'.$data->id,$param['getT']),
+                            'url' => [MoHandF::url($param['routes']['base'].'/'.$data->id,$param['getT']), $data->id]
                             'class' => 'form-horizontal',
                             'files' => true
                         ]) !!}

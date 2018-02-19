@@ -3,7 +3,7 @@
     {!! Form::label('user_id', 'Felhasználó', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
       
-          {!! Form::select('user_id',$worker['user'],
+          {!! Form::select('user_id',$data['user'],
            null, ['class' => 'form-control', 'required' => 'required']) !!}
 
         {!! $errors->first('user_id', '<p class="help-block">:message</p>') !!}
@@ -11,21 +11,12 @@
 </div>
 
 
-<div class="form-group {{ $errors->has('wrole_id') ? 'has-error' : ''}}">
-    {!! Form::label('wrole_id', 'Munkarend', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-             {!! Form::select('wrole_id',$worker['wrole'],
-           null, ['class' => 'form-control', 'required' => 'required']) !!}
-        {!! $errors->first('wrole_id', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
-
 <div class="form-group {{ $errors->has('timetype_id') ? 'has-error' : ''}}">
     {!! Form::label('timeframe_id', 'Időkertek ', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">     
-            @foreach ($worker['base_timeframe'] as $time)  
+            @foreach ($data['base_timeframe'] as $time)  
            {{ Form::checkbox('timeframe_id[]', $time['id'],in_array($time['id'],
-           $worker['checked_timeframe']), ['multiple' => 'multiple']) }} {{ $time['name']}}   
+           $data['checked_timeframe']), ['multiple' => 'multiple']) }} {{ $time['name']}}   
             @endforeach            
          {!! $errors->first('timeframe_id', '<p class="help-block">:message</p>') !!}
     </div>
@@ -34,7 +25,7 @@
 <div class="form-group {{ $errors->has('status_id') ? 'has-error' : ''}}">
     {!! Form::label('status_id', 'Status', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-       {!! Form::select('status_id',$worker['status'],
+       {!! Form::select('status_id',$data['status'],
            null, ['class' => 'form-control', 'required' => 'required']) !!}
         {!! $errors->first('status_id', '<p class="help-block">:message</p>') !!}
     </div>
@@ -43,7 +34,7 @@
 <div class="form-group {{ $errors->has('workertype_id') ? 'has-error' : ''}}">
     {!! Form::label('workertype_id', 'Munkatipus', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-       {!! Form::select('workertype_id',$worker['workertype'],
+       {!! Form::select('workertype_id',$data['workertype'],
            null, ['class' => 'form-control', 'required' => 'required']) !!}
         {!! $errors->first('workertype_id', '<p class="help-block">:message</p>') !!}
     </div>
@@ -52,7 +43,7 @@
 <div class="form-group {{ $errors->has('workergroup_id') ? 'has-error' : ''}}">
     {!! Form::label('workergroup_id', 'Munkacsoport', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-         {!! Form::select('workergroup_id',$worker['workergroup'],
+         {!! Form::select('workergroup_id',$data['workergroup'],
            null, ['class' => 'form-control', 'required' => 'required']) !!}
         {!! $errors->first('workergroup_id', '<p class="help-block">:message</p>') !!}
     </div>
@@ -86,6 +77,7 @@
 <div class="form-group {{ $errors->has('foto') ? 'has-error' : ''}}">
     {!! Form::label('foto', 'Foto', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
+        @if(isset($data->foto)) <img src="/{{$data->foto }}"> @endif
         {!! Form::file('foto', null, ['class' => 'form-control']) !!}
         {!! $errors->first('foto', '<p class="help-block">:message</p>') !!}
     </div>
@@ -169,6 +161,6 @@
 
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
-        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Create', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : @trans('mo.create'), ['class' => 'btn btn-primary']) !!}
     </div>
 </div>

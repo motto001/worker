@@ -33,5 +33,5 @@ class ConfController extends MoController
     protected $val= [	
     'name' => 'string|required|max:200',
     'value' => 'string|required|max:200',
-    'note' => 'string|max:200'];
+    'note' => 'string|max:200|nullable'];
 }

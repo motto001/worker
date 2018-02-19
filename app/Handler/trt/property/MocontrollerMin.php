@@ -1,5 +1,5 @@
 <?php
-trait MoControllerBase{
+trait MoControllerMin{
 protected $PAR = [
         'view_varname' => 'param', // ezen a néven kapják meg a view-ek a $PAR-t
         'get_key' => '', //pl.:'wrtime' Láncnál ezzel az előtaggal azonosítja  a controller a rávonatkozó get tagokat
@@ -37,8 +37,8 @@ protected $PAR = [
 
     protected $TBASE = [];
 
-    protected $val = []; //pl.:['wroleunit_id' => 'required|integer','end' => 'date_format:H:i','note' => 'string|max:200|nullable']
+   // protected $val = []; //pl.:['wroleunit_id' => 'required|integer','end' => 'date_format:H:i','note' => 'string|max:200|nullable']
    
-    protected $val_update = [];
+   // protected $val_update = [];
 }
 

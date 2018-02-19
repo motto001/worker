@@ -5,4 +5,5 @@ return [
     'cancel' => 'Cancel',
     'new' => 'New',
     'save' => 'Save',
+    'create' => 'Create',
 ];

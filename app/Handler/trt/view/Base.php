@@ -14,7 +14,7 @@ Trait Base
            $view=$this->PAR['view']['base'].'.'.$task;    
            $view=$this->PAR['view'][$task] ?? $view;
         }else{$view=$this->PAR['view'].'.'.$task;}
-        $data=$this->BASE['data'];
+        $data=$this->BASE['data'] ?? [];
         return view($view, compact('data')); 
        //return \MoViewF::view( $this->PAR['view'].'.index',$data);
     

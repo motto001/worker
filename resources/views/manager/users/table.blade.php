@@ -1,7 +1,4 @@
-@extends($param['crudview'].'.index')
-@section('table')
-                        <div class="table-responsive">
-                            <table class="table table-borderless">
+    <table class="table table-borderless">
                                 <thead>
                                     <tr>
                                         <th>ID</th><th>Name</th><th>Email</th><th>Actions</th>
@@ -14,13 +11,13 @@
                                         <td>
                                                 {!! 
                                                     MoHandF::linkButton([
-                                                    'link'=> MoHandF::url($param['routes']['base'].'/'.$item->id.'/edit',$param['getT']),
+                                                    'link'=> MoHandF::url($param['routes']['base'].'/'.$item->id.'/edit',$getT),
                                                     'fa'=>'pencil-square-o']) 
                                                 !!}
                                                 {!!
                                                      MoHandF::delButton([
                                                     'tip'=>'del',
-                                                    'link'=>MoHandF::url($param['routes']['base'].'/'.$item->id,$param['getT']),
+                                                    'link'=>MoHandF::url($param['routes']['base'].'/'.$item->id,$getT),
                                                     'fa'=>'trash-o']) 
                                                 !!} 
                                         </td>
@@ -29,5 +26,3 @@
                                 </tbody>
                             </table>
                           
-                        </div>
- @endsection

@@ -5,4 +5,5 @@ return [
     'cancel' => 'Mégsem',
     'new' => 'Új',
     'save' => 'Mentés',
+    'create' => 'Mentés',
 ];

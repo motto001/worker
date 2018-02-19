@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Handler\trt\crud;
+namespace App\Handler\trt;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Input;
@@ -10,14 +10,14 @@ Trait Image{
 public function image_upload(){ 
         if(Input::file())
         {
-        $imageinputmezo=$this->TBASE['imageinputmezo'] ?? 'image' ;
+        $imageinputmezo=$this->BASE['image']['inputmezo'] ?? 'image' ;
         $image = Input::file($imageinputmezo);
-        $imagedatamezo=$this->TBASE['imagedatamezo'] ?? 'foto' ;
-        $filename=$this->TBASE['image']['name'] ?? time() . '.' . $image->getClientOriginalExtension();
-        $path= $this->TBASE['image']['savepath'] ?? 'images';
-        $widt=$this->TBASE['image']['widt'] ?? 600;
-        $height=$this->TBASE['image']['height'] ?? 600;
-        $thumb= $this->TBASE['image']['thumb'] ?? true;   
+        $imagedatamezo=$this->BASE['image']['datamezo'] ?? 'foto' ;
+        $filename=$this->BASE['image']['name'] ?? time() . '.' . $image->getClientOriginalExtension();
+        $path= $this->BASE['image']['savepath'] ?? 'images';
+        $widt=$this->BASE['image']['widt'] ?? 600;
+        $height=$this->BASE['image']['height'] ?? 600;
+        $thumb= $this->BASE['image']['thumb'] ?? true;   
 
     
         $imagepath = public_path($path.'/' . $filename);
@@ -28,14 +28,17 @@ public function image_upload(){
         \Image::make($image->getRealPath())->resize($widt, $height)->save($imagepath);
         //thumb ----------------------------
         if($thumb) {         
-        $th_path= $this->TBASE['image']['thumb_savepath'] ?? $path.'/thumb';
-        $thumb_widt=$this->TBASE['image']['thumb_widt'] ?? 100;
-        $thumb_height=$this->TBASE['image']['thumb_height'] ?? 100;
+        $th_path= $this->BASE['image']['thumb_savepath'] ?? $path.'/thumb';
+        $thumb_widt=$this->BASE['image']['thumb_widt'] ?? 100;
+        $thumb_height=$this->BASE['image']['thumb_height'] ?? 100;
         $thumb_path = public_path($th_path.'/' . $filename);
             \Image::make($image->getRealPath())->resize($thumb_widt, $thumb_height)->save($thumb_path);
         }   
-
-         $this->BASE['data'][$imagedatamezo]=  $th_path.'/' . $filename;
+//echo  $th_path.'/'.$filename;
+//die;
+         $this->BASE['data'][$imagedatamezo]=  $th_path.'/'.$filename;
+        
+         //$this->BASE['data'][$imagedatamezo]= $thumb_path;
         }
            
     }

@@ -1,30 +1,40 @@
-@if(!isset($param['modal']))
+@php
+//adatok-----------------
+if(!isset($data)) {$data=[];}
+$modal=$getT['modal'] ?? false;
+$modal=$param['modal'] ?? $modal; 
+$list=$data['list'] ?? [];
+$getT=$param['getT'] ?? [];
+$formbase=$param['view']['include'] ?? $param['view']['base'] ;
+$formview=$param['view']['form'] ??  $formbase.'.form'; 
+//urlek------------------------
+$cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
+$formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
+//gombok,mezők----------------------------------
+$cancel_button=$param['cancel_button'] ?? false;
+//feliratok----------------------
+$cim=$param['cim'] ?? '';
+$cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
+@endphp
+
+@if(!$modal)
 @extends('layouts.backend')
 @section('content')
 @include('layouts.sidebar')    
 @endif  
 
-@php 
-if(!isset($param['getT'])) {$param['getT']=[];}
-$cancelurl=$param['routes']['redir'] ?? $param['routes']['base'];
-$cancelurl=$data['link_cancel'] ?? $cancelurl;
-$formview=$param['view']['form'] ??  $param['view']['include'].'.form'; 
-@endphp
 
- @if(isset($data['link_cancel']))
-    @php $cancelurl='/'.$data['link_cancel']; @endphp
- @else
-    @php $cancelurl='/'.$param['baseroute'].$param['route_param']; @endphp   
- @endif
 <section id="main-content">  
     <section class="wrapper">
         <div class="row">   
             <div class="col-lg-12 main-chart">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{  $param['cim'] or ''  }} felvitele</div>
+                    <div class="panel-heading">{{$cim }} </div>
                     <div class="panel-body">
-                        <a href="{{ $cancelurl }}" title="Cancel"><button class="btn btn-warning btn-xs">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Mégsem</button></a>
+@if($modal)
+<a href="{{ $canceleUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
+<i class="fa fa-arrow-left" aria-hidden="true"></i>{{ $cancel_label }}</button></a>
+@endif
                         <br />
                         <br />
 
@@ -36,10 +46,10 @@ $formview=$param['view']['form'] ??  $param['view']['include'].'.form';
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => $param['baseroute'].$param['route_param'], 
+                        {!! Form::open(['url' => $formurl, 
                         'class' => 'form-horizontal', 'files' => true]) !!}
 
-                        @include ($formview)
+                        @include($formview)
 
                         {!! Form::close() !!}
 
@@ -50,7 +60,7 @@ $formview=$param['view']['form'] ??  $param['view']['include'].'.form';
            </div>
 </section>
 </section>         
-@if(!isset($param['modal']))        
+@if(!$modal)        
     </div>
 @endsection
 
