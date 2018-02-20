@@ -26,6 +26,21 @@ class Worker extends Model
      * @var array
      */
     protected $fillable = ['user_id', 'status_id', 'workertype_id', 'workergroup_id', 'salary', 'salary_type', 'position', 'foto', 'fullname', 'cim', 'tel', 'birth', 'ado', 'tb', 'start', 'end', 'note', 'pub'];
+   
+    public function timeframes()
+    {
+        
+        return $this->belongsToMany('App\Timeframe', 'worker_timeframes', 'worker_id', 'timeframe_id');
+    }
+ 
+
+//---------------------------------------
+
+    public function workertimeframe()
+    {
+        return $this->hasMany('App\Workertimeframe');
+       // return $this->belongsToMany('App\Workertimeframe', 'worker_timeframes', 'worker_id', 'timeframe_id');
+    }
     public function workerworkergroup()
     {
         return $this->hasMany('App\Workerworkergroup');
@@ -34,10 +49,7 @@ class Worker extends Model
     {
         return $this->hasMany('App\Workergroupwish');
     }
-    public function workertimeframe()
-    {
-        return $this->hasMany('App\Workertimeframe');
-    }
+ 
     public function workertimewish()
     {
         return $this->hasMany('App\Workertimewish');

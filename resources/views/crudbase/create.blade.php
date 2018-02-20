@@ -11,7 +11,7 @@ $formview=$param['view']['form'] ??  $formbase.'.form';
 $cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
 $formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
 //gombok,mezők----------------------------------
-$cancel_button=$param['cancel_button'] ?? false;
+$cancel_button=$param['cancel_button'] ?? true;
 //feliratok----------------------
 $cim=$param['cim'] ?? '';
 $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
@@ -31,8 +31,8 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                 <div class="panel panel-default">
                     <div class="panel-heading">{{$cim }} </div>
                     <div class="panel-body">
-@if($modal)
-<a href="{{ $canceleUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
+@if($cancel_button)
+<a href="{{ $cancelUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
 <i class="fa fa-arrow-left" aria-hidden="true"></i>{{ $cancel_label }}</button></a>
 @endif
                         <br />

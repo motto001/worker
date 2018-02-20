@@ -81,17 +81,17 @@ Trait MOCrud
     }
 
     public function destroy($id)
-    { 
-        $this->BASE['ob']= $this->BASE['ob']->destroy($id);
+    {  
+        $this->BASE['ob'] = $this->BASE['ob']->find($id);
         if (method_exists($this,'destroy_set')) {$this->destroy_set();} 
-
+        $this->BASE['ob']= $this->BASE['ob']->destroy($id);
+      
         Session::flash('flash_message', trans('mo.deleted'));
 
         $redirfunc=$this->BASE['redirfunc']  ?? 'mo_redirect';
         if (method_exists($this,$redirfunc)) {return $this->$redirfunc();} //behívja  a task specifikus routot is
        else{return redirect($this->PAR['routes']['base'] ); } 
     }
-
 
     public function show($id)
     {   

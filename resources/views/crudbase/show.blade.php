@@ -50,8 +50,8 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                                 <tbody>
                             @foreach($showT as $show)
                             <tr>
-                                    <th>{!! App::make("app\Http\Controllers\Worker\WorkersController")->label($show) !!}</th>
-                                    <td>{!! App::make("app\Http\Controllers\Worker\WorkersController")->data($show,$data) !!}</td>
+                                    <th>{!! App::make("app\Http\Controllers\\".$param['controllername'])->label($show) !!}</th>
+                                    <td>{!! App::make("app\Http\Controllers\\".$param['controllername'])->data($show,$data) !!}</td>
                                 </tr>
                             @endforeach
                                 </tbody>

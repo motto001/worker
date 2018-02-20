@@ -28,8 +28,10 @@ class WorkersController extends MoController
     use \App\Handler\trt\property\MoControllerBase; //PAR és BASE propertyk hogy legyen mit kiegéaszíteni
     use \App\Handler\trt\set\Orm; // with, where, order_by
     use \App\Handler\trt\Image;
+    use  \App\Handler\trt\Show; // show task. par['show'] és  par[''controllername']  kell neki
 
     protected $par= [
+        'controllername'=>'Manager\WorkersController',
         // 'baseroute'=>'manager/wroletimes', // a routes-be kerüt (base)
         'get_key'=>'worker', //láncnál ezzel az előtaggal azonosítja a rávonatkozó get tagokat
         'routes'=>['base'=>'manager/workers'], //A _GET ben ['get_key']._ret ben érkező értéket fordítja le routra pl.: wrtime_ret=wru esetén a route  manager/wroleunit lesz
@@ -53,7 +55,7 @@ class WorkersController extends MoController
      protected $base= [    
         'get'=>['user_id'=>'0'], //Ha a wrolunitból hvjuk a wruvissza true lesz, a store az update és a delete visszaírányít az aktuális wroleunitra.mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
         'obname'=>'\App\Worker',
-        'with'=>['user','workertimeframe'],
+        'with'=>['user','timeframe'],
         'search_column' => [ 'wrole_id', 'status_id','workertype_id', 'workergroup_id',  'salary', 'salary_type','foto', 'fullname',
         'cim', 'LIKE','tel', 'LIKE', 'birth', 'ado',
         'LIKE',  'tb', 'start', 'end', 'note','pub'],
@@ -100,9 +102,10 @@ public function index_set()
   public function store_set()
     {
         $worker_id=$this->BASE['ob']->id;
-        foreach ($this->BASE['request']->timeframe_id as $tf) {
+        $this->BASE['ob']->timeframes()->attach($this->BASE['request']->timeframe_id);
+     /*   foreach ($this->BASE['request']->timeframe_id as $tf) {
             Workertimeframe::create(['worker_id'=>$worker_id,'timeframe_id'=>$tf]);
-        }
+        }*/
     }
     /**
      * Show the form for editing the specified resource.
@@ -116,18 +119,33 @@ public function index_set()
         /*  $data['wrole']=Wrole::get()->pluck('name','id');*/      
         $data['base_timeframe']=Timeframe::get(['id','name'])->toarray();
         $checked =[];
-        foreach($this->BASE['data']->workertimeframe as $item){    
+        foreach($this->BASE['data']->timeframes as $item){    
             $checked[] =  $item->id;
         }
         $this->BASE['data']['checked_timeframe']=$checked;
         $this->BASE['data']['user']=User::get()->pluck('name','id');
         $this->BASE['data']['base_timeframe']=Timeframe::get(['id','name'])->toarray();
-        $this->BASE['data']['checked_timeframe']=[1];
         $this->BASE['data']['status']=Status::get()->pluck('name','id');
         $this->BASE['data']['workertype']=Workertype::get()->pluck('name','id');
         $this->BASE['data']['workergroup']=Workergroup::get()->pluck('name','id');
       
     }
 
-
+    public function update_set()
+    {
+       // $worker_id=$this->BASE['ob']->id;
+        $this->BASE['ob']->timeframes()->sync($this->BASE['request']->timeframe_id);
+     /*   foreach ($this->BASE['request']->timeframe_id as $tf) {
+            Workertimeframe::create(['worker_id'=>$worker_id,'timeframe_id'=>$tf]);
+        }*/
+    }
+    public function destroy_set()
+    {
+       // $worker_id=$this->BASE['ob']->id;
+  
+        $this->BASE['ob']->timeframes()->detach($this->BASE['request']->timeframe_id);
+     /*   foreach ($this->BASE['request']->timeframe_id as $tf) {
+            Workertimeframe::create(['worker_id'=>$worker_id,'timeframe_id'=>$tf]);
+        }*/
+    }
 }

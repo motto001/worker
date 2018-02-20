@@ -1,6 +1,5 @@
  
- @extends($param['crudview'].'.index')
- @section('table')
+
 <div class="table-responsive">
     <div class="table-responsive">
         <table class="table table-borderless">
@@ -44,4 +43,3 @@
     </div>
 
 </div>
- @endsection

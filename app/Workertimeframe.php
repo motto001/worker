@@ -29,12 +29,14 @@ class Workertimeframe extends Model
     //protected $guarded = [];
     public function worker_with_user()
     {
-        return $this->belongsTo('App\Worker')->with('user');;
+       return $this->belongsTo('App\Worker')->with('user');;
+   
     }
    
     public function worker()
     {
         return $this->belongsTo('App\Worker');
+        //return $this->belongsToMany('App\Worker', 'worker_timeframes', 'timeframe_id', 'worker_id');
     }
     public function timeframe()
     {

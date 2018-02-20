@@ -11,7 +11,7 @@ $formview=$param['view']['editform'] ??  $formview;
 $cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
 $formurl=$param['routes']['editform'] ?? MoHandF::url($param['routes']['base'].'/'.$id,$getT);
 //gombok,mezők----------------------------------
-$cancel_button=$param['cancel_button'] ?? false;
+$cancel_button=$param['cancel_button'] ?? true;
 //feliratok----------------------
 $cim=$param['cim'] ?? 'Szekesztés';
 $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
@@ -32,7 +32,7 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                         <div class="panel-heading">{{  $cim  }} </div>          
                     <div class="panel-body">
 @if($cancel_button)
-<a href="{{ $canceleUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
+<a href="{{ $cancelUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
 <i class="fa fa-arrow-left" aria-hidden="true"></i>{{ $cancel_label }}</button></a>
 @endif                    <br />
                         <br />
