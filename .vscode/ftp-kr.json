@@ -19,5 +19,6 @@
         "/.vscode/ftp-kr.error.log",
         "/.vscode/ftp-kr.sync.*.json",
         "/.vscode/ftp-kr.diff.*"
-    ]
+    ],
+    "ignoreJsonUploadCaution": true
 }

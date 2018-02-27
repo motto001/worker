@@ -1,64 +1,61 @@
 <?php
 
 namespace App\Http\Controllers\Worker;
-use Illuminate\Support\Facades\View;
-//use pp\facades\MoHand;
-use Illuminate\Support\Facades\Input;
-use App\Http\Requests;
 use App\Handler\MoController;
-
-use App\Workerday;
-use App\Timetype;
-use App\Workerwrole;
-use App\Workerwroleunit;
-use App\Wroletime;
-use App\Workertimewish;
-use App\Workertime;
-use App\Worker;
-use App\Wrole;
-use App\Wroleunit;
-use App\Daytype;
-use App\Day;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 use Session;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Input;
+
+use App\Workertime;
+use App\Worker;
+use App\Workerday;
+use App\Timetype;
+use App\Daytype;
+use App\Day;
+//use App\Workerwrole;
+//use App\Workerwroleunit;
+//use App\Wroletime;
+//use App\Workertimewish;
+//use App\Wrole;
+//use App\Wroleunit;
 //use Carbon\Carbon;
 class NaptarController extends MoController
 {
-    use \App\Handler\trt\crud\CrudWithSetfunc;
-    use  \App\Handler\trt\SetController;
+    use \App\Handler\trt\crud\IndexFull;
+    use \App\Handler\trt\crud\MOCrud;
+    use \App\Handler\trt\view\Base;
+    use \App\Handler\trt\redirect\Base;
+    use \App\Handler\trt\set\Base; //akkor kell ha csak kiegészítjük A paramétereket nem PAR-t csak par-t adunk meg
+    use \App\Handler\trt\property\MoControllerBase; //PAR és BASE propertyk hogy legyen mit kiegéaszíteni
+    use \App\Handler\trt\set\Orm; // with, where, order_by
+    use \App\Handler\trt\set\GetT;
 
-    public static function proba($per)
-    {
-        return 'proba:'.$per;
-    }
- public function proba2($per)
-    {
-        return 'proba2:'.$per;
-    }
     protected $par= [
         'create_button'=>false,
         'search'=>false,
         'routes'=>['base'=>'worker/naptar','worker'=>'manager/worker'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
-        'view'=>'worker.naptar', //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
-        'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
+        'view' => ['base' => 'crudbase', 'include' => 'worker.naptar'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
+       // 'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
         'cim'=>'Naptár',
         'getT'=>[],       
     ];
   
     protected $base= [
-        'search_column'=>'daytype_id,datum,managernote,usernote',
+       // 'search_column'=>'daytype_id,datum,managernote,usernote',
         'get'=>['ev'=>null,'ho'=>null], //a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
        // 'get_post'=>['ev'=>null,'ho'=>null],//a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be ha van ilyen kulcs a postban azzal felülírja
         'obname'=>'\App\Workerday',
         'ob'=>null,
-        'func'=>[  'set_task', 'set_getT','set_date', 'set_redir','set_routes','set_ob'],
         'with'=>['worker','daytype'],
     ];
 
     public function set_date(){
 
         $t = \Carbon::now();
+        $this->BASE['data']['carbon']=$t;
        // $this->BASE['get_post']['ev']= $t->year; 
        // $this->BASE['get_post']['ho']=$t->month; 
        $this->BASE['data']['ev']=$this->PAR['getT']['ev'] ?? $t->year;
@@ -67,79 +64,65 @@ class NaptarController extends MoController
             $this->BASE['data']['ho']='0'.$this->BASE['data']['ho'];
         }
 }
+public function construct_set()
+{
+        $user_id=\Auth::user()->id ?? 0;
+        $worker=Worker::select('id')->where('user_id','=',$user_id)->first();
+        $this->BASE['data']['worker_id']=$worker->id ?? 0;
+
+}
     public function index_set()
     {
-        //worker-id-------------------
-        $user_id=\Auth::user()->id;
-        //if($user_id>0){}
+
+        $user_id=\Auth::user()->id ?? 0;
         $worker=Worker::select('id')->where('user_id','=',$user_id)->first();
-        $worker_id=$worker->id;
-        $data['form']=Input::get('form') ?? 'create' ;
-        $formid=Input::get('id') ?? 0 ;
-      //  $data['formdata']=Workertimewish::find($formid);
-       
-        $this->BASE['where'][]= ['id', '=', $worker_id]; 
-       // $ob=$this->BASE['ob'];
-        //$perPage=$this->PAR['perpage'] ?? 50;
-       // $getT=$this->PAR['getT'] ?? ['a'=>'a'];
-//echo $worker_id;
-       // $data['timetype']=Timetype::get()->pluck('name','id');
-        $data['daytype']=Daytype::get()->pluck('name','id');
-        $data['years']=['2017','2018','2019'];
-        $dt = \Carbon::now();
-        $data['datum']= $id=Input::get('datum') ?? $dt->year.'-'.$dt->month.'-'.$dt->day ;
-        //clendar tömb--------------------------------------
-        $workerdayT=$this->getWorkerday($worker_id,$this->BASE['data']['ev'],$this->BASE['data']['ho']);
+        $this->BASE['data']['worker_id']=$worker->id ?? 0;
+
+        $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
+
+       // $dt = \Carbon::now();
+        //$this->BASE['data']['datum']=Input::get('datum') ?? $dt->year.'-'.$dt->month.'-'.$dt->day ;
+        //calendar tömb-------------------------------------- 
+        $this->set_date();
         $calendar=new \App\Handler\Calendar;
-        $calT=$calendar->getMonthDays($this->BASE['data']['ev'],$this->BASE['data']['ho']);
-        $data['calendar']=\MoHandF::mergeAssoc($calT,$workerdayT);
-
-        //cache-ek---------------------------------
-        $wrole_wrunit=[]; 
-        $wrunit_wrtime=Wroletime::get()->toarray() ?? []; 
-       // $wrunit_wrtime=\MoHandF::setIndexFromKey($wrunit_wrtime,'wroleunit_id');
-       // $wrtime=
-        foreach( $data['calendar'] as $datum=>$dataT)
-        {
-            $wrtimes=[];
-            //wrole_id-------------------------------
-            $wrole_id =$data['calendar'][$datum]['wrole_id']=$this->setWrole($datum,$worker_id) ?? 2 ;
-            //$wrunit_id----------------------------------
-            if(isset($wrole_wrunit[$wrole_id]))
-            {$wrunit_id=$wrole_wrunit[$wrole_id];}
-            else
-            {
-                $wrunit_id=$this->setWroleunit($datum);
-                $wrole_wrunit[$wrole_id]=$wrunit_id;
-            }
-          /*  $Workerwroleunit=Workerwroleunit::where('worker_id','=',$worker_id)
-            ->where('datum','=',$datum)
-            ->where('pub','=',0)->first();
-            $wrunit_id= $Workerwroleunit->id ?? $wrunit_id; */
-            $data['calendar'][$datum]['wrunit_id']= $wrunit_id;
-            //wrtimes-------------------------
-            $wrtimes= [];
-            $wrtimes= Workertime::where('worker_id','=',$worker_id)
-            ->where('datum','=',$datum)
-            ->where('pub','=',0)->get()->toarray() ?? $wrtimes ; 
-           // print_r($wrtimes);
-             $data['calendar'][$datum]['wrtimes']=$wrtimes;
-            $wish=[];
-         //   $wish= Workertimewish::where('worker_id','=',$worker_id)
-          //  ->where('datum','=',$datum)
-         //   ->where('pub','>',0)->get()->toarray() ?? $wish ; 
-           //print_r($wish);
-        //    $data['calendar'][$datum]['wishes']=$wish;
-
-
-        }
- 
-        $this->BASE['data']= array_merge($this->BASE['data'],$data);    
+        $this->BASE['data']['calendar']=$calendar->getMonthDays($this->BASE['data']['ev'],$this->BASE['data']['ho']);
+       
+     //   $this->setWorkerday();
+       // $this->setWorkertime(); 
      
     }
-    public function getWorkerday($worker_id,$ev,$ho)
+    public function setWorkertime()
     {
         $res=[];
+        $worker_id=$this->BASE['data']['worker_id'];
+        $ev=$this->BASE['data']['ev'];
+        $ho=$this->BASE['data']['ho'];
+        $dt = \Carbon::create($ev,$ho, 1, 0)->endOfMonth();
+        //-----------------------
+        $datum1=$ev.'-'.$ho.'-01';
+        $datum2=$ev.'-'.$ho.'-'.\Carbon::create($ev,$ho, 1, 0)->endOfMonth();
+            //wrtimes-------------------------
+            $wrtimes= [];
+        /*    $wrtimes= Workertime::where('worker_id','=',$worker_id)
+           // ->where('datum','>=',$datum1)
+            ->where('pub','=',0)
+            ->whereBetween('datum', [$datum1,$datum2])
+            ->get()->toarray() ?? $wrtimes ; */
+        foreach($wrtimes as $time) 
+        {$res[$time['datum']]['times'][]=$time;
+        
+        }  
+        //------------------------
+   $this->BASE['data']['calendar']=array_merge($this->BASE['data']['calendar'],$res);
+
+    }
+
+    public function setWorkerday()
+    {
+        $res=[];
+        $worker_id=$this->BASE['data']['worker_id'];
+        $ev=$this->BASE['data']['ev'];
+        $ho=$this->BASE['data']['ho'];
         //-----------------------
         $dayT= Day::where('datum',  'LIKE', $ev."-".$ho."%")
             ->orwhere('datum',  'LIKE', "0000-".$ho."%")
@@ -156,53 +139,10 @@ class NaptarController extends MoController
             {$res[$day->datum]=['datatype'=>'workerday','datum'=>$day->datum,'id'=>$day->id,'daytype_id'=>$day->daytype_id,'wish_id'=>$day->wish_id];
             
             }  
-   //   print_r($worker_id);   
-     return $res;    
+   $this->BASE['data']['calendar']=array_merge($this->BASE['data']['calendar'],$res);
 
     }
 
-    public function setWrole($datum,$worker_id){
-    
-        $this->BASE['wrole'] = Workerwrole::with('wrole','wrole.wroleunit')
-       ->where('worker_id','=',$worker_id)
-       ->where('start','<',$datum)
-       ->where('end','>',$datum)
-       ->orWhere('end','=',null)
-       ->orderBy('id','desc')
-       ->first()->toarray(); 
-       $this->BASE['wrole_id'] = $this->BASE['wrole']['wrole_id'] ?? 0;
-       return  $this->BASE['wrole_id'];
-     }
-     public function setWroleunit($datum){
-        $wroleunit_id=0;  
-        $longT=['hét'=>7,'nap'=>1];
-        $long=0;
-        $wrole=$this->BASE['wrole'] ;
-        $start=$wrole['wrole']['start'];
-       //$actualstart=\Carbon::createFromFormat('Y-m-d',$start)->toDateString();
-       $actualstart=\Carbon::createFromFormat('Y-m-d',$start);
-    $wroleunitT=$wrole['wrole']['wroleunit'] ?? [];
-      while($actualstart<$datum)
-       {
-         if(!empty($wroleunitT)){//$wrole->wroleunit-al (objekt) nem  működik!
-            foreach($wroleunitT as $wroleunit){
-            if($actualstart<$datum){
-            $longvalue=$longT[$wroleunit['unit']];
-            // echo $longvalue.'----'.$wroleunit->unit;          
-            $long=$longvalue*$wroleunit['long'];
-            // $oszlong+=$long;
-            $actualstart->addDays($long);
-            $actualstart=$datum;
-                }
-            else{
-                $wroleunit_id=$wroleunit['id'];
-                $actualstart=$datum;
-                }
-            }
-          
-        }else{$actualstart=$datum;}
-        }
-     return $wroleunit_id;
-    } 
+
 
 }

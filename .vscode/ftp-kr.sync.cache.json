@@ -75,7 +75,13 @@
       },
       "jegyzet_mo": {
         "type": "-",
-        "size": 782,
+        "size": 1860,
+        "lmtime": 0,
+        "modified": true
+      },
+      "jegyzet_vs": {
+        "type": "-",
+        "size": 530,
         "lmtime": 0,
         "modified": false
       },

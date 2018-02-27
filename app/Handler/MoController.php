@@ -25,21 +25,17 @@ class MoController extends Controller
 //beállító függvények traitekkel felülírhatók-----------------
     public function set_getT()
     {
-        $this->PAR['getT'] = $_GET;
+       // $this->PAR['getT'] = $_GET;
     }
     public function set_ob()
     {
         $obname = $this->BASE['obname'];
         $this->BASE['ob'] = new $obname();
     }
-    public function set_base()
-    {
-    }
+    public function set_base(){}
 
-    public function set_baseparam() //hogy a childek-ben ne kelljen a  a set base-t felülírni ha csak finomhangolásra van szükség
-
-    {}
-
+    public function construct_set(){} //hogy a childek-ben ne kelljen a  a set base-t felülírni ha csak finomhangolásra van szükség
+    
     public function __construct(Request $request)
     {
 
@@ -47,7 +43,7 @@ class MoController extends Controller
 
         $this->set_base(); //taskok értékeivel felül írja a PAR és A BASE  tömböket.
         // a BASE['func']-ot is. Ezért  kell még a call_func előtt meghívni
-        $func = $this->BASE['func'] ?? ['set_ob', 'set_baseparam'];
+        $func = $this->BASE['func'] ?? ['set_ob','set_getT','construct_set'];
         $this->call_func($func);
         $view_varname = $this->PAR['view_varname'] ?? 'param';
         View::share($view_varname, $this->PAR);

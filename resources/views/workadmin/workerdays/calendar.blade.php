@@ -42,8 +42,8 @@ $yearnow[]=\Carbon::now()->year;
 $yearnow[]=\Carbon::now()->year+1;
 $yearnow[]=\Carbon::now()->year+2;
 
-$years=$data['years'] ?? $yearnow;
-
+//$years=$data['years'] ?? $yearnow;
+$years= $yearnow;
 $months=['Január','Február','Március','Április','Jájus','Június','Július','Augusztus','Szeptember','Október','November','Decenber'];
 
 @endphp

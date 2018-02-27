@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Handler\MoController;
 use Illuminate\Http\Request;
 use Session;
-use App\Workers;
+use App\Worker;
 use App\User;
 use App\Wrole;
 use App\Timeframe;
@@ -95,13 +95,14 @@ public function index_set()
        // $this->BASE['data']['wrole']=Wrole::get()->pluck('name','id');
        $this->BASE['data']['base_timeframe']=Timeframe::get(['id','name'])->toarray();
        $this->BASE['data']['checked_timeframe']=[1];
+      
        $this->BASE['data']['status']=Status::get()->pluck('name','id');
        $this->BASE['data']['workertype']=Workertype::get()->pluck('name','id');
        $this->BASE['data']['workergroup']=Workergroup::get()->pluck('name','id');
     }
   public function store_set()
     {
-        $worker_id=$this->BASE['ob']->id;
+       // $worker_id=$this->BASE['ob']->id;
         $this->BASE['ob']->timeframes()->attach($this->BASE['request']->timeframe_id);
      /*   foreach ($this->BASE['request']->timeframe_id as $tf) {
             Workertimeframe::create(['worker_id'=>$worker_id,'timeframe_id'=>$tf]);

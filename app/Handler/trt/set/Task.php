@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Handler\trt\set;
-
+use Illuminate\Support\Facades\Input;
 Trait Task
 {
 /**

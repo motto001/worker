@@ -1,6 +1,4 @@
-@extends($param['crudview'].'.index')
-@section('table')
-              
+
                  @foreach($data['workers']  as $worker)
                                 <a href=" {!! MoHandF::url($param['routes']['base'],$param['getT'],['w_id'=>$worker['id']]) !!}" 
                                 title="worker választás">
@@ -30,7 +28,7 @@
                                         $daytypename=$item->daytype->name ?? '0';
                                         @endphp
                                         <td>{{ $item->datum }}</td>
-                                        <td>{{ $item->worker->user->name }}</td><td>{{ $daytypename}}</td>
+                                        <td>{{ $item->worker['user']['name']  }}</td><td>{{ $daytypename}}</td>
                                         <td><span style="color:{{ $color }}">{{ $data['daytype'][$item->wish_id] }}</span></td>
                                         <td>{{
                                            str_limit($item->managernote, $limit = 30, $end = '...') }}</td>
@@ -61,6 +59,4 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                         </div>
-
-@endsection
+                        </div>

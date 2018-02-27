@@ -1,6 +1,5 @@
 
-@extends($param['crudview'].'.create')
-@section('form')
+
        @foreach($data['workers']  as $worker)
                         <a href=" {!! MoHandF::url($param['routes']['base'].'/create',$param['getT'],['w_id'=>$worker['id']]) !!}" 
                                 title="worker választás" 
@@ -18,4 +17,3 @@
   @else                 
  @include($param['view'].'.calendar')
 @endif
-@endsection

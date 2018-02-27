@@ -1,7 +1,7 @@
 
               
                  @foreach($data['years']  as $year)
-                                <a href=" {!! MoHandF::url($param['baseroute'],$param['getT'],['ev'=>$year]) !!}" 
+                                <a href=" {!! MoHandF::url($param['routes']['base'],$param['getT'],['ev'=>$year]) !!}" 
                                 title="worker választás">
                                 <button class="btn btn-warning btn-xs">
                                     {!!    $year !!}
@@ -24,13 +24,13 @@
                                         <td>
                                     {!! 
                                         MoHandF::linkButton([
-                                        'link'=> MoHandF::url($param['baseroute'].'/'.$item->id.'/edit',$param['getT']),
+                                        'link'=> MoHandF::url($param['routes']['base'].'/'.$item->id.'/edit',$param['getT']),
                                         'fa'=>'pencil-square-o']) 
                                     !!}
                                     {!!
                                          MoHandF::delButton([
                                         'tip'=>'del',
-                                        'link'=>MoHandF::url($param['baseroute'].'/'.$item->id,$param['getT']),
+                                        'link'=>MoHandF::url($param['routes']['base'].'/'.$item->id,$param['getT']),
                                         'fa'=>'trash-o']) 
                                     !!}
                                         </td>

@@ -22,7 +22,7 @@ class UsersController extends MoController
          'get_key'=>'user',
         'routes'=>['base'=>'manager/users'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
-        'view'=> ['base' => 'crudbase', 'include' => 'Manager.users','editform' => 'Manager.users.edit_form'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
+        'view'=> ['base' => 'crudbase', 'include' => 'manager.users','editform' => 'Manager.users.edit_form'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
         'cim'=>'Felhasználók',
    
         

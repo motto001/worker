@@ -12,10 +12,11 @@ public function image($data,$param=[])
  $class=$param['class'] ?? 'imgclass';   
 return '<img src="/'.$data.'" title="'.$data.'" class="'.$class.'">';
 }
-public function data($paramRow,$dataRow=[])
+public function data($paramRow,$data=[])
 { 
-$colname=$paramRow['colname'];
-$data=$dataRow[$colname];
+$colname=$paramRow['colname'] ?? 'colname';
+$data=$data[$colname] ?? 'nodata';
+//$data='hhh';
 if(isset($paramRow['func'])){
     $func=$paramRow['func'];
     if(is_callable([$this, $func])) {$data=$this->$func($data,$paramRow=[],$dataRow=[]);}  
@@ -23,11 +24,11 @@ if(isset($paramRow['func'])){
 return $data;
 }
 
-public function label($paramRow,$dataRow=[])
+public function label($paramRow,$data=[])
 { 
-    $label=$paramRow['label'];
+    $label=$paramRow['label'] ?? 'label';
     if(isset($paramRow['labelfunc'])){
-        if(is_callable([$this, $paramRow['labelfunc']])) {$label=$this->$paramRow['labelfunc']($label,$paramRow=[],$dataRow=[]);}  
+        if(is_callable([$this, $paramRow['labelfunc']])) {$label=$this->$paramRow['labelfunc']($label,$paramRow=[],$data=[]);}  
     }
     return $label;
 }

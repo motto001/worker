@@ -241,7 +241,8 @@ Appzcoder\LaravelAdmin\LaravelAdminServiceProvider::class,
  'Carbon' => 'Carbon\Carbon',
  'MoViewF' => App\Facades\MoView::class,
  'MoHandF' => App\Facades\MoHand::class,
- 'MoCalF' => App\Facades\MoCal::class
+ 'MoCalF' => App\Facades\MoCal::class,
+ 'MoShow' => App\Facades\MoShow::class
     ],
 
 ];

@@ -1,18 +1,24 @@
 @php
 //use \app\Http\Controllers\Worker\WorkersController;
 //adatok-----------------
-if(!isset($data)) {$data=[];}
-$showT=$param['show'] ?? [[
-    ['colname'=>'id','label'=>'Id'],
-    ['colname'=>'fullname','label'=>'név'],
-    ['colname'=>'foto','label'=>'Foto','func'=>'image'],
-    ['colname'=>'cim','label'=>'Cím'],
-    ['colname'=>'birth','label'=>'Születési dátum'],
-    ['colname'=>'tel','label'=>'Telefon'],
-    ['colname'=>'ado','label'=>'Adószám'],
-    ['colname'=>'tb','label'=>'TBszám'],
-    ['colname'=>'start','label'=>'Kezdés'],
-   ]];
+if(!isset($data)){$data=[];}
+else{$data=$data->toarray();}
+//péda $param['show']=[['colname'=>'id','label'=>'Id']]
+//print_r($data);
+//echo 'hkj';
+$langfile=$param['langfile'] ?? 'mo';
+$showT=$param['show'] ?? [];
+
+if(isset($showT[0]) && $showT[0]=='auto'){
+    foreach($data as $key=>$val){
+        $label=$val['label'] ?? $key;
+        $langalias=$val['langalias'] ?? $key;
+        if (Lang::has($langfile.'.'.$langalias))
+        {$label=$langfile.'.'.$langalias;}
+        $label=$val['label'] ?? $label;
+        $showT[]= ['colname'=>$key,'label'=>$label];
+    }
+}
 $modal=$getT['modal'] ?? false;
 $modal=$param['modal'] ?? $modal; 
 $list=$data['list'] ?? $data;
@@ -48,10 +54,10 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <tbody>
-                            @foreach($showT as $show)
+                            @foreach($showT as $row)
                             <tr>
-                                    <th>{!! App::make("app\Http\Controllers\\".$param['controllername'])->label($show) !!}</th>
-                                    <td>{!! App::make("app\Http\Controllers\\".$param['controllername'])->data($show,$data) !!}</td>
+                                    <th>{!! MoShow::label($row) !!}</th>
+                                    <td>{!! MoShow::data($row,$data) !!}</td>
                                 </tr>
                             @endforeach
                                 </tbody>

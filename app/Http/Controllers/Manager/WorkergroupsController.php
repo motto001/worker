@@ -1,160 +1,42 @@
 <?php
 
 namespace App\Http\Controllers\Manager;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Input;
+use App\Handler\MoController;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-use App\Workergroup;
 use Illuminate\Http\Request;
 use Session;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Input;
+use App\Workergroup;
 
-class WorkergroupsController extends Controller
+class WorkergroupsController extends MoController
 { 
-    
-    protected $paramT= [
-    'baseroute'=>'manager/workergroups',
-    'baseview'=>'manager.workergroups', 
-    'cim'=>'Dolgozói csoportok',
+    use \App\Handler\trt\crud\IndexFull;
+    use \App\Handler\trt\crud\MOCrud;
+    use \App\Handler\trt\view\Base;
+    use \App\Handler\trt\redirect\Base;
+    use \App\Handler\trt\set\Base; //akkor kell ha csak kiegészítjük A paramétereket nem PAR-t csak par-t adunk meg
+    use \App\Handler\trt\property\MoControllerBase; //PAR és BASE propertyk hogy legyen mit kiegéaszíteni
+    use \App\Handler\trt\set\Orm; // with, where, order_by
+
+    protected $par = [
+        'routes' => ['base' => 'manager/workergroups'],
+        'view' => ['base' => 'crudbase', 'include' => 'manager.workergroups'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
+        'cim' => 'Dolgozói csoportok',
+        'show' => ['auto'], // a show file generálja a megjelenítést
+        //  'show'=>[['colname'=>'id','label'=>'Id']]
+    ];
+
+    protected $base = [
+        'obname' => '\App\Workergroup',
+
+    ];   
+
+
+protected $val =[
+    'name' => 'required|max:200',
+    'note' => 'max:200|nullable',
+    'pub' => 'max:4'
 ];
 
-function __construct(Request $request){
- 
-    $this->paramT['id']=$request->route('id') ;
-    $this->paramT['parrent_id']=Input::get('parrent_id') ?? 0;
-
-    if($this->paramT['parrent_id']>0){
-        $this->paramT['route_param']='/?parrentid='.$this->paramT['parrent_id'];}
-    else{
-        $this->paramT['route_param']='';}
-
-    View::share('param',$this->paramT);
-   }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index(Request $request)
-    {
-        $keyword = $request->get('search');
-        $perPage = 25;
-
-        if (!empty($keyword)) {
-            $workergroups = Workergroup::where('name', 'LIKE', "%$keyword%")
-				->orWhere('note', 'LIKE', "%$keyword%")
-				->orWhere('pub', 'LIKE', "%$keyword%")
-				->paginate($perPage);
-        } else {
-            $workergroups = Workergroup::paginate($perPage);
-        }
-
-        $data['list']=$workergroups;
-        return view('crudbase.index', compact('data'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        
-        return view('crudbase.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-			'name' => 'required|max:200',
-			'note' => 'max:200|nullable',
-			'pub' => 'max:4'
-		]);
-        $requestData = $request->all();
-        
-        Workergroup::create($requestData);
-
-        Session::flash('flash_message', 'Workergroup added!');
-
-        return redirect($this->paramT['baseroute']);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function show($id)
-    {
-        $data = Workergroup::findOrFail($id);
-
-        return view($this->paramT['baseview'].'.show', compact('data'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit($id)
-    {
-        $data = Workergroup::findOrFail($id);
-        $data['id']=$id ;
-        return view('crudbase.edit', compact('data'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function update($id, Request $request)
-    {
-        $this->validate($request, [
-			'name' => 'required|max:200',
-			'note' => 'max:200|nullable',
-			'pub' => 'max:4'
-		]);
-        $requestData = $request->all();
-        
-        $workergroup = Workergroup::findOrFail($id);
-        $workergroup->update($requestData);
-
-        Session::flash('flash_message', 'Workergroup updated!');
-
-        return redirect($this->paramT['baseroute']);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function destroy($id)
-    {
-        Workergroup::destroy($id);
-
-        Session::flash('flash_message', 'Workergroup deleted!');
-
-        return redirect($this->paramT['baseroute']);
-    }
 }
