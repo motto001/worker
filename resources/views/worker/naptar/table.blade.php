@@ -64,11 +64,12 @@
 
   $daytype='base';
   if($dt['dayOfWeek']==6 || $dt['dayOfWeek']==0 ){$daytype='hollyday';}
-  if(isset($dt['daytype_id'])){$daytype='special';}
+  
+  if($dt['ch']=='workerdays' || $dt['ch']=='days'  ){$daytype='special';}
   $timetype='base';
   @endphp 
   <li class="flex-item" style="{{ $daystyle[$daytype]['li'] }}">
-        <div style="{{ $daystyle[$daytype]['div'] }}">{{ $dt['day'] }}., {{ $dt['daytype_id'] }}
+        <div style="{{ $daystyle[$daytype]['div'] }}">{{ $dt['day'] }}., {{ $dt['type'] }}
         </div>
   <!-- idők-------------------------------------->        
  @if(isset($dt['times']))

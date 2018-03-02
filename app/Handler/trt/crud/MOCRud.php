@@ -3,7 +3,7 @@
 namespace App\Handler\trt\crud;
 use Illuminate\Http\Request;
 use Session;
-//use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Input;
 //use Illuminate\Support\Facades\Image;
 Trait MOCrud
 {
@@ -105,4 +105,31 @@ Trait MOCrud
         if (method_exists($this,$viewfunc)) {return $this->$viewfunc();} //behívja  a task specifikus viewet is
        else{return view($this->PAR['view']['base'].'.show',compact('data'));}    //return view($this->PAR['view'].'.show', compact('data'));
     } 
+    public function pub()
+    { 
+        //workertimewish publikálás----------
+       $id=Input::get('id');
+       $this->BASE['ob_res']=$this->BASE['ob']->findOrFail($id);
+       $this->BASE['ob_res']->update(['pub'=>0]);
+       if (method_exists($this,'pub_set')) {$this->pub_set();} 
+        Session::flash('flash_message',  trans('mo.item_pub'));
+        $redirfunc=$this->BASE['redirfunc']  ?? 'mo_redirect';
+      //  if (method_exists($this,$redirfunc)) {return $this->$redirfunc();} //behívja  a task specifikus routot is
+      // else{return redirect($this->PAR['routes']['base'] ); } 
+    }
+    public function unpub()
+    { 
+       $id=Input::get('id');
+
+       $pubval=$this->Par['pubval'] ?? 1;
+       $this->BASE['ob_res']=$this->BASE['ob']->findOrFail($id);
+       $this->BASE['ob_res']->update(['pub'=>2]);
+       if (method_exists($this,'unpub_set')) {$this->unpub_set_set();} 
+       Session::flash('flash_message',  trans('mo.item_unpub'));
+       $redirfunc=$this->BASE['redirfunc']  ?? 'mo_redirect';
+     //  if (method_exists($this,$redirfunc)) {return $this->$redirfunc();} //behívja  a task specifikus routot is
+    //  else{return redirect($this->PAR['routes']['base'] ); } 
+    }
+
+
 }

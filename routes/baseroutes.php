@@ -70,6 +70,7 @@ Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles
 Route::group(['prefix' => '/worker','middleware' => ['auth', 'roles'], 'roles' => 'worker'],function()
 { 
     Route::resource('/workerwroleunits', 'Worker\\WorkerwroleunitsController');
+  //  Route::resource('/workerdayswish', 'Worker\\WorkertimeswishController');
     Route::resource('/workertimeswish', 'Worker\\WorkertimeswishController');
     Route::resource('/workerdays', 'Worker\\WorkerdaysController');
     Route::resource('/naptar', 'Worker\\NaptarController');

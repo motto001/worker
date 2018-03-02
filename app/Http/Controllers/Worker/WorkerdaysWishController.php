@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 
 use App\Workerday;
-//use App\Workerdaywish;
+use App\Workerdaywish;
 use App\Worker;
 use App\Daytype;
-//use App\Day;
+use App\Day;
 
 //use Carbon\Carbon;
-class WorkerdaysController extends MoController
+class WorkerdaysWishController extends MoController
 {
     use \App\Handler\trt\crud\IndexFull;
     use \App\Handler\trt\crud\MOCrud;
@@ -26,21 +26,19 @@ class WorkerdaysController extends MoController
     use \App\Handler\trt\set\Orm; // with, where, order_by
     use \App\Handler\trt\set\GetT;
     protected $par= [
-        //'create_button'=>false,
-        'routes'=>['base'=>'worker/workerdays','worker'=>'manager/worker'],
+        'create_button'=>false,
+        'routes'=>['base'=>'worker/workerdayswish','worker'=>'manager/worker'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
-        'view' => ['base' => 'crudbase', 'include'=>'worker.workerdays'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
+        'view' => ['base' => 'crudbase', 'include'=>'worker.workerdayswish'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
         'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
         'cim'=>'Dolgozói napok',
-        'getT'=>[],   
-        'show'=>['auto'],  
-        'orm'=>['with'=>['daytype']], 
+        'getT'=>[],       
     ];
   
     protected $base= [
        'get'=>['ev'=>null,'ho'=>null], //a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
        // 'get_post'=>['ev'=>null,'ho'=>null],//a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be ha van ilyen kulcs a postban azzal felülírja
-        'obname'=>'\App\Workerday',
+        'obname'=>'\App\Workerdaywish',
         'ob'=>null,
    // 'with'=>['worker','daytype'],
     ];
@@ -55,24 +53,7 @@ class WorkerdaysController extends MoController
       //  'usernote' => 'string|max:150'
     ];
 
-    public function construct_set()
-    {
-            $user_id=\Auth::user()->id ?? 0;
-            $worker=Worker::select('id')->where('user_id','=',$user_id)->first();
-            $this->BASE['data']['worker_id']=$worker->id ?? 0;
-            $this->BASE['data']['orm']['where'][]=['worker_id'.'=', $this->BASE['data']['worker_id']];
-    }
-    public function index_set()
-    {
-       // $this->BASE['data']['daytype'] =Daytype::get()->pluck('name','id');  
-    }
-    public function create_set()
-    {   
-        
-        $this->BASE['data']['daytype'] =Daytype::get()->pluck('name','id');  
-    }
-    public function edit_set()
-    {
-        $this->BASE['data']['daytype'] =Daytype::get()->pluck('name','id');  
-    }
+
+
+
 }

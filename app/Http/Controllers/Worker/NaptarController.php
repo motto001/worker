@@ -79,7 +79,7 @@ public function construct_set()
         $this->BASE['data']['worker_id']=$worker->id ?? 0;
 
         $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
-
+//print_r($this->BASE['data']['daytype']);
        // $dt = \Carbon::now();
         //$this->BASE['data']['datum']=Input::get('datum') ?? $dt->year.'-'.$dt->month.'-'.$dt->day ;
         //calendar tömb-------------------------------------- 
@@ -87,36 +87,9 @@ public function construct_set()
         $calendar=new \App\Handler\Calendar;
         $this->BASE['data']['calendar']=$calendar->getMonthDays($this->BASE['data']['ev'],$this->BASE['data']['ho']);
        
-     //   $this->setWorkerday();
-       // $this->setWorkertime(); 
-     
+    $this->setWorkerday();
+    $this->setWorkertime();    
     }
-    public function setWorkertime()
-    {
-        $res=[];
-        $worker_id=$this->BASE['data']['worker_id'];
-        $ev=$this->BASE['data']['ev'];
-        $ho=$this->BASE['data']['ho'];
-        $dt = \Carbon::create($ev,$ho, 1, 0)->endOfMonth();
-        //-----------------------
-        $datum1=$ev.'-'.$ho.'-01';
-        $datum2=$ev.'-'.$ho.'-'.\Carbon::create($ev,$ho, 1, 0)->endOfMonth();
-            //wrtimes-------------------------
-            $wrtimes= [];
-        /*    $wrtimes= Workertime::where('worker_id','=',$worker_id)
-           // ->where('datum','>=',$datum1)
-            ->where('pub','=',0)
-            ->whereBetween('datum', [$datum1,$datum2])
-            ->get()->toarray() ?? $wrtimes ; */
-        foreach($wrtimes as $time) 
-        {$res[$time['datum']]['times'][]=$time;
-        
-        }  
-        //------------------------
-   $this->BASE['data']['calendar']=array_merge($this->BASE['data']['calendar'],$res);
-
-    }
-
     public function setWorkerday()
     {
         $res=[];
@@ -127,21 +100,63 @@ public function construct_set()
         $dayT= Day::where('datum',  'LIKE', $ev."-".$ho."%")
             ->orwhere('datum',  'LIKE', "0000-".$ho."%")
             ->get();
+            foreach($dayT as $day) 
+            {
+               // $dayev = substr($day->datum, 4); 
+               $day->datum = str_replace("0000", $ev, $day->datum);
+               $ujdayT=  ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'days',
+               'type'=>$this->BASE['data']['daytype'][$day->daytype_id]];
+                $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
+            }  
 
-        foreach($dayT as $day) 
-        {$res[$day->datum]=['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'daytype_id'=>$day->daytype_id,'wish_id'=>1];}  
         //------------------------
         $workerdayT= Workerday::where([
+            ['pub', '=', 0],
             ['worker_id', '=', $worker_id],
             ['datum',  'LIKE', $ev."-".$ho."%"],
             ])->get(); 
+      // print_r($workerdayT);
             foreach($workerdayT as $day) 
-            {$res[$day->datum]=['datatype'=>'workerday','datum'=>$day->datum,'id'=>$day->id,'daytype_id'=>$day->daytype_id,'wish_id'=>$day->wish_id];
-            
-            }  
-   $this->BASE['data']['calendar']=array_merge($this->BASE['data']['calendar'],$res);
+            { 
+                $ujdayT= ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'workerdays',
+                'type'=>$this->BASE['data']['daytype'][$day->daytype_id]];
+               $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
+            }   
+           
+   //$this->BASE['data']['calendar']=array_merge($this->BASE['data']['calendar'],$res);
 
     }
+    public function setWorkertime()
+    {
+        $res=[];
+        $worker_id=$this->BASE['data']['worker_id'];
+        $ev=$this->BASE['data']['ev'];
+        $ho=$this->BASE['data']['ho'];
+      //  $dt = \Carbon::create($ev,$ho, 1, 0)->endOfMonth();
+
+        //-----------------------
+        $datum1=$ev.'-'.$ho.'-01';
+        $datum2=\Carbon::create($ev,$ho, 1, 0)->endOfMonth();
+       // echo  $datum2.'--------';
+            //wrtimes-------------------------
+            $wrtimes= [];
+            $wrtimes= Workertime::where('worker_id','=',$worker_id)
+           // ->where('datum','>=',$datum1)
+            //->where('datum','<=',$datum2)
+            ->where('pub','=',0)
+            ->whereBetween('datum', [$datum1,$datum2])
+            ->get()->toarray() ?? $wrtimes ; 
+         //   print_r($wrtimes);
+        foreach($wrtimes as $time) 
+        {
+            $this->BASE['data']['calendar'][$time['datum']]['times'][]=$time;    
+        }  
+        //------------------------
+  // $this->BASE['data']['calendar']=array_merge($this->BASE['data']['calendar'],$res);
+
+    }
+
+ 
 
 
 

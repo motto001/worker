@@ -1,46 +1,50 @@
-@extends('layouts.backend')
-
-@section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
+@extends($param['crudview'].'.show')
+@section('datas')
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Workerday {{ $workerday->id }}</div>
+                    <div class="panel-heading">Workertime{{ $data->id }}</div>
                     <div class="panel-body">
 
                         <a href="{{ url('/manager/workerdays') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <a href="{{ url('/manager/workerdays/' . $workerday->id . '/edit') }}" title="Edit Workerday"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['manager/workerdays', $workerday->id],
-                            'style' => 'display:inline'
-                        ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete Workerday',
-                                    'onclick'=>'return confirm("Confirm delete?")'
-                            ))!!}
-                        {!! Form::close() !!}
-                        <br/>
-                        <br/>
+                  
 
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <tbody>
                                     <tr>
-                                        <th>ID</th><td>{{ $workerday->id }}</td>
+                                        <th>Műszak</th><td>{{ $data->wroleunits->name  }}</td>
                                     </tr>
-                                    <tr><th> Worker Id </th><td> {{ $workerday->worker_id }} </td></tr><tr><th> Daytype Id </th><td> {{ $workerday->daytype_id }} </td></tr><tr><th> Datum </th><td> {{ $workerday->datum }} </td></tr>
+                                    <tr>
+                                        <th> Időtipus </th><td> {{ $data->imetype->name }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Start</th><td> {{ $item->start }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> End</th><td> {{ $item->end }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Óra<</th><td> {{ $item->hour}} </td>
+                                    </tr>                               
+                                    <tr>
+                                        <th> Szorzó<</th><td> {{ $item->timetype->szorzo }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Fixplusz<</th><td> {{ $item->timetype->fixplusz }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Fixplusz<</th><td> {{ $workerday->datum }} </td>
+                                    </tr>
+                                     <tr>
+                                        <th> Jegyzet</th><td> {{ $workerday->managernote}} </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
 
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </div> 
+    
 @endsection

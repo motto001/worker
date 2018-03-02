@@ -66,6 +66,7 @@ class WorkersController extends MoController
      ];
 
     protected $val= [
+    'user_id' => 'required|unique|integer',    
     'fullname' => 'required|max:200',
     'cim' => 'required|max:200',
     'tel' => 'max:50|nullable',
