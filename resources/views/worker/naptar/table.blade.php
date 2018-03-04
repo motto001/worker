@@ -6,18 +6,6 @@
     {{ NaptarController::proba('param') }}
     {{ App::make("app\Http\Controllers\Worker\NaptarController")->proba2('param') }} */
 
-
-    $yearnow[]=\Carbon::now()->year-2;
-    
-    $yearnow[]=\Carbon::now()->year-1;
-    $yearnow[]=\Carbon::now()->year;
-    $yearnow[]=\Carbon::now()->year+1;
-    $yearnow[]=\Carbon::now()->year+2;
-    
-    $years=$data['years'] ?? $yearnow;
-    
-    $months=['Január','Február','Március','Április','Jájus','Június','Július','Augusztus','Szeptember','Október','November','Decenber'];
- 
     $daystyle=[
         'empty'=>'border: 1px solid silver;',
         'base'=>['li'=>'border: 1px solid silver;','div'=>'','span'=>'color:silver'],

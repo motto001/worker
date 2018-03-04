@@ -114,8 +114,8 @@ Trait MOCrud
        if (method_exists($this,'pub_set')) {$this->pub_set();} 
         Session::flash('flash_message',  trans('mo.item_pub'));
         $redirfunc=$this->BASE['redirfunc']  ?? 'mo_redirect';
-      //  if (method_exists($this,$redirfunc)) {return $this->$redirfunc();} //behívja  a task specifikus routot is
-      // else{return redirect($this->PAR['routes']['base'] ); } 
+      if (method_exists($this,$redirfunc)) {return $this->$redirfunc();} //behívja  a task specifikus routot is
+       else{return redirect($this->PAR['routes']['base'] ); } 
     }
     public function unpub()
     { 
@@ -127,8 +127,8 @@ Trait MOCrud
        if (method_exists($this,'unpub_set')) {$this->unpub_set_set();} 
        Session::flash('flash_message',  trans('mo.item_unpub'));
        $redirfunc=$this->BASE['redirfunc']  ?? 'mo_redirect';
-     //  if (method_exists($this,$redirfunc)) {return $this->$redirfunc();} //behívja  a task specifikus routot is
-    //  else{return redirect($this->PAR['routes']['base'] ); } 
+     if (method_exists($this,$redirfunc)) {return $this->$redirfunc();} //behívja  a task specifikus routot is
+     else{return redirect($this->PAR['routes']['base'] ); } 
     }
 
 

@@ -39,16 +39,18 @@ $menuT=[
 ['/workadmin/workerwroleunit', 'Dolgpzói műszakok'],
 ['/workadmin/workerdays',  'Napok'],
 ['/workadmin/workertimes', 'Munkaidők'],
-['/workadmin/workertimeswish', 'Munkaidő kérelmek'],
+//['/workadmin/workertimeswish', 'Munkaidő kérelmek'],
 //['/workadmin/', ' Szabadság,betegállomány'],
 //['/workadmin/workerdays',  'kiküldetés'],
 ],
 'worker'=>[
-['/worker/workertimeswish', 'Munkaidők'],
+['/worker/personal', 'Saját adatok'],  
+['/worker/workerdays',  'Napok'],  
+['/worker/workertimes', 'Munkaidők'],
 //['/worker/workerwroleunits', 'Műszakcsere'],
-['/worker/personal', 'Saját adatok'],
+
 ['/worker/naptar',  'Naptár'],
-['/worker/workerdays',  'Naptár szerkesztés'],
+
 //['/worker/workerdays', 'Szabadság, betegállomány'],
 //['/workadmin/workerdays', 'kiküldetés'],
 //['/workadmin/workerdays', 'Munkaidő nyilvántartás'],

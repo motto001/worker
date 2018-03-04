@@ -1,6 +1,3 @@
-@extends($param['crudview'].'.index')
-@section('table')
-
 
       <div class="table-responsive">
                             <table class="table table-borderless">
@@ -15,9 +12,8 @@
                                        
                                         <td>{{ $item['timetype']['name'] }}</td>
                                         <td>{{ $item->datum }}</td> <td>{{ $item->start }}</td><td>{{ $item->end }}</td><td>{{ $item->hour }}</td>
-                                        <td>
-                                          {{ str_limit($item->managernote, 20,  '...') }}
-                                        </td>  
+                                        <td>{{ str_limit($item->managernote, 20,  '...')  }}</td>
+                                        <td>{{ str_limit($item->workernote, 20,  '...') }}</td> 
                                         <td>
 
                                                 @if($item->pub==1)
@@ -34,7 +30,7 @@
     
                                             </td>
                                         <td>
-                             @if($item->pub==1)          
+                                   @if($item->pub==1)          
                                     {!! 
                                         MoHandF::linkButton([
                                         'link'=> MoHandF::url($param['routes']['base'].'/'.$item->id.'/edit',$param['getT']),
@@ -46,17 +42,16 @@
                                         'link'=>MoHandF::url($param['routes']['base'].'/'.$item->id,$param['getT']),
                                         'fa'=>'trash-o']) 
                                     !!}
+                            @endif 
+                            <a href="{{ url('/'.$param['routes']['base'].'/' . $item->id,$param['getT']) }}" 
+                                title="View "><button class="btn btn-info btn-xs">
+                                <i class="fa fa-eye" aria-hidden="true"></i> </button></a>
+
                                         </td>
                                     </tr>
-                                @endif   
+                                  
                                 @endforeach
                                 </tbody>
                             </table>
                          </div>
-    
 
-
-
-                
-
-@endsection

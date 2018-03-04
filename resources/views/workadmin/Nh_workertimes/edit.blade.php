@@ -1,8 +1,7 @@
 
 @extends($param['crudview'].'.edit')
 @section('form')
-{!! Form::hidden('wroleunit_id', $data->wroleunit_id) !!}
-
+{!! Form::hidden('worker_id', $data->worker_id) !!}
 <div class="form-group {{ $errors->has('timetype_id') ? 'has-error' : ''}}">
     {!! Form::label('timetype_id', 'Timetype Id', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">

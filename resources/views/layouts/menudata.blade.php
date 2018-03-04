@@ -30,7 +30,7 @@ $menuT=[
 ['/workadmin/workerdays',  'Napok'],
 ['/workadmin/workertimes', 'Munkaidők'],
 ['/workadmin/workertimeswish', 'Munkaidő kérelmek'],
-['/workadmin/', ' Szabadság,betegállomány'],
+['/workadmin', ' Szabadság,betegállomány'],
 ['/workadmin/workerdays',  'kiküldetés'],
 ],
 'worker'=>[

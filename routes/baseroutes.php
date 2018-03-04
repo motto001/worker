@@ -60,18 +60,16 @@ Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles
 {
 
     Route::resource('/workerdays', 'Workadmin\\WorkerdaysController');
-    Route::resource('/workertimeswish', 'Workadmin\\WorkertimeswishController');
     Route::resource('/workertimes', 'Workadmin\\WorkertimesController');
     Route::resource('/workerwroles', 'Workadmin\\WorkerwrolesController');
     Route::resource('/workertimeframes', 'Workadmin\\WorkertimeframesController');
-    Route::resource('/workertimes', 'Workadmin\\WorkertimesController');
     Route::resource('/workerwroleunit', 'Workadmin\\WorkerwroleunitsController');
 });
 Route::group(['prefix' => '/worker','middleware' => ['auth', 'roles'], 'roles' => 'worker'],function()
 { 
     Route::resource('/workerwroleunits', 'Worker\\WorkerwroleunitsController');
   //  Route::resource('/workerdayswish', 'Worker\\WorkertimeswishController');
-    Route::resource('/workertimeswish', 'Worker\\WorkertimeswishController');
+    Route::resource('/workertimes', 'Worker\\WorkertimesController');
     Route::resource('/workerdays', 'Worker\\WorkerdaysController');
     Route::resource('/naptar', 'Worker\\NaptarController');
     Route::resource('/personal', 'Worker\\WorkersController');
