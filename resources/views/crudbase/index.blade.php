@@ -1,10 +1,12 @@
 @php
 //adatok-----------------
 if(!isset($data)) {$data=[];}
-$modal=$getT['modal'] ?? false;
-$modal=$param['modal'] ?? $modal;
-$list=$data['list'] ?? [];
+
 $getT=$param['getT'] ?? [];
+//$modal=$getT['modal'] ?? false;
+//$modal=$param['modal'] ?? $modal;
+
+$list=$data['list'] ?? [];
 $tableview=$param['view']['table'] ??  $param['view']['include'].'.table'; 
 //urlek------------------------
 $createUrl=$param['routes']['create'] ?? MoHandF::url($param['routes']['base'].'/create',$getT);
@@ -20,14 +22,10 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
 $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
 
 @endphp  
-
-@if(!$modal))
 @extends('layouts.backend')
 @section('content')
+
 @include('layouts.sidebar')               
-@endif 
-
-
 
 <section id="main-content">  
     <section class="wrapper">
@@ -77,11 +75,9 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
                 </div>
             </div>
         </div>
-           </div>
+        
 </section>
 </section>      
-@if(!$modal)        
-    </div>
+     
 @endsection
 
-@endif

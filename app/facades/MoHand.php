@@ -1,5 +1,5 @@
 <?php
-namespace App\Facades; 
+namespace App\facades; 
 use Illuminate\Support\Facades\Facade; 
 class MoHand  extends Facade 
 { 

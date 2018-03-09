@@ -239,10 +239,10 @@ Appzcoder\LaravelAdmin\LaravelAdminServiceProvider::class,
  'HTML' => Collective\Html\HtmlFacade::class,
  'Fullcalendar' => Edofre\Fullcalendar\Facades\Fullcalendar::class,
  'Carbon' => 'Carbon\Carbon',
- 'MoViewF' => App\Facades\MoView::class,
- 'MoHandF' => App\Facades\MoHand::class,
- 'MoCalF' => App\Facades\MoCal::class,
- 'MoShow' => App\Facades\MoShow::class
+ 'MoViewF' => App\facades\MoView::class,
+ 'MoHandF' => App\facades\MoHand::class,
+ 'MoCalF' => App\facades\MoCal::class,
+ 'MoShow' => App\facades\MoShow::class
     ],
 
 ];

@@ -19,8 +19,7 @@ if(isset($showT[0]) && $showT[0]=='auto'){
         $showT[]= ['colname'=>$key,'label'=>$label];
     }
 }
-$modal=$getT['modal'] ?? false;
-$modal=$param['modal'] ?? $modal; 
+
 $list=$data['list'] ?? $data;
 $getT=$param['getT'] ?? [];
 $formbase=$param['view']['include'] ?? $param['view']['base'] ;
@@ -35,11 +34,11 @@ $cim=$param['cim'] ?? '';
 $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
 @endphp
 
-@if(!$modal)
+
 @extends('layouts.backend')
 @section('content')
 @include('layouts.sidebar')    
-@endif 
+
  
 <section id="main-content">  
     <section class="wrapper">
@@ -68,11 +67,8 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                 </div>
             </div>
         </div>
-          </div>
+       
 </section>
 </section>        
-@if(!$modal)        
-    </div>
-@endsection
 
-@endif
+@endsection

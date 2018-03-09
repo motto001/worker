@@ -15,6 +15,7 @@ use App\Workergroup;
 
 class WorkersController extends Controller
 {
+
     use  \App\Handler\trt\Show;
 
 

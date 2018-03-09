@@ -1,4 +1,7 @@
- 
+@php
+
+$getT=$param['getT'];
+@endphp 
 
 <div class="table-responsive">
     <div class="table-responsive">

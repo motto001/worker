@@ -29,14 +29,18 @@ class WorkersController extends MoController
     use \App\Handler\trt\set\Orm; // with, where, order_by
     use \App\Handler\trt\Image;
     use  \App\Handler\trt\Show; // show task. par['show'] és  par[''controllername']  kell neki
-
+    use \App\Handler\trt\set\GetT;
     protected $par= [
         'controllername'=>'Manager\WorkersController',
         // 'baseroute'=>'manager/wroletimes', // a routes-be kerüt (base)
         'get_key'=>'worker', //láncnál ezzel az előtaggal azonosítja a rávonatkozó get tagokat
         'routes'=>['base'=>'manager/workers'], //A _GET ben ['get_key']._ret ben érkező értéket fordítja le routra pl.: wrtime_ret=wru esetén a route  manager/wroleunit lesz
-        'view'=>['base' => 'crudbase', 'include' =>'manager.workers'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
-      //  'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
+        'view'=>[
+            'base' => 'crudbase',
+            'include' =>'manager.workers',
+            'modaltable' =>'manager.workers.workerlist'
+        ], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
+     
         'cim'=>'Dolgozók',
         'getT'=>['user_id'=>'0'],  
         'show'=>[
@@ -53,7 +57,7 @@ class WorkersController extends MoController
         // 'search'=>false,         
      ];
      protected $base= [    
-        'get'=>['user_id'=>'0'], //Ha a wrolunitból hvjuk a wruvissza true lesz, a store az update és a delete visszaírányít az aktuális wroleunitra.mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
+        'get'=>['user_id'=>'0','view'=>null], //Ha a wrolunitból hvjuk a wruvissza true lesz, a store az update és a delete visszaírányít az aktuális wroleunitra.mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
         'obname'=>'\App\Worker',
         'with'=>['user','timeframe'],
         'search_column' => [ 'wrole_id', 'status_id','workertype_id', 'workergroup_id',  'salary', 'salary_type','foto', 'fullname',

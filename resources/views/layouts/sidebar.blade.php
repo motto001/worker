@@ -21,7 +21,7 @@ $menuT=[
 ['/manager/users', 'Felhasználók'],
 ['/manager/workers' , 'Dolgozók'],
 ['/manager/statuses' ,'Dolgozói státusz'],
-['/manager/workergroups' , 'Dolgozói csoportok'],
+//['/manager/workergroups' , 'Dolgozói csoportok'],
 ['/manager/workertypes' ,  'Munka tipusok'],
 ['/manager/days','Napok'],
 ['/manager/daytypes', 'Naptipusok'],
@@ -34,11 +34,13 @@ $menuT=[
 ],
 
 'workadmin'=>[
-['/workadmin/workerwroles','Dolgozói munkarendek'],
-['/workadmin/workertimeframes ', 'Dolgozói időkeretek'],
-['/workadmin/workerwroleunit', 'Dolgpzói műszakok'],
+['/workadmin/groups', 'Dolgpzói műszakok'],
+['/workadmin/groupdaytimes', 'Müszak tervező'],
+['/workadmin/workerwroles','Műszak munkarendek'],
 ['/workadmin/workerdays',  'Napok'],
 ['/workadmin/workertimes', 'Munkaidők'],
+['/workadmin/workertimeframes ', 'Dolgozói időkeretek'],
+
 //['/workadmin/workertimeswish', 'Munkaidő kérelmek'],
 //['/workadmin/', ' Szabadság,betegállomány'],
 //['/workadmin/workerdays',  'kiküldetés'],

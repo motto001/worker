@@ -3,6 +3,6 @@ namespace App\Handler;
 
 class MoShow
 {
-use \App\Handler\trt\show;
+use \App\Handler\trt\Show;
 
 }

@@ -5,6 +5,6 @@ class MoShow extends Facade
 { 
     protected static function getFacadeAccessor() 
     { 
-        return \App\handler\MoShow::class;
+        return \App\Handler\MoShow::class;
     } 
 }

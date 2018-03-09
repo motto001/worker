@@ -58,12 +58,14 @@ Route::group(['prefix' => '/manager','middleware' => ['auth', 'roles'], 'roles' 
 //workadmin---------------------------------------------------------------
 Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles' => 'workadmin'],function()
 {
-
-    Route::resource('/workerdays', 'Workadmin\\WorkerdaysController');
+    Route::resource('/groups', 'Workadmin\\WorkergroupsController');
+    Route::resource('/groupdaytimes', 'Workadmin\\GroupdaytimesController');
+  //  Route::resource('/grouptimes', 'Workadmin\\GrouptimesController');
     Route::resource('/workertimes', 'Workadmin\\WorkertimesController');
+    Route::resource('/workerdays', 'Workadmin\\WorkerdaysController');
     Route::resource('/workerwroles', 'Workadmin\\WorkerwrolesController');
     Route::resource('/workertimeframes', 'Workadmin\\WorkertimeframesController');
-    Route::resource('/workerwroleunit', 'Workadmin\\WorkerwroleunitsController');
+  //  Route::resource('/workerwroleunit', 'Workadmin\\WorkerwroleunitsController');
 });
 Route::group(['prefix' => '/worker','middleware' => ['auth', 'roles'], 'roles' => 'worker'],function()
 { 

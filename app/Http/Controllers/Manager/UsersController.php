@@ -11,6 +11,7 @@ use Session;
 use \App\Handler\trt\set\Orm; // with, where, order_by
 class UsersController extends MoController
 {
+    use \App\Handler\trt\set\GetT;
     use \App\Handler\trt\crud\IndexFull;
     use \App\Handler\trt\crud\MOCrud;
     use \App\Handler\trt\view\Base;
@@ -31,7 +32,7 @@ class UsersController extends MoController
   
     protected $base= [
        // 'search_column'=>'daytype_id,datum,managernote,usernote',
-       // 'get'=>['ev'=>null,'ho'=>null], //a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
+        'get'=>['modal'=>null], //a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
        // 'get_post'=>['ev'=>null,'ho'=>null],//a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be ha van ilyen kulcs a postban azzal felülírja
         'obname'=>'\App\User',
         'ob'=>null,
@@ -44,6 +45,7 @@ class UsersController extends MoController
     public function index_set()
     {
     //   print_r($this->BASE['data']);
+   // print_r($this->PAR['getT']);
     }
     /**
      * Show the form for creating a new resource.

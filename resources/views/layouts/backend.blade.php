@@ -2,8 +2,9 @@
 
  @php
 if(isset($data['param'])){$param=array_merge($param,$data['param']);}   
-if(!isset($param['getT'])){ $param['getT']=[]; }
-$modal= $param['modal'] ?? false ;
+//$getT=$param['getT'] ?? [];
+//$modal=$getT['modal'] ?? false;
+//$modal=$param['modal'] ?? $modal;
 $header= $param['header'] ?? true;
 $sidebar = $param['sidebar'] ?? true ;
 @endphp
@@ -20,9 +21,9 @@ $sidebar = $param['sidebar'] ?? true ;
 
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <!--external css-->
-    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
+    <!--  external css -->
+     <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!--<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet"> -->
     <!-- Custom styles for this template -->
     <link href="/assets/css/style.css" rel="stylesheet">
     <link href="/assets/css/style-responsive.css" rel="stylesheet">
@@ -79,17 +80,17 @@ $sidebar = $param['sidebar'] ?? true ;
         </header>
       <!--header end-->
 
-      @if (Session::has('flash_message'))
+    @if (Session::has('flash_message'))
             <div class="container">
                 <div class="alert alert-success">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     {{ Session::get('flash_message') }}
                 </div>
             </div>
-        @endif 
- 
-     @yield('content')
+    @endif 
 
+     @yield('content')
+   
       <!--main content end-->
  
   </section>

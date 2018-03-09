@@ -1,8 +1,7 @@
 @php
 if(!isset($data)) {$data=[];}
 $getT=$param['getT'] ?? [];
-$modal=$getT['modal'] ?? false;
-$modal=$param['modal'] ?? $modal; 
+
 $list=$data['list'] ?? $data;
 $id=$list->id ?? '';
 $formview=$param['view']['form'] ??  $param['view']['include'].'.form'; 
@@ -18,11 +17,11 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
 @endphp
 
 
-@if(!$modal)
+
 @extends('layouts.backend')
 @section('content')
 @include('layouts.sidebar')          
-@endif
+
 
 <section id="main-content">  
     <section class="wrapper">
@@ -60,11 +59,8 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                 </div>
             </div>
         </div>
-          </div>
+        
 </section>
 </section>        
-@if(!$modal)        
-    </div>
 @endsection
 
-@endif
