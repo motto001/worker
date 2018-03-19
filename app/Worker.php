@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Worker extends Model
 {
+
+    use \Illuminate\Database\Eloquent\SoftDeletes;
+    protected $dates = ['deleted_at'];
     /**
      * The database table used by the model.
      *
@@ -37,12 +40,23 @@ class Worker extends Model
     {
         return $this->hasMany('App\Workerday');
     }
+    public function workergroup()
+    {
+        return $this->belongsTo('App\Workergroup');
+    }
     public function user()
     {
         return $this->belongsTo('App\User');
     }
-//---------------------------------------
+    public function workertime()
+    {
+        return $this->hasMany('App\Workertime');
+       // return $this->belongsToMany('App\Workertimeframe', 'worker_timeframes', 'worker_id', 'timeframe_id');
+    }
 
+
+//---------------------------------------
+/*
     public function workertimeframe()
     {
         return $this->hasMany('App\Workertimeframe');
@@ -83,10 +97,7 @@ class Worker extends Model
     {
         return $this->belongsTo('App\Workertype');
     }
-    public function workergroup()
-    {
-        return $this->belongsTo('App\Workergroup');
-    }
+
     public function day()
     {
         return $this->hasMany('App\Day');
@@ -99,5 +110,5 @@ class Worker extends Model
     {
         return $this->hasMany('App\Chworkertime');
     }
-    
+  */  
 }

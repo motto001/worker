@@ -57,7 +57,7 @@ class WorkersController extends MoController
         // 'search'=>false,         
      ];
      protected $base= [    
-        'get'=>['user_id'=>'0','view'=>null], //Ha a wrolunitból hvjuk a wruvissza true lesz, a store az update és a delete visszaírányít az aktuális wroleunitra.mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
+        'get'=>['user_id'=>'0','view'=>null,'group_id'=>null,'addroute'=>null], //Ha a wrolunitból hvjuk a wruvissza true lesz, a store az update és a delete visszaírányít az aktuális wroleunitra.mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
         'obname'=>'\App\Worker',
         'with'=>['user','timeframe'],
         'search_column' => [ 'wrole_id', 'status_id','workertype_id', 'workergroup_id',  'salary', 'salary_type','foto', 'fullname',
@@ -70,7 +70,7 @@ class WorkersController extends MoController
      ];
 
     protected $val= [
-    'user_id' => 'required|unique|integer',    
+    'user_id' => 'required|integer',    
     'fullname' => 'required|max:200',
     'cim' => 'required|max:200',
     'tel' => 'max:50|nullable',
@@ -105,6 +105,11 @@ public function index_set()
        $this->BASE['data']['workertype']=Workertype::get()->pluck('name','id');
        $this->BASE['data']['workergroup']=Workergroup::get()->pluck('name','id');
     }
+    public function store_set_data()
+    { 
+        $this->validate($this->BASE['request'],[
+        'user_id' => 'unique:workers,user_id']);
+    } 
   public function store_set()
     {
        // $worker_id=$this->BASE['ob']->id;
@@ -136,7 +141,11 @@ public function index_set()
         $this->BASE['data']['workergroup']=Workergroup::get()->pluck('name','id');
       
     }
-
+    public function update_set_data()
+    { 
+        $this->validate($this->BASE['request'],[
+        'user_id' => 'unique:workers,user_id,'.$this->BASE['data']['id']]);
+    }
     public function update_set()
     {
        // $worker_id=$this->BASE['ob']->id;

@@ -9,7 +9,8 @@
   <li class="flex-item" style="{{ $daystyle[$daytype]['li'] }}">
         <div style="{{ $daystyle[$daytype]['div'] }}">{{ $dt['day'] }}., {{ $dt['type'] }}
         </div>
-  <!-- idők-------------------------------------->        
+  <!-- idők-------------------------------------->   
+    
     @if(isset($dt['times']))
         @foreach($dt['times'] as $time)  
 

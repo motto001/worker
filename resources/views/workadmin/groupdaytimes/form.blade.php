@@ -1,8 +1,10 @@
 @php
-
 $getT=$param['getT'];
-$addroute=str_replace("_","/",$getT['addroute']);
-@endphp
+$data['worker']=$data->worker ??[];
+@endphp 
+
+<!-- Button HTML (to Trigger Modal) -->
+<a href="{!!  MoHandF::url($param['routes']['base'],$param['getT'],['task'=>'workermodal','group_id'=>$data['id']]) !!}" role="button" class="btn btn-large btn-primary" data-toggle="modal" data-target="#myModal">Dolgozó hozzáadása</a>
 
 <style>
 
@@ -40,7 +42,7 @@ $addroute=str_replace("_","/",$getT['addroute']);
 
 <ul class="flex-container nowrap" style="justify-content:flex-start;margin: 2%;"> 
 
-    @foreach($data['list']  as $item)
+    @foreach($data['worker'] as $item)
         <div style="border: 1px solid grey; border-radius: 3px;margin: 0.5%;">   
             <li class="flex-item" >
             <div style="height:60px;width:60px;">  
@@ -53,7 +55,7 @@ $addroute=str_replace("_","/",$getT['addroute']);
                                 {{ $item['user']['name'] }}
 <br/>
                                     
-                                    <a href=" {!! MoHandF::url($addroute,[],['task'=>'addworker','worker_id'=>$item->id,'group_id'=>$getT['group_id']]) !!}  " title="View "
+                                    <a href=" {!! MoHandF::url($param['routes']['base'].'/'.$item->id,$getT) !!}  " title="View "
                                         class=" btn-info btn-xs">
                                                 <i class="fa fa-check" aria-hidden="true">Beszur</i> 
                                        
@@ -62,6 +64,5 @@ $addroute=str_replace("_","/",$getT['addroute']);
         </div>
     @endforeach    
 
-</ul>       
-          
+</ul>  
 

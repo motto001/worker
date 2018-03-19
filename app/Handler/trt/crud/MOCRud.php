@@ -28,12 +28,12 @@ Trait MOCrud
         $this->validate($request,$this->val );
         $this->BASE['data'] = $request->all();
 
-        if (method_exists($this,'set_update_data')) {$this->set_update_data();} 
+        if (method_exists($this,'store_set_data')) {$this->store_set_data();} 
         if (method_exists($this,'image_upload')) {$this->image_upload();} 
     
         $this->BASE['ob']= $this->BASE['ob']->create($this->BASE['data']);
-
-        if (method_exists($this,'update_set')) {$this->update_set();} 
+        $this->BASE['data']['id'] =$this->BASE['ob']->id;
+        if (method_exists($this,'store_set')) {$this->store_set();} 
 
         Session::flash('flash_message', trans('mo.itemadded'));
         $redirfunc=$this->BASE['redirfunc']  ?? 'mo_redirect';
@@ -42,7 +42,7 @@ Trait MOCrud
     }
     public function edit_set(){}
     public function edit($id)
-    {  
+    {   // echo 'index';
         if(isset($this->BASE['orm']['with'])){$this->BASE['ob']= $this->BASE['ob']->with($this->BASE['orm']['with']);}
         $this->BASE['data']  =$this->BASE['ob']->findOrFail($id);
         $this->BASE['data']['id']=$id;
@@ -62,8 +62,8 @@ Trait MOCrud
         $requestData = $request->all();
 
         $this->BASE['data'] = $request->all();
-
-        if (method_exists($this,'set_update_data')) {$this->set_update_data();} 
+        $this->BASE['data']['id'] =$id;
+        if (method_exists($this,'update_set_data')) {$this->update_set_data();} 
         if (method_exists($this,'image_upload')) {$this->image_upload();} 
 
         if(isset($this->BASE['orm']['with']))
@@ -82,10 +82,10 @@ Trait MOCrud
 
     public function destroy($id)
     {  
+        $this->BASE['data']['id']=$id;
         $this->BASE['ob'] = $this->BASE['ob']->find($id);
         if (method_exists($this,'destroy_set')) {$this->destroy_set();} 
         $this->BASE['ob']= $this->BASE['ob']->destroy($id);
-      
         Session::flash('flash_message', trans('mo.deleted'));
 
         $redirfunc=$this->BASE['redirfunc']  ?? 'mo_redirect';
@@ -94,10 +94,12 @@ Trait MOCrud
     }
 
     public function show($id)
-    {   
-        if(isset($this->BASE['orm']['with']))
-        $this->BASE['ob']->with($this->BASE['orm']['with']);
+    {     
+        if(isset($this->BASE['orm']['with'])){$this->BASE['ob']= $this->BASE['ob']->with($this->BASE['orm']['with']);} 
         $this->BASE['data'] =$this->BASE['ob']->findOrFail($id);
+        $this->BASE['data']['id']=$id;
+        //print_r( $this->BASE['data']['worker'] );
+
         if (method_exists($this,'show_set')) {$this->show_set();} 
         $data=$this->BASE['data'];
      //print_r( $this->BASE['data']);
@@ -109,6 +111,7 @@ Trait MOCrud
     { 
         //workertimewish publikálás----------
        $id=Input::get('id');
+       $this->BASE['data']['id']=$id;
        $this->BASE['ob_res']=$this->BASE['ob']->findOrFail($id);
        $this->BASE['ob_res']->update(['pub'=>0]);
        if (method_exists($this,'pub_set')) {$this->pub_set();} 
@@ -120,7 +123,7 @@ Trait MOCrud
     public function unpub()
     { 
        $id=Input::get('id');
-
+       $this->BASE['data']['id']=$id; 
        $pubval=$this->Par['pubval'] ?? 1;
        $this->BASE['ob_res']=$this->BASE['ob']->findOrFail($id);
        $this->BASE['ob_res']->update(['pub'=>2]);

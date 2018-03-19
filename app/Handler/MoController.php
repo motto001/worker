@@ -48,15 +48,14 @@ class MoController extends Controller
         $view_varname = $this->PAR['view_varname'] ?? 'param';
         View::share($view_varname, $this->PAR);
         $task = Input::get('task') ?? \Route::getCurrentRoute()->getActionMethod();
+        $this->PAR['task']= $task; 
 
         if ($task != \Route::getCurrentRoute()->getActionMethod()) {
-            if (is_callable([$this, $task])) {
-                $this->PAR['task']= $task;
-                return $this->$task();
-            } 
-            else 
-            {  $this->PAR['task'] = \Route::getCurrentRoute()->getActionMethod();}
+
+            if (is_callable([$this, $task])) {   return $this->$task();  } 
+
         }
+      //  echo $this->PAR['task']. \Route::getCurrentRoute()->getActionMethod();
     }
 
 }

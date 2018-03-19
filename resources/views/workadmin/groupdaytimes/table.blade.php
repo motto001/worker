@@ -1,23 +1,24 @@
-<a data-toggle="modal" href="/manager/workers?view=modaltable" data-target="#myModal">Click me !</a>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                 <h4 class="modal-title">Modal title</h4>
 
-            </div>
-            <div class="modal-body"><div class="te"></div></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+<div class="table-responsive">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Name</th><th>Note</th><th>Létszám</th><th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($data['list'] as $item)
+                <tr>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->name }}</td><td>{{ $item->note }}</td><td>{{ $item->sum }}</td>
+                    <td>
+        @include('crudbase.listbuttons')
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+     </div>
+

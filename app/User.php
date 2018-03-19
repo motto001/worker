@@ -33,6 +33,11 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Worker');
     }
+  public function sajatroles()
+    {
+        return $this->belongsToMany('App\Role','role_user','user_id','role_id');
+    }
+
     /*
     public function Worker(){
         return $this->belongsTo('App\Workeruser','user_id','id');

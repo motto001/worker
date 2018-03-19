@@ -1,6 +1,6 @@
 @extends('layouts.app')
  <div style="background-color:#000033; max-height:150px;">   
-@include('layouts.mo_worker_script2')  
+@include('layouts.mo_worker_script')  
  </div>
 @section('content')
 

@@ -8,8 +8,10 @@ else{$data=$data->toarray();}
 //echo 'hkj';
 $langfile=$param['langfile'] ?? 'mo';
 $showT=$param['show'] ?? [];
+$showcontent=$param['view']['showcontent'] ?? false;
 
 if(isset($showT[0]) && $showT[0]=='auto'){
+  
     foreach($data as $key=>$val){
         $label=$val['label'] ?? $key;
         $langalias=$val['langalias'] ?? $key;
@@ -22,8 +24,8 @@ if(isset($showT[0]) && $showT[0]=='auto'){
 
 $list=$data['list'] ?? $data;
 $getT=$param['getT'] ?? [];
-$formbase=$param['view']['include'] ?? $param['view']['base'] ;
-$formview=$param['view']['form'] ??  $formbase.'.form'; 
+//$formbase=$param['view']['include'] ?? $param['view']['base'] ;
+//$formview=$param['view']['form'] ??  $formbase.'.form'; 
 //urlek------------------------
 $cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
 $formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
@@ -39,7 +41,7 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
 @section('content')
 @include('layouts.sidebar')    
 
- 
+
 <section id="main-content">  
     <section class="wrapper">
         <div class="row">   
@@ -49,6 +51,9 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                     <div class="panel-body">
                         <br/>
                         <br/>
+@if($showcontent)
+@include($showcontent) 
+@else
 
                         <div class="table-responsive">
                             <table class="table table-borderless">
@@ -62,7 +67,7 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                                 </tbody>
                             </table>
                         </div>       
-
+@endif
                     </div>
                 </div>
             </div>

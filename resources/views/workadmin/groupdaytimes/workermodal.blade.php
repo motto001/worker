@@ -1,7 +1,10 @@
 @php
 
 $getT=$param['getT'];
-$addroute=str_replace("_","/",$getT['addroute']);
+//$addroute=str_replace("_","/",$getT['addroute']);
+//echo '--------------mmmmmm';
+//print_r($data);
+
 @endphp
 
 <style>
@@ -37,10 +40,9 @@ $addroute=str_replace("_","/",$getT['addroute']);
         </style>
 
 
-
 <ul class="flex-container nowrap" style="justify-content:flex-start;margin: 2%;"> 
 
-    @foreach($data['list']  as $item)
+    @foreach($data  as $item)
         <div style="border: 1px solid grey; border-radius: 3px;margin: 0.5%;">   
             <li class="flex-item" >
             <div style="height:60px;width:60px;">  
@@ -53,7 +55,7 @@ $addroute=str_replace("_","/",$getT['addroute']);
                                 {{ $item['user']['name'] }}
 <br/>
                                     
-                                    <a href=" {!! MoHandF::url($addroute,[],['task'=>'addworker','worker_id'=>$item->id,'group_id'=>$getT['group_id']]) !!}  " title="View "
+                                    <a href=" {!! MoHandF::url($param['routes']['base'].'/'.$getT['group_id'].'/edit',[],['edittask'=>'addworker','worker_id'=>$item->id]) !!}  " title="View "
                                         class=" btn-info btn-xs">
                                                 <i class="fa fa-check" aria-hidden="true">Beszur</i> 
                                        

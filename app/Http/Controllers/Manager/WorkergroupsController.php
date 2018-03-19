@@ -36,7 +36,7 @@ class WorkergroupsController extends MoController
 protected $val =[
     'name' => 'required|max:200',
     'note' => 'max:200|nullable',
-    'pub' => 'max:4'
+    'sum' => 'integer|max:400|nullable'
 ];
 
 }

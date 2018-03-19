@@ -1,46 +1,71 @@
-@extends('layouts.backend')
 
-@section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
 
-            <div class="col-md-9">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Workergroup {{ $workergroup->id }}</div>
-                    <div class="panel-body">
+@php
+$getT=$param['getT'];
 
-                        <a href="{{ url('/manager/workergroups') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <a href="{{ url('/manager/workergroups/' . $workergroup->id . '/edit') }}" title="Edit Workergroup"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['manager/workergroups', $workergroup->id],
-                            'style' => 'display:inline'
-                        ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete Workergroup',
-                                    'onclick'=>'return confirm("Confirm delete?")'
-                            ))!!}
-                        {!! Form::close() !!}
-                        <br/>
-                        <br/>
+//$data=$data->toarray();
+//$data['worker']=$data->worker->toarray() ?? [];
+@endphp 
 
-                        <div class="table-responsive">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr>
-                                        <th>ID</th><td>{{ $workergroup->id }}</td>
-                                    </tr>
-                                    <tr><th> Name </th><td> {{ $workergroup->name }} </td></tr><tr><th> Note </th><td> {{ $workergroup->note }} </td></tr><tr><th> Pub </th><td> {{ $workergroup->pub }} </td></tr>
-                                </tbody>
-                            </table>
-                        </div>
+<!-- Button HTML (to Trigger Modal) -->
+<a href="{!!  MoHandF::url($param['routes']['base'],$param['getT'],['task'=>'workermodal','group_id'=>$data['id']]) !!}" role="button" class="btn btn-large btn-primary" data-toggle="modal" data-target="#myModal">Dolgozó hozzáadása</a>
 
-                    </div>
-                </div>
-            </div>
+<style>
+
+        .flex-container {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            justify-content:flex-end;
+            -ms-box-orient: horizontal;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -moz-flex;
+            display: -webkit-flex;
+            display: flex;
+          }
+          .nowrap  { 
+            -webkit-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+          }
+        
+          .flex-item { 
+            background: white;
+            padding: 5px;
+             /* width: 13.7%;
+          height: 100px;*/
+            margin: 0.3%;
+            text-align: center;
+            overflow:hidden;
+          }
+ 
+        </style>
+
+
+
+<ul class="flex-container nowrap" style="justify-content:flex-start;margin: 2%;"> 
+
+    @foreach($data['worker'] as $item)
+        <div style="border: 1px solid grey; border-radius: 3px;margin: 0.5%;">   
+            <li class="flex-item" >
+            <div style="height:60px;width:60px;">  
+                @if(isset($item['foto']))
+                 <img src="/{{ $item['foto'] }}" alt="foto" height="50px" width="50px"> 
+                @else
+                <i class="fa fa-user fa-3x"  aria-hidden="true"></i>
+                @endif
+            </div>   
+                                {{ $item['id'] }}
+<br/>
+                                    
+                                    <a href=" {!! MoHandF::url($param['routes']['base'].'/'.$item['id'],$getT) !!}  " title="View "
+                                        class=" btn-info btn-xs">
+                                                <i class="fa fa-check" aria-hidden="true">Beszur</i> 
+                                       
+                                    </a>
+            </li>                        
         </div>
-    </div>
-@endsection
+    @endforeach    
+
+</ul>  

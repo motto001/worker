@@ -16,7 +16,7 @@
 <div class="form-group{{ $errors->has('roles') ? ' has-error' : ''}}">
     {!! Form::label('role', 'Role: ', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::select('roles[]', $data['rolesbase'], isset($data['user_roles']) ? $data['user_roles'] : [], ['class' => 'form-control', 'multiple' => true]) !!}
+        {!! Form::select('roles[]', $data['roles'], isset($data['user_roles']) ? $data['user_roles'] : [4], ['class' => 'form-control', 'multiple' => true]) !!}
     </div>
 </div>
 <div class="form-group">

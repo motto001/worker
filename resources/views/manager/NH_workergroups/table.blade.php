@@ -5,14 +5,14 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Name</th><th>Note</th><th>Pub</th><th>Actions</th>
+                                        <th>ID</th><th>Name</th><th>Note</th><th>Létszám</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($data['list'] as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->name }}</td><td>{{ $item->note }}</td><td>{{ $item->pub }}</td>
+                                        <td>{{ $item->name }}</td><td>{{ $item->note }}</td><td>{{ $item->sum }}</td>
                                         <td>
                             @include('crudbase.listbuttons')
                                         </td>

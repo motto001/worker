@@ -6,16 +6,19 @@
     {{ NaptarController::proba('param') }}
     {{ App::make("app\Http\Controllers\Worker\NaptarController")->proba2('param') }} */
 
+ //viewek--------------------------------------------   
  $calendarbase=$param['calendar']['view']['base']  ?? 'calendar';
-
  $pdf_print_view=$param['calendar']['view']['pdf_print'] ??  $calendarbase;
- $pdf_print=$param['calendar']['pdf_print']  ?? true;
-
+ $calendarview=$param['calendar']['view']['calendarview'] ??  $calendarbase;
  $ev_ho_view=$param['calendar']['view']['ev_ho_view'] ??  $calendarbase;
- $ev_ho=$param['calendar']['ev_ho']  ?? true;
  $style_view=$param['calendar']['view']['style'] ??  $calendarbase;
  $days_view=$param['calendar']['view']['days'] ??  $calendarbase;
 
+//kapcsolók----------------------------------------------------
+ $pdf_print=$param['calendar']['pdf_print']  ?? true;
+ $ev_ho=$param['calendar']['ev_ho']  ?? true;
+
+//styleok-------------------------------------------------
 $daystyle=$param['calendar']['daystyle'] ?? [
         'empty'=>'border: 1px solid silver;',
         'base'=>['li'=>'border: 1px solid silver;','div'=>'','span'=>'color:silver'],
@@ -56,11 +59,17 @@ $timestyle=$param['calendar']['timestyle'] ??[
 @foreach($data['calendar'] as $dt) 
 <!-- sorkezdés---------------------------------------------->
     @if($dt['dayOfWeek']==1 or $dt['day']==1) 
-        <ul class="flex-container nowrap" style="justify-content:flex-start"> 
-<!-- **sortöltés üres divek---------------------------------------------------------->
-        @if ($dt['day']==1 && $dt['dayOfWeek']>0 ) 
-            @for ($i = 0; $i < $dt['dayOfWeek']; $i++)
-                <li class="flex-item" style="{{ $daystyle['empty'] }}"> </li>
+            <ul class="flex-container nowrap" style="justify-content:flex-start"> 
+    <!-- **sortöltés üres divek---------------------------------------------------------->
+        @php
+        if( $dt['dayOfWeek']==0){$emptydiv=6;}
+        else{$emptydiv=$dt['dayOfWeek']-1;}
+        @endphp     
+        @if ($emptydiv>0) 
+            @for ($i = 0; $i < $emptydiv; $i++)
+                <li class="flex-item" style="{{ $daystyle['empty'] }}">
+                    
+                </li>
             @endfor
 
         @endif
@@ -69,9 +78,9 @@ $timestyle=$param['calendar']['timestyle'] ??[
  <!-- Napok--------------------------------------------------->        
 @include($days_view.'.days')
 <!-- sor lezárása ha teljes a hét------------------------->   
-        @if($dt['dayOfWeek']==0) 
-        </ul > 
-        @endif 
+    @if($dt['dayOfWeek']==0) 
+    </ul > 
+    @endif 
 @endforeach
 
  <!-- üres divek sortöltés és sorlezárás ha nem teljes a hét------------------------------------>

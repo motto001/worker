@@ -25,11 +25,11 @@ class Workergroup extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'note', 'pub'];
+    protected $fillable = ['name', 'note', 'sum'];
 
     public function worker()
 	{
-		return $this->hasOne('App\Worker');
+		return $this->hasMany('App\Worker');
 	}
     
 

@@ -34,4 +34,9 @@ class Role extends Model
     {
         return $this->permissions()->save($permission);
     }
+/*
+  public function sajatuser()
+{
+    return $this->belongsToMany('App\User','role_user','role_id','user_id');
+} */ 
 }
