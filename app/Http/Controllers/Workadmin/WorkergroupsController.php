@@ -21,8 +21,8 @@ class WorkergroupsController extends MoController
     use \App\Handler\trt\set\GetT;
     protected $par = [
         'routes' => ['base' => 'workadmin/groups'],
-        'view' => ['base' => 'crudbase', 'include' => 'workadmin.groups',
-         'showcontent' => 'workadmin.groups.show', 'workermodal' => 'workadmin.groups.workermodal'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
+        'view' => ['base' => 'crudbase', 'include' => 'workadmin.groups','show2' => 'crudbase.show',
+         'showcontent' => 'workadmin.groups.show2', 'workermodal' => 'workadmin.groups.workermodal'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
         'cim' => 'Múszakok',
       //  'show' => ['auto'], // a show file generálja a megjelenítést
         //  'show'=>[['colname'=>'id','label'=>'Id']]
@@ -30,7 +30,7 @@ class WorkergroupsController extends MoController
 
     protected $base = [
         'obname' => '\App\Workergroup',
-        'get'=>['group_id'=>null,'worker_id'=>null,'edittask'=>null],
+        'get'=>['group_id'=>null],
         'orm'=>[ 'with'=>['worker']],
     ];   
 
@@ -47,22 +47,36 @@ public function workermodal()
   
 }
 
-public function addworker($group_id)
+public function show2_set()
 {
-    $worker_id=$this->PAR['getT']['worker_id'];
-  //  $group_id=$this->PAR['getT']['group_id'];
-    $worker=Worker::find($worker_id);
-    //print_r($worker);
-    $worker->update(['workergroup_id'=>$group_id]);
-    //$this->edit($group_id);
-    //exit();
-}
-public function show_set()
-{
-    $edittask=$this->PAR['getT']['edittask'] ?? '';
     $group_id=$this->BASE['data']['id'];
+    $request=$this->BASE['request'];
+    if($request->worker_id){
+        $workerO=Worker::findOrFail($request->worker_id); 
+        if($request->edittask=='addworker'){$workergroup_id=$group_id;}
+        if($request->edittask==='delworker'){$workergroup_id=null; }
+        foreach($workerO as $worker) {
+            $worker->update(['workergroup_id'=>$workergroup_id]);
+        } 
+        
+    }
+   
     
-if($edittask=='addworker'){$this->addworker($group_id);}
-}
 
+
+}
+//előbb hívja meg show_set()-et mnt az eredeti hogy ne kelljen frissíteni woeker törléss és hozzáadás esetén
+public function show2($id)
+{  
+    
+    $this->BASE['data']['id']=$id;
+    $this->show2_set();
+    $data=$this->BASE['data'];
+
+    if(isset($this->BASE['orm']['with'])){$this->BASE['ob']= $this->BASE['ob']->with($this->BASE['orm']['with']);} 
+    $this->BASE['data'] =$this->BASE['ob']->findOrFail($id);
+
+$viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
+return $this->$viewfunc();
+} 
 }

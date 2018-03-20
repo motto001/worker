@@ -1,14 +1,18 @@
 
 
 @php
-$getT=$param['getT'];
+//$getT=$param['getT'] ?? [];
 
 //$data=$data->toarray();
 //$data['worker']=$data->worker->toarray() ?? [];
 @endphp 
 
 <!-- Button HTML (to Trigger Modal) -->
-<a href="{!!  MoHandF::url($param['routes']['base'],$param['getT'],['task'=>'workermodal','group_id'=>$data['id']]) !!}" role="button" class="btn btn-large btn-primary" data-toggle="modal" data-target="#myModal">Dolgozó hozzáadása</a>
+<div style="float:left">
+
+    <a href="{!!  MoHandF::url($param['routes']['base'],$getT,['task'=>'workermodal','group_id'=>$data['id']]) !!}" role="button" class="btn btn-large btn-primary" data-toggle="modal" data-target="#myModal">Dolgozó hozzáadása</a>
+
+</div>
 
 <style>
 
@@ -39,10 +43,14 @@ $getT=$param['getT'];
             text-align: center;
             overflow:hidden;
           }
- 
+  
         </style>
-
-
+{!! Form::open(['url' => MoHandF::url($param['routes']['base'].'/show2/'.$data['id']),
+ 'class' => 'form-horizontal', 'files' => true]) !!}
+<input type="hidden"  name="edittask" value="delworker" >   
+<button type="submit" class=" btn-danger btn btn-large">
+<i class="fa fa-trash-o" aria-hidden="true"> Kijelöltek eltávolítása</i> 
+</button>
 
 <ul class="flex-container nowrap" style="justify-content:flex-start;margin: 2%;"> 
 
@@ -58,14 +66,10 @@ $getT=$param['getT'];
             </div>   
                                 {{ $item['id'] }}
 <br/>
-                                    
-                                    <a href=" {!! MoHandF::url($param['routes']['base'].'/'.$item['id'],$getT) !!}  " title="View "
-                                        class=" btn-info btn-xs">
-                                                <i class="fa fa-check" aria-hidden="true">Beszur</i> 
-                                       
-                                    </a>
+<input type="checkbox"  name="worker_id[]" value="{{ $item['id'] }}" >                        
             </li>                        
         </div>
     @endforeach    
 
 </ul>  
+{!! Form::close() !!}

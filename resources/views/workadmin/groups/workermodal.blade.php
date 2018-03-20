@@ -38,7 +38,15 @@ $getT=$param['getT'];
           }
  
         </style>
+{!! Form::open(['url' => MoHandF::url($param['routes']['base'].'/show2/'.$getT['group_id'] ),
+'class' => 'form-horizontal', 'files' => true]) !!}
 
+<input type="hidden"  name="edittask" value="addworker" > 
+
+<button type="submit" class=" btn-success btn btn-large">
+
+<i class="fa fa-plus" aria-hidden="true"> Kijelöltek hozzáadása</i> 
+</button>
 
 <ul class="flex-container nowrap" style="justify-content:flex-start;margin: 2%;"> 
 
@@ -54,12 +62,8 @@ $getT=$param['getT'];
             </div>   
                                 {{ $item['user']['name'] }}
 <br/>
-                                    
-                                    <a href=" {!! MoHandF::url($param['routes']['base'].'/'.$getT['group_id'],[],['edittask'=>'addworker','worker_id'=>$item->id]) !!}  " title="View "
-                                        class=" btn-info btn-xs">
-                                                <i class="fa fa-check" aria-hidden="true">Beszur</i> 
-                                       
-                                    </a>
+               
+                                    <input type="checkbox"  name="worker_id[]" value="{{ $item['id'] }}" >        
             </li>                        
         </div>
     @endforeach    

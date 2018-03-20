@@ -3,8 +3,10 @@
 //adatok-----------------
 if(!isset($data)){$data=[];}
 else{$data=$data->toarray();}
+$getT=$param['getT'] ;
+
 //péda $param['show']=[['colname'=>'id','label'=>'Id']]
-//print_r($data);
+//print_r($getT);
 //echo 'hkj';
 $langfile=$param['langfile'] ?? 'mo';
 $showT=$param['show'] ?? [];
@@ -23,12 +25,12 @@ if(isset($showT[0]) && $showT[0]=='auto'){
 }
 
 $list=$data['list'] ?? $data;
-$getT=$param['getT'] ?? [];
+
 //$formbase=$param['view']['include'] ?? $param['view']['base'] ;
 //$formview=$param['view']['form'] ??  $formbase.'.form'; 
 //urlek------------------------
 $cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
-$formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
+//$formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
 //gombok,mezők----------------------------------
 $cancel_button=$param['cancel_button'] ?? false;
 //feliratok----------------------
@@ -47,7 +49,7 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
         <div class="row">   
             <div class="col-lg-12 main-chart">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{  $param['cim']  or ''  }}  </div>
+                    <div class="panel-heading">{{  $param['cim']  or ''  }}   </div>
                     <div class="panel-body">
                         <br/>
                         <br/>

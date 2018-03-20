@@ -59,6 +59,7 @@ Route::group(['prefix' => '/manager','middleware' => ['auth', 'roles'], 'roles' 
 Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles' => 'workadmin'],function()
 {
     Route::resource('/groups', 'Workadmin\\WorkergroupsController');
+    Route::any('/groups/show2/{id}', 'Workadmin\\WorkergroupsController@show2');
     Route::resource('/groupdaytimes', 'Workadmin\\GroupdaytimesController');
   //  Route::resource('/grouptimes', 'Workadmin\\GrouptimesController');
     Route::resource('/workertimes', 'Workadmin\\WorkertimesController');
