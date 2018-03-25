@@ -20,17 +20,40 @@ Trait GetT
  * BASE['get'] értékei az alapértelmezett értékek. Ha null és nincs más érték,nem kerül be a PAR['getT']-be
  */
 function set_getT($parkey='get'){
-    //$request=$this->BASE['request'];
-    //print_r($this->BASE[$parkey] );
-        foreach($this->BASE[$parkey] as $key=>$val){
-            $val=Input::get($key) ?? $val;
-      //      echo $val.'---';
-            if($val!=null){
-                $this->PAR['getT'][$key]= $val; 
-            }  
+        if(isset($this->BASE[$parkey]) && !empty($this->BASE[$parkey])){
+           $this->get_to_getT($parkey);
         }
+        if(isset($this->BASE['post_to_getT']) && !empty($this->BASE['post_to_getT'])){
+            $this->post_to_getT();
+         }
   
     }
+
+    function get_to_getT($parkey='get'){
+        //$request=$this->BASE['request'];
+        //print_r($this->BASE[$parkey] );
+            foreach($this->BASE[$parkey] as $key=>$val){
+                $val=Input::get($key) ?? $val;
+          //      echo $val.'---';
+                if($val!=null){
+                    $this->PAR['getT'][$key]= $val; 
+                }  
+            }
+      
+        }
+        function post_to_getT(){
+     
+            foreach($this->BASE['post_to_getT'] as $key=>$val)
+            {
+                $val=$this->BASE['request']->$key ?? $val;
+                if($val!=null){
+                    $this->PAR['getT'][$key]= $val; 
+                }  
+            }
+        
+        }
+
+
 /**
  * az url osszes get paraméterét bemásolja a PAR['getT']
  */

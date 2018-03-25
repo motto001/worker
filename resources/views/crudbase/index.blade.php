@@ -1,3 +1,5 @@
+
+
 @php
 //adatok-----------------
 if(!isset($data)) {$data=[];}
@@ -65,8 +67,7 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
                                 </button>
                             </span>
                         </div>
-
-                        {!! Form::close() !!}
+                    {!! Form::close() !!}
 @include ($tableview)
                         <br/>
                         <br/>
@@ -80,4 +81,3 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
 </section>      
      
 @endsection
-

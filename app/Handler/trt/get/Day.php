@@ -38,7 +38,19 @@ Trait Day
                 $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);    
                $res[$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
             }   
-           
+            //------------------------
+     //print_r($res);  
+            $workerdaywishT= \App\Workerday::where([
+            ['pub', '=', 1],
+            ['worker_id', '=', $worker_id],
+            ['datum',  'LIKE', $ev."-".$ho."%"],
+            ])->get(); 
+  
+            foreach($workerdaywishT as $day) 
+            {  
+            $res[$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],['wishdaytype'=>$this->BASE['data']['daytype'][$day->daytype_id]]);               
+            // $res[$day->datum]['wishdaytype']=$this->BASE['data']['daytype'][$day->daytype_id];
+            }    
 return $res;
     }
 

@@ -11,10 +11,13 @@ Trait Base
         //$data=$this->BASE['data'] ?? $data;
      //     $task=Input::get('task') ?? \Route::getCurrentRoute()->getActionMethod();
      $task=$this->PAR['task'];
-    
+     $basetask=$this->PAR['task'];
      if (is_array($this->PAR['view'])) {
         $getview=$this->PAR['getT']['view'] ?? 'nincs';
-        $view=$this->PAR['view'][$getview]?? $this->PAR['view'][$task]  ?? $this->PAR['view']['base'].'.'.$task ;
+        $view=$this->PAR['view'][$getview] ?? 
+        $this->PAR['view'][$task]  ??
+        $this->PAR['view'][$basetask]  ??
+        $this->PAR['view']['base'].'.'.$basetask ;
      //  echo $task.$view;
         // echo '.......'.$this->PAR['getT']['view'] ;
    //      print_r($this->PAR['getT']);

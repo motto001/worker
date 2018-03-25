@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
-use App\Workergroup;
+use App\Group;
 use App\Worker;
-class WorkergroupsController extends MoController
+class GroupsController extends MoController
 { 
     use \App\Handler\trt\crud\IndexFull;
     use \App\Handler\trt\crud\MOCrud;
+    use \App\Handler\trt\crud\Task; // GET-el vezérelt taskok futtatása
     use \App\Handler\trt\view\Base;
     use \App\Handler\trt\redirect\Base;
     use \App\Handler\trt\set\Base; //akkor kell ha csak kiegészítjük A paramétereket nem PAR-t csak par-t adunk meg
@@ -29,7 +30,7 @@ class WorkergroupsController extends MoController
     ];
 
     protected $base = [
-        'obname' => '\App\Workergroup',
+        'obname' => '\App\Group',
         'get'=>['group_id'=>null],
         'orm'=>[ 'with'=>['worker']],
     ];   

@@ -14,27 +14,24 @@ use App\Workerday;
 use App\Timetype;
 use App\Daytype;
 use App\Day;
-//use App\Workerwrole;
-//use App\Workerwroleunit;
-//use App\Wroletime;
-//use App\Workertimewish;
-//use App\Wrole;
-//use App\Wroleunit;
 //use Carbon\Carbon;
+
 class GroupdaytimesController extends MoController
 {
     use \App\Handler\trt\crud\IndexFull;
     use \App\Handler\trt\crud\MOCrud;//crud functiok indey nélkül
+    use \App\Handler\trt\crud\Task; // GET-el vezérelt taskok futtatása
     use \App\Handler\trt\view\Base; //mo_view()
     use \App\Handler\trt\redirect\Base;//mo_redirect()
     use \App\Handler\trt\property\MoControllerBase; //PAR és BASE propertyk hogy legyen mit kiegéaszíteni
     use \App\Handler\trt\set\Orm; // with, where, order_by stb
     use \App\Handler\trt\set\Base; //akkor kell ha csak kiegészítjük A paramétereket nem PAR-t csak par-t adunk meg 
     use \App\Handler\trt\set\GetT;
-    use \App\Handler\trt\set\Task;  //csak a task paraméterekkel írja felül a a PAR DATA stb. tömböket, a taskot a MoController állapítja meg és futtatja
     use \App\Handler\trt\set\Date;
     use \App\Handler\trt\get\Day;
     use \App\Handler\trt\get\Time;
+
+
     protected $par= [
        // 'create_button'=>false,
         'search'=>false,

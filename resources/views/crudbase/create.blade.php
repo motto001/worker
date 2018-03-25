@@ -4,6 +4,7 @@ if(!isset($data)) {$data=[];}
 
 $list=$data['list'] ?? [];
 $getT=$param['getT'] ?? [];
+$formopen_in_crudview=$param['$formopen_in_crudview'] ?? true;
 $formbase=$param['view']['include'] ?? $param['view']['base'] ;
 $formview=$param['view']['form'] ??  $formbase.'.form'; 
 //urlek------------------------
@@ -43,14 +44,14 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                                 @endforeach
                             </ul>
                         @endif
-
+                        @if ($formopen_in_crudview)
                         {!! Form::open(['url' => $formurl, 
                         'class' => 'form-horizontal', 'files' => true]) !!}
-
+                        @endif
                         @include($formview)
-
+                        @if ($formopen_in_crudview)
                         {!! Form::close() !!}
-
+                        @endif
                     </div>
                 </div>
             </div>

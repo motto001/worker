@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workergroup extends Model
 {
+    use \Illuminate\Database\Eloquent\SoftDeletes;
+    protected $dates = ['deleted_at'];
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'workergroups';
+    protected $table = 'groupdays';
 
     /**
     * The database primary key value.
@@ -25,11 +27,15 @@ class Workergroup extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'note', 'sum'];
+    protected $fillable = ['daytype_id', 'group_id', 'datum', 'note', 'pub'];
 
-    public function worker()
+    public function timetypes()
 	{
-		return $this->hasMany('App\Worker');
+		return $this->belongsTo('App\Daytype');
+	}
+    public function group()
+	{
+		return $this->belongsTo('App\Group');
 	}
     
 

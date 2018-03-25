@@ -24,8 +24,10 @@ Trait MOCrud
       
     public function store(Request $request)
     {
-        
-        $this->validate($request,$this->val );
+        if(isset($this->val)){
+           $this->validate($request,$this->val );  
+        }
+       
         $this->BASE['data'] = $request->all();
 
         if (method_exists($this,'store_set_data')) {$this->store_set_data();} 
@@ -56,7 +58,7 @@ Trait MOCrud
     public function update_set(){} //mentés után  újabb save functionok lefuttatására
     public function update($id, Request $request)
     { 
-        $valT=$this->val_update ?? $this->val;
+        $valT=$this->val_update ?? $this->val ?? [];
 
         $this->validate($request,$valT );
         $requestData = $request->all();

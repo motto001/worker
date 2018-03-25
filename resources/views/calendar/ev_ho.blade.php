@@ -5,7 +5,7 @@ $ev_ho_formurl=$param['routes']['ev_ho_form'] ?? MoHandF::url($param['routes']['
  @endphp
 
 
- {{ Form::open(['url'=>$ev_ho_formurl, 'method' => 'GET'])}}
+ {{ Form::open(['url'=>$ev_ho_formurl, 'method' => 'POST'])}}
  <div class="row">             
     <div class="form-group ">
 <script>
@@ -26,13 +26,14 @@ $ev_ho_formurl=$param['routes']['ev_ho_form'] ?? MoHandF::url($param['routes']['
                     <span onclick="addyear()" style="cursor: pointer;" class="input-group-addon">></span>
                   </div>
          
+                  
     </div>
 
             <div class="col-sm-2">
                 {!! Form::select('ho', $months, null, ['class' => 'form-control']) !!}
             </div>
               <div class="col-sm-2">
-                    {!! Form::submit(isset($submitButtonText) ? $submitButtonText : @trans('mo.update'), ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(isset($submitButtonText) ? $submitButtonText : @trans('mo.update'), ['class' => 'btn btn-primary','name' => 'ev_ho']) !!}
             </div>
         </div>
     </div>

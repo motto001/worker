@@ -1,5 +1,3 @@
-
-
 @php
 // TODO config file elkészítése
 /*  use app\Http\Controllers\Worker\NaptarController;
@@ -8,12 +6,13 @@
 
  //viewek--------------------------------------------   
  $calendarbase=$param['calendar']['view']['base']  ?? 'calendar';
- $pdf_print_view=$param['calendar']['view']['pdf_print'] ??  $calendarbase;
- $calendarview=$param['calendar']['view']['calendarview'] ??  $calendarbase;
- $ev_ho_view=$param['calendar']['view']['ev_ho_view'] ??  $calendarbase;
- $style_view=$param['calendar']['view']['style'] ??  $calendarbase;
- $days_view=$param['calendar']['view']['days'] ??  $calendarbase;
-
+ //$calendarview=$param['calendar']['view']['calendarview'] ??  $calendarbase;
+//echo  '-----------------'. $calendarbase;
+ $pdf_print_view=$param['calendar']['view']['pdf_print'] ??  $calendarbase.'.pdf_print';
+ $ev_ho_view=$param['calendar']['view']['ev_ho_view'] ??  $calendarbase.'.ev_ho';
+ $style_view=$param['calendar']['view']['style'] ??  $calendarbase.'.style';
+ $days_view=$param['calendar']['view']['days'] ?? $calendarbase.'.days';
+//echo  '-----------------'.$days_view;
 //kapcsolók----------------------------------------------------
  $pdf_print=$param['calendar']['pdf_print']  ?? true;
  $ev_ho=$param['calendar']['ev_ho']  ?? true;
@@ -30,19 +29,20 @@ $timestyle=$param['calendar']['timestyle'] ??[
     ];
 @endphp
 
-@include($style_view.'.style')
+@include($style_view)
 
 @if( isset($param['calendar']['style_plus']))
     @include($param['calendar']['style_plus'].'.style_plus')
 @endif  
 @if( $pdf_print)
-    @include($calendarview.'.pdf_print')
+    @include( $pdf_print_view)
 @endif    
 
      <br><br> 
 @if( $ev_ho)            
-@include($calendarview.'.ev_ho')
+@include($ev_ho_view)
 @endif 
+
 
 
     <ul class="flex-container nowrap">
@@ -76,7 +76,7 @@ $timestyle=$param['calendar']['timestyle'] ??[
 <!-- **------------------------------------------------------------------->               
     @endif
  <!-- Napok--------------------------------------------------->        
-@include($days_view.'.days')
+ @include($days_view)
 <!-- sor lezárása ha teljes a hét------------------------->   
     @if($dt['dayOfWeek']==0) 
     </ul > 
@@ -91,5 +91,4 @@ $timestyle=$param['calendar']['timestyle'] ??[
 </ul > 
 @endif 
              
-    </div>                
-
+    </div>    
