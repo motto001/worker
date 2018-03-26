@@ -10,8 +10,9 @@ Trait Base
     public function   mo_view($data=[]){
         //$data=$this->BASE['data'] ?? $data;
      //     $task=Input::get('task') ?? \Route::getCurrentRoute()->getActionMethod();
-     $task=$this->PAR['task'];
-     $basetask=$this->PAR['task'];
+     
+     $basetask=$this->PAR['basetask'];
+     $task=$this->PAR['task'] ?? $basetask ;
      if (is_array($this->PAR['view'])) {
         $getview=$this->PAR['getT']['view'] ?? 'nincs';
         $view=$this->PAR['view'][$getview] ?? 

@@ -15,7 +15,7 @@ use App\Timeframe;
 use App\Workertimeframe;
 use App\Status;
 use App\Workertype;
-use App\Workergroup;
+use App\Group;
 
 
 class WorkersController extends MoController
@@ -103,7 +103,7 @@ public function index_set()
       
        $this->BASE['data']['status']=Status::get()->pluck('name','id');
        $this->BASE['data']['workertype']=Workertype::get()->pluck('name','id');
-       $this->BASE['data']['workergroup']=Workergroup::get()->pluck('name','id');
+       $this->BASE['data']['group']=Group::get()->pluck('name','id');
     }
     public function store_set_data()
     { 
@@ -138,7 +138,7 @@ public function index_set()
         $this->BASE['data']['base_timeframe']=Timeframe::get(['id','name'])->toarray();
         $this->BASE['data']['status']=Status::get()->pluck('name','id');
         $this->BASE['data']['workertype']=Workertype::get()->pluck('name','id');
-        $this->BASE['data']['workergroup']=Workergroup::get()->pluck('name','id');
+        $this->BASE['data']['group']=Group::get()->pluck('name','id');
       
     }
     public function update_set_data()

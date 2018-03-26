@@ -10,22 +10,30 @@ Trait Day
         $res=[];
         $worker_id=$this->BASE['data']['worker_id'];
         $ev=$this->BASE['data']['ev'];
+      
+       // echo $ev.'--------';
+
         $ho=$this->BASE['data']['ho'];
         //-----------------------
-        $dayT= \App\Day::where('datum',  'LIKE', $ev."-".$ho."%")
+        $dayT= \App\Day::with('daytype')->where('datum',  'LIKE', $ev."-".$ho."%")
             ->orwhere('datum',  'LIKE', "0000-".$ho."%")
             ->get();
             foreach($dayT as $day) 
             {
-               // $dayev = substr($day->datum, 4); 
+               
+            // $dayev = substr($day->datum, 4); 
                $day->datum = str_replace("0000", $ev, $day->datum);
-               $ujdayT=  ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'days',
+
+     //   echo $day->datum.'---'.$ev.' ';       
+ /*   
+
+               $ujdayT=  ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'days','munkanap'=>$day->daytype->munkanap,
                'type'=>$this->BASE['data']['daytype'][$day->daytype_id]];
                 $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
-            }  
+            */    }  
 
         //------------------------
-        $workerdayT= \App\Workerday::where([
+        $workerdayT= \App\Workerday::with('daytype')->where([
             ['pub', '=', 0],
             ['worker_id', '=', $worker_id],
             ['datum',  'LIKE', $ev."-".$ho."%"],
@@ -33,10 +41,12 @@ Trait Day
       // print_r($workerdayT);
             foreach($workerdayT as $day) 
             { 
-                $ujdayT= ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'workerdays',
+                $ujdayT= ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'workerdays','munkanap'=>$day->daytype->munkanap,
                 'type'=>$this->BASE['data']['daytype'][$day->daytype_id]];
-                $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);    
-               $res[$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
+            //    $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);    
+            // if($day->workerday){}
+             
+                $res[$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
             }   
             //------------------------
      //print_r($res);  

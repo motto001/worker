@@ -112,6 +112,7 @@ Trait MOCrud
     public function pub()
     { 
         //workertimewish publikálás----------
+      
        $id=Input::get('id');
        $this->BASE['data']['id']=$id;
        $this->BASE['ob_res']=$this->BASE['ob']->findOrFail($id);

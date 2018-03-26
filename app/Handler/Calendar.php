@@ -93,12 +93,11 @@ public function getMonthDays($year='0',$month='0')
                     'dayOfWeek'=>$date->dayOfWeek,
                     'datum'=>$datum,
                     'daytype_id'=>1,
-                    'ch'=>'base', // ha változtatunk pl workerdays,days ezt is változtatni ell
-                    'wish_id'=>1,
                     'type'=>'Munkanap',
+                    'munkanap'=>true,
                 ]; 
-                if( $date->dayOfWeek==0){$ujdays['daytype_id']=2;$ujdays['wish_id']=2;$ujdays['type']='Szabadnap';}
-               if($date->dayOfWeek==6 ){$ujdays['daytype_id']=3;$ujdays['wish_id']=3;$ujdays['type']='Pihenőnap';}
+                if( $date->dayOfWeek==0){$ujdays['daytype_id']=2;$ujdays['type']='Szabadnap';$ujdays['munkanap']=false;}
+               if($date->dayOfWeek==6 ){$ujdays['daytype_id']=3;$ujdays['type']='Pihenőnap';$ujdays['munkanap']=false;}
                 $days[$datum]= $ujdays;
                 $date->addDay();
             }  

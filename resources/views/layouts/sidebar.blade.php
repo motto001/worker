@@ -34,9 +34,9 @@ $menuT=[
 ],
 
 'workadmin'=>[
-['/workadmin/groups', 'Dolgpzói műszakok'],
-['/workadmin/groupdaytimes', 'Müszak tervező'],
-//['/workadmin/workerwroles','Műszak munkarendek'],
+['/workadmin/groups', 'Müszak tervező'],
+['/workadmin/groupdaytimes', 'Múszak naptárak'],
+['/workadmin/workerdaytimes','Dolgozói naptárak'],
 ['/workadmin/workerdays',  'Napok'],
 ['/workadmin/workertimes', 'Munkaidők'],
 //['/workadmin/workertimeframes ', 'Dolgozói időkeretek'],

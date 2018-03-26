@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Workadmin;
 use App\Handler\MoController;
 use App\Http\Requests;
@@ -55,9 +54,13 @@ public function show2_set()
     if($request->worker_id){
         $workerO=Worker::findOrFail($request->worker_id); 
         if($request->edittask=='addworker'){$workergroup_id=$group_id;}
-        if($request->edittask==='delworker'){$workergroup_id=null; }
+        if($request->edittask=='delworker'){$workergroup_id=null;
+       // echo 'jhkjhkjhjk';
+        
+        }
         foreach($workerO as $worker) {
-            $worker->update(['workergroup_id'=>$workergroup_id]);
+
+            $worker->update(['group_id'=>$workergroup_id]);
         } 
         
     }

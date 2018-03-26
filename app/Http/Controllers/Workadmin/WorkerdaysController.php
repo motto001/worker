@@ -23,6 +23,7 @@ class WorkerdaysController extends MoController
     use \App\Handler\trt\property\MoControllerBase; //PAR és BASE propertyk hogy legyen mit kiegéaszíteni
     use \App\Handler\trt\set\Orm; // with, where, order_by
     use \App\Handler\trt\set\GetT;
+    use \App\Handler\trt\crud\Task;
 
     protected $par = [
         //'baseroute'=>'workadmin/workerdays',
@@ -86,24 +87,7 @@ class WorkerdaysController extends MoController
     public function store_set_data(){}
 
 
-        public function pub()
-    {  
-        $id=Input::get('id');
-        $this->BASE['ob_res']=$this->BASE['ob']->findOrFail($id);
-       
-        $worker_id=$this->BASE['ob_res']->worker_id;
-        $datum=$this->BASE['ob_res']->datum;
-        $this->BASE['ob']->where('datum', '=' ,$datum)
-        ->where('worker_id', '=' ,$worker_id)
-        ->update(['pub'=>2]);
-       
-       $this->BASE['ob_res']->update(['pub'=>0]);
-       if (method_exists($this,'pub_set')) {$this->pub_set();} 
-        Session::flash('flash_message',  trans('mo.item_pub'));
-        $redirfunc=$this->BASE['redirfunc']  ?? 'mo_redirect';
-      //  if (method_exists($this,$redirfunc)) {return $this->$redirfunc();} //behívja  a task specifikus routot is
-      // else{return redirect($this->PAR['routes']['base'] ); } 
-    }
+ 
    // public function create(){}
       //  public function store(){}    
   //      public function edit($id){}

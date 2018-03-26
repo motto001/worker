@@ -15,7 +15,8 @@ $createUrl=$param['routes']['create'] ?? MoHandF::url($param['routes']['base'].'
 $cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
 $formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
 //gombok,mezők----------------------------------
-$search= $param['search'] ?? true;
+//$search= $param['search'] ?? false;
+$search=  false;
 $create_button=$param['create_button'] ?? true;
 $cancel_button=$param['cancel_button'] ?? false;
 //feliratok----------------------
@@ -48,7 +49,7 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
  @endif                       
  @if($cancel_button)
  
-    <a href="{{ $canceleUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
+    <a href="{{ $cancelUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
     <i class="fa fa-arrow-left" aria-hidden="true"></i>{{ $cancel_label }}</button></a>
 
 @endif   

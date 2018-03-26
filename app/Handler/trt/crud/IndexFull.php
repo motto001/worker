@@ -38,13 +38,16 @@ trait IndexFull
     }
     public function index(Request $request)
     { 
-    if($this->PAR['task']=='index'){
+
+      
+
+    //if($this->PAR['task']=='index'){
         $this->index_base();
 
         if (method_exists($this, 'index_set')) {
              $this->index_set();
         } 
-    }
+   // }
     
         $viewfunc = $this->BASE['viewfunc'] ?? 'mo_view';
         if (method_exists($this, $viewfunc)) {return $this->$viewfunc();} 

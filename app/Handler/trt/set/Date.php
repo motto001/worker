@@ -20,13 +20,18 @@ public function set_date(){
         if($this->BASE['data']['ev']=='xxxx'){$this->BASE['data']['ev']=$t->year;}
         if($this->BASE['data']['ho']=='xx'){$this->BASE['data']['ho']=$t->mounth;}
         if($this->BASE['data']['nap']=='xx'){$this->BASE['data']['nap']=$t->day;}
+    
     }
     else{
+      
     $this->BASE['data']['ev']=$this->PAR['getT']['ev'] ?? $t->year;
     $this->BASE['data']['ho']=$this->PAR['getT']['ho'] ?? $t->month;
     $this->BASE['data']['het']=$this->PAR['getT']['het'] ?? $t->weekOfYear;
     $this->BASE['data']['nap']=$this->PAR['getT']['nap'] ?? $t->day;  
-    }
+    
+        //print_r($this->PAR['getT']);
+
+}
   
     if(strlen($this->BASE['data']['ho'])<2){
         $this->BASE['data']['ho']='0'.$this->BASE['data']['ho'];
@@ -41,7 +46,7 @@ public function set_date(){
     }
     $this->BASE['data']['datum']= $this->BASE['data']['ev'].'-'.$this->BASE['data']['ho'].'-'.$this->BASE['data']['nap'];
  
-
+    
 }
     
 }

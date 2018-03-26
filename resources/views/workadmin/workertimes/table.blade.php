@@ -43,14 +43,15 @@
                                                 <i class="fa fa-times" aria-hidden="true"></i> 
                                             </a>
                                             @elseif($item->pub==1)
-                                            <a href="{!!  MoHandF::url($param['routes']['base'],$param['getT'],['task'=>'unpub','id'=>$item->id]) !!} "
-                                            class="btn btn-danger btn-xs" title="pub">
-                                                <i class="fa fa-times" aria-hidden="true"></i> 
-                                            </a>
                                             <a href="{!!  MoHandF::url($param['routes']['base'],$param['getT'],['task'=>'pub','id'=>$item->id]) !!} "
-                                                class="btn btn-success btn-xs" title="unPub">
-                                                   <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                                               </a>
+                                                    class="btn btn-success btn-xs" title="unPub">
+                                                       <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                   </a>
+            
+                                                     <a href="{!!  MoHandF::url($param['routes']['base'],$param['getT'],['task'=>'unpub','id'=>$item->id]) !!} "
+                                                class="btn btn-danger btn-xs" title="pub">
+                                                    <i class="fa fa-times" aria-hidden="true"></i> 
+                                                </a> 
                                             @endif       
                                             {!! 
                                                 MoHandF::linkButton([

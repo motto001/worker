@@ -23,7 +23,7 @@ class WorkertimesController extends MoController
     use \App\Handler\trt\set\Base; //akkor kell ha csak kiegészítjük A paramétereket nem PAR-t csak par-t adunk meg
     use \App\Handler\trt\property\MoControllerBase; //PAR és BASE propertyk hogy legyen mit kiegéaszíteni
     use \App\Handler\trt\set\Orm; // with, where, order_by
-
+    use \App\Handler\trt\crud\Task;
 
     protected $par= [
          'get_key'=>'worktime',

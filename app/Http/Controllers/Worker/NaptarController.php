@@ -40,8 +40,9 @@ class NaptarController extends MoController
 
     protected $par= [
        // 'create_button'=>false,
+       'cancel_button'=>false,
        'formopen_in_crudview'=>false,
-        'calendar'=>['view'=>['days' => 'worker.naptar']],
+        'calendar'=>['view'=>['days' => 'worker.naptar.days']],
         'search'=>false,
         'routes'=>['base'=>'worker/naptar','worker'=>'manager/worker'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
@@ -57,7 +58,8 @@ class NaptarController extends MoController
         ]],
         'create'=>['calendar'=>[
             'view' => ['days' => 'worker.naptar.editdays'],
-            'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
+           // 'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
+            'checkbutton'=>true, //kikapcsolja az év hó válastó mezőt
             'pdf_print'=>false, 
         ]], 
     ];
@@ -129,8 +131,16 @@ public function construct_set()
     //print_r($request->all());  echo '-------------mmmmmmm'; exit(); 
             foreach ($request->datum as $datum) {
                 $daytypedata['datum']=$datum;
-                $daytype = Workerday::firstOrCreate(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>1]);     
-                $daytype->update($daytypedata); 
+               // $daytypebase = Workerday::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>0]);
+
+            //  $dt_id=$daytypebase->daytype_id ?? 'nincs';
+
+            //   if($dt_id != $daytypedata['daytype_id'])
+            //   { 
+                    $daytype = Workerday::firstOrCreate(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>1]);        
+                     $daytype->update($daytypedata); 
+           //    }   
+              
             }
         
         }

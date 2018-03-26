@@ -34,6 +34,8 @@ $timestyle=$param['calendar']['timestyle'] ??[
 @if( isset($param['calendar']['style_plus']))
     @include($param['calendar']['style_plus'].'.style_plus')
 @endif  
+
+
 @if( $pdf_print)
     @include( $pdf_print_view)
 @endif    
@@ -43,9 +45,9 @@ $timestyle=$param['calendar']['timestyle'] ??[
 @include($ev_ho_view)
 @endif 
 
+<div style="background-color:#c5c5d6;">
 
-
-    <ul class="flex-container nowrap">
+    <ul class="flex-container nowrap"  style="backgroun-color:white;">
        
         <li class="flex-item "  style="height:40px">Hétfő</li>
         <li class="flex-item "  style="height:40px">Kedd</li>
@@ -55,6 +57,7 @@ $timestyle=$param['calendar']['timestyle'] ??[
         <li class="flex-item "  style="height:40px; color:red;">Szombat</li>  
         <li class="flex-item "  style="height:40px;color:red;">Vasárnap</li>    
     </ul>
+</div>     
 <div id="naptar">
 @foreach($data['calendar'] as $dt) 
 <!-- sorkezdés---------------------------------------------->
@@ -90,5 +93,5 @@ $timestyle=$param['calendar']['timestyle'] ??[
     @endfor
 </ul > 
 @endif 
-             
-    </div>    
+          
+</div>    

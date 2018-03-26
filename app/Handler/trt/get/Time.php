@@ -22,7 +22,7 @@ Trait Time
             $wrtimes= \App\Workertime::where('worker_id','=',$worker_id)
            // ->where('datum','>=',$datum1)
             //->where('datum','<=',$datum2)
-            ->where('pub','=',0)
+            //->where('pub','=',0)
             ->whereBetween('datum', [$datum1,$datum2])
             ->get()->toarray() ?? $wrtimes ; 
          //   print_r($wrtimes);

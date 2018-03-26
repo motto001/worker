@@ -32,7 +32,7 @@ $list=$data['list'] ?? $data;
 $cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
 //$formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
 //gombok,mezők----------------------------------
-$cancel_button=$param['cancel_button'] ?? false;
+$cancel_button=$param['cancel_button'] ?? true;
 //feliratok----------------------
 $cim=$param['cim'] ?? '';
 $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
@@ -53,6 +53,13 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                     <div class="panel-body">
                         <br/>
                         <br/>
+                        @if($cancel_button)
+ 
+                        <a href="{{ $cancelUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>{{ $cancel_label }}</button></a>
+                        
+                        @endif   
+
 @if($showcontent)
 @include($showcontent) 
 @else

@@ -17,7 +17,7 @@ use App\Day;
 use App\Group;
 //use Carbon\Carbon;
 
-class GroupdaytimesController extends MoController
+class WorkerdaytimesController extends MoController
 {
     use \App\Handler\trt\crud\IndexFull;
     use \App\Handler\trt\crud\MOCrud;//crud functiok indey nélkül
@@ -34,33 +34,53 @@ class GroupdaytimesController extends MoController
 
 
     protected $par= [
-       // 'create_button'=>false,
+        'create_button'=>false,
+       //'cancel_button'=>true,
         'search'=>false,
-        'routes'=>['base'=>'workadmin/groupdaytimes'],
+        'routes'=>['base'=>'workadmin/workerdaytimes'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
-        'view' => ['base' => 'crudbase', 'include' => 'workadmin.groupdaytimes',
-        'workermodal' => 'workadmin.groupdaytimes.workermodal','addworker' => 'crudbase.edit'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
+        'view' => ['base' => 'crudbase', 'include' => 'workadmin.workerdaytimes',
+        'workermodal' => 'workadmin.workerdaytimes.workermodal'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
        // 'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
         'cim'=>'Naptár',
-        'getT'=>[],       
+        'getT'=>[], 
+        'show'=>[
+            ['colname'=>'id','label'=>'Id'],
+            ['colname'=>'fullname','label'=>'név'],
+            ['colname'=>'foto','label'=>'Foto','func'=>'image'],
+            ['colname'=>'cim','label'=>'Cím'],
+            ['colname'=>'birth','label'=>'Születési dátum'],
+            ['colname'=>'tel','label'=>'Telefon'],
+            ['colname'=>'ado','label'=>'Adószám'],
+            ['colname'=>'tb','label'=>'TBszám'],
+            ['colname'=>'start','label'=>'Kezdés'],
+           ]    
     ];
   
     protected $base= [
        // 'search_column'=>'daytype_id,datum,managernote,usernote',
-        'get'=>['ev'=>null,'ho'=>null,'group_id'=>null,'worker_id'=>null,'edittask'=>null], //a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
-       // 'get_post'=>['ev'=>null,'ho'=>null],//a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be ha van ilyen kulcs a postban azzal felülírja
-        'obname'=>'\App\Group',
+        'get'=>['ev'=>null,'ho'=>null,'worker_id'=>null,'edittask'=>null], //a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
+        'post_to_getT'=>['ev'=>null,'ho'=>null],
+        'obname'=>'\App\Worker',
         'ob'=>null,
-       'orm'=>[ 'with'=>['worker']],
+       'orm'=>[ 'with'=>['workerday','workertime']],
     ];
 
-
+    protected $tpar= [
+     
+        'edit'=>['calendar'=>[
+            'view' => ['days' => 'workadmin.workerdaytimes.editdays'],
+           // 'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
+            'checkbutton'=>true, //kikapcsolja az év hó válastó mezőt
+            'pdf_print'=>false, 
+        ]], 
+    ];
 
 
 
 public function construct_set()
 {
-    $this->set_date();
+   
 }
     public function index_set()
     {
@@ -69,7 +89,10 @@ public function construct_set()
 
     public function edit_set()
     {
-
+        $this->set_date(); //nem jó a construktorban  mert a crud edit() felülírja a BASE['data']-t
+       // $this->BASE['data']['worker_id']=$this->PAR['getT']['worker_id']?? 0;
+       
+        $this->BASE['data']['worker_id']=$this->BASE['data']['id']  ?? 0;
         $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
         $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
     //calendar-------------------------------------- 
@@ -81,7 +104,7 @@ public function construct_set()
         $this->BASE['data']['calendar']= $this->getWorkertime($this->BASE['data']['calendar']);   
   
     }
-    public function store(Request $request)
+    public function update($id, Request $request)
     {  
       
         if(isset($this->val)){
@@ -92,9 +115,10 @@ public function construct_set()
         if($request->has('daytypechange')){ 
             $daytypedata=[
                 'daytype_id'=>$request->daytype_id,
-                'workernote'=>$request->workernote,
+                'managernote'=>$request->workernote,
+                'worker_id'=>$id,
             ];
-            $daytypedata['worker_id']=$this->BASE['data']['worker_id'];
+           // $daytypedata['worker_id']=$this->BASE['data']['worker_id'];
     //print_r($request->all());  echo '-------------mmmmmmm'; exit(); 
             foreach ($request->datum as $datum) {
                 $daytypedata['datum']=$datum;
@@ -104,7 +128,7 @@ public function construct_set()
 
             //   if($dt_id != $daytypedata['daytype_id'])
             //   { 
-                    $daytype = Workerday::firstOrCreate(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>1]);        
+                    $daytype = Workerday::firstOrCreate(['worker_id' =>$id,'datum' =>$datum,'pub' =>0]);        
                      $daytype->update($daytypedata); 
            //    }   
               
@@ -115,15 +139,16 @@ public function construct_set()
 
             foreach ($request->datum as $datum) {
                 
-                $daytype = Workerday::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>1]);     
+                $daytype = Workerday::where(['worker_id' =>$id,'datum' =>$datum]);     
                 $daytype->delete(); 
             }
         
         }
         if($request->has('timeadd')){ 
             $timeT=$request->only(['start', 'end', 'timetype_id']);
-            $timeT['worker_id']=$this->BASE['data']['worker_id'];
-             $timeT['workernote']=$request->workernote2;
+            $timeT['worker_id']=$id;
+            $timeT['pub']=0;
+            $timeT['managerernote']=$request->managernote2;
     //print_r($request->all());  echo '-------------mmmmmmm'; exit(); 
             foreach ($request->datum as $datum) {
  
@@ -137,13 +162,13 @@ public function construct_set()
 
         foreach ($request->datum as $datum) {
            
-            $time = Workerday::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>1]);     
+            $time = Workerday::where(['worker_id' =>'worker_id','datum' =>$datum]);     
             $time->delete(); 
         }
     
     }
     session(['datum' => $request->datum]);
-return redirect(\MoHandF::url($this->PAR['routes']['base'].'/create',$this->PAR['getT'])); 
+return redirect(\MoHandF::url($this->PAR['routes']['base'].'/'.$id.'/edit',$this->PAR['getT'])); 
     }
  
 
