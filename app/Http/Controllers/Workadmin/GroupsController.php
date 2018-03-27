@@ -20,6 +20,7 @@ class GroupsController extends MoController
     use \App\Handler\trt\set\Orm; // with, where, order_by
     use \App\Handler\trt\set\GetT;
     protected $par = [
+        'cancel_button' => false,
         'routes' => ['base' => 'workadmin/groups'],
         'view' => ['base' => 'crudbase', 'include' => 'workadmin.groups','show2' => 'crudbase.show',
          'showcontent' => 'workadmin.groups.show2', 'workermodal' => 'workadmin.groups.workermodal'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki

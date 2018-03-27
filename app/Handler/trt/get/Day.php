@@ -5,8 +5,8 @@ namespace App\Handler\trt\get;
 Trait Day
 {
 
-    public function getWorkerday()
-    {
+public function getWorkerday()
+    {  
         $res=[];
         $worker_id=$this->BASE['data']['worker_id'];
         $ev=$this->BASE['data']['ev'];
@@ -20,48 +20,55 @@ Trait Day
             ->get();
             foreach($dayT as $day) 
             {
-               
-            // $dayev = substr($day->datum, 4); 
                $day->datum = str_replace("0000", $ev, $day->datum);
 
-     //   echo $day->datum.'---'.$ev.' ';       
- /*   
 
-               $ujdayT=  ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'days','munkanap'=>$day->daytype->munkanap,
-               'type'=>$this->BASE['data']['daytype'][$day->daytype_id]];
+               $ujdayT=  ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'days','munkanap'=>$day['daytype']['workday'],
+               'type'=>$this->BASE['data']['daytype'][$day->daytype_id],'pub'=>0];
                 $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
-            */    }  
+              }  
 
         //------------------------
         $workerdayT= \App\Workerday::with('daytype')->where([
-            ['pub', '=', 0],
+          //  ['pub', '=', 0],
             ['worker_id', '=', $worker_id],
             ['datum',  'LIKE', $ev."-".$ho."%"],
             ])->get(); 
-      // print_r($workerdayT);
+      
             foreach($workerdayT as $day) 
             { 
-                $ujdayT= ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'workerdays','munkanap'=>$day->daytype->munkanap,
-                'type'=>$this->BASE['data']['daytype'][$day->daytype_id]];
-            //    $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);    
-            // if($day->workerday){}
-             
-                $res[$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
+                $ujdayT= ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'munkanap'=>$day['daytype']['workday'],
+                'type'=>$this->BASE['data']['daytype'][$day->daytype_id],'pub'=>$day->pub];
+                if($day->pub=='0'){
+                $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
+                 }
+                 else{$this->BASE['data']['calendar'][$day->datum]['wish']=$ujdayT;}
             }   
-            //------------------------
-     //print_r($res);  
-            $workerdaywishT= \App\Workerday::where([
-            ['pub', '=', 1],
-            ['worker_id', '=', $worker_id],
-            ['datum',  'LIKE', $ev."-".$ho."%"],
-            ])->get(); 
-  
-            foreach($workerdaywishT as $day) 
-            {  
-            $res[$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],['wishdaytype'=>$this->BASE['data']['daytype'][$day->daytype_id]]);               
-            // $res[$day->datum]['wishdaytype']=$this->BASE['data']['daytype'][$day->daytype_id];
-            }    
-return $res;
+//print_r( $this->BASE['data']['calendar']); exit();
     }
 
+    /**
+     * nincs vissaztérési érték , BASE['data']['calendar']-ba hír
+     */
+    public function getGroupday($group_id)
+    {
+    
+      //  $gruop_id=$this->BASE['data']['worker_id'];
+        $ev=$this->BASE['data']['ev'];
+        $ho=$this->BASE['data']['ho'];
+        //-----------------------
+        $dayT= \App\Groupday::with('daytype')->where([
+        ['group_id', '=', $group_id ],
+        ['datum',  'LIKE', $ev."-".$ho."%"],
+        ])->get();
+
+            foreach($dayT as $day) 
+            {
+               
+               $ujdayT=  ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'days','munkanap'=>$day->daytype->munkanap,
+               'type'=>$this->BASE['data']['daytype'][$day->daytype_id]];
+                $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
+            }  
+
+    }
 }

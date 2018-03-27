@@ -21,12 +21,12 @@
     </div>
 </div>
 
-<div class="form-group {{ $errors->has('workergroup_id') ? 'has-error' : ''}}">
-    {!! Form::label('workergroup_id', 'Munkacsoport', ['class' => 'col-md-4 control-label']) !!}
+<div class="form-group {{ $errors->has('group_id') ? 'has-error' : ''}}">
+    {!! Form::label('group_id', 'MŰszak', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-         {!! Form::select('workergroup_id',$data['workergroup'],
-           $data->workergroup_id, ['class' => 'form-control', 'required' => 'required']) !!}
-        {!! $errors->first('workergroup_id', '<p class="help-block">:message</p>') !!}
+         {!! Form::select('group_id',$data['group'],
+           $data->workergroup_id, ['class' => 'form-control', ]) !!}
+        {!! $errors->first('group_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 

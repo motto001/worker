@@ -1,58 +1,61 @@
 
-{!! Form::open(['url' => MoHandF::url($param['routes']['base'].'/'.$data['worker_id'],$getT), 
+{!! Form::open(['url' => MoHandF::url($param['routes']['base'],$getT), 
 'class' => 'form-horizontal', 'files' => true]) !!}
-<h3>Nap típus kérés</h3>
-
- <div class="row"> 
-<div class="col-md-3">  <span>Nap típus </span>  
-    {!! Form::select('daytype_id', $data['daytype'], null, ['class' => 'form-control input-sm', 'required' => 'required']) !!}       
-     {!! $errors->first('daytype_id', '<p class="help-block">:message</p>') !!}
-</div>
-
-
-<div class="col-md-3"><span>Megjegyzés</span>
-    {!! Form::text('managernote', null, ['class' => 'form-control input-sm']) !!}
-    {!! $errors->first('managernote', '<p class="help-block">:message</p>') !!}
-</div>
-<div class="col-md-4"><div> -</div>
-    {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Kérés küldése', ['class' => 'btn btn-primary','name' => 'daytypechange']) !!}
-   {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Kérés törlése', ['class' => 'btn btn-danger','name' => 'daytypedel']) !!}
-
-</div>
-<input type="hidden" name="worker_id" value="{{$data['worker_id']}}" >
-</div>
-<h3>Munkaidő felvitele </h3>
 <div class="row"> 
-  
-        <div class="col-xs-3"><span>Kezdés</span>
-            {!! Form::input('time','start', null, ['class' => 'form-control input-sm']) !!}
+        <div class="col-md-6"  >  <span>Nap típus változtatás </span> 
+            <div class="row" style=" border: 1px solid lightslategray; padding:5px 5px 25px 5px;"> 
+                <div class="col-md-6">  <span>Nap típus </span> 
+                    {!! Form::select('daytype_id', $data['daytype'], 0, ['class' => 'form-control input-sm', 'required' => 'required']) !!}       
+                    {!! $errors->first('daytype_id', '<p class="help-block">:message</p>') !!}
+                </div>
+                <div class="col-md-6"><span>Megjegyzés</span>
+                    {!! Form::text('workernote', null, ['class' => 'form-control input-sm']) !!}
+                    {!! $errors->first('workernote', '<p class="help-block">:message</p>') !!}
+                </div> 
+            </div> 
+            <div class="row"> 
+                <div class="col-md-12"><div> -</div>
+                <a href="{{ url('/'.$param['routes']['base'],$param['getT']) }}"  class="btn btn-warning btn-sm">Mégsem</a>
+                {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Küldés', ['class' => 'btn-sm btn-primary','name' => 'change']) !!}
+                {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Törlés', ['class' => 'btn-sm btn-danger','name' => 'del']) !!}
+                <span>Idők</span>
+                    {{ Form::checkbox('timetask', 'time',true) }} 
+                <span>Naptípusok</span>        
+                    {{ Form::checkbox('daytask', 'day',true) }} 
+                </div>
+            </div>
 
-            {!! $errors->first('start', '<p class="help-block">:message</p>') !!}
         </div>
-        <div class="col-md-2"><span>Befejezés</span>
-            {!! Form::input('time','end', null, ['class' => 'form-control input-sm']) !!}
-            {!! $errors->first('end', '<p class="help-block">:message</p>') !!}
+        <div class="col-md-6" >  <span>Munkaidő felvitel</span>  
+        <div  style=" border: 1px solid lightslategray; padding:5px 5px 25px 5px;"> 
+            <div class="row"> 
+                <div class="col-xs-6"><span>Kezdés</span>
+                    {!! Form::input('time','start', null, ['class' => 'form-control input-sm']) !!}
+                    {!! $errors->first('start', '<p class="help-block">:message</p>') !!}
+                </div>
+                <div class="col-md-6"><span>Befejezés</span>
+                    {!! Form::input('time','end', null, ['class' => 'form-control input-sm']) !!}
+                    {!! $errors->first('end', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            <div class="row"> 
+                    <div class="col-md-6">  <span>Idő típus </span>  
+                        {!! Form::select('timetype_id', $data['timetype'], null, ['class' => 'form-control input-sm', 'required' => 'required']) !!}       
+                        {!! $errors->first('timetype_id', '<p class="help-block">:message</p>') !!}
+                    </div>
+                    <div class="col-md-6"><span>Megjegyzés</span>
+                        {!! Form::text('workernote2', null, ['class' => 'form-control input-sm']) !!}
+                        {!! $errors->first('workernote2', '<p class="help-block">:message</p>') !!}
+                    </div>       
+            </div>
+            </div>
         </div>
+</div>
 
-      <div class="col-md-2">  <span>Idő típus </span>  
-            {!! Form::select('timetype_id', $data['timetype'], null, ['class' => 'form-control input-sm', 'required' => 'required']) !!}       
-             {!! $errors->first('timetype_id', '<p class="help-block">:message</p>') !!}
-        </div>
 
 
-        <div class="col-md-2"><span>Megjegyzés</span>
-            {!! Form::text('managernote2', null, ['class' => 'form-control input-sm']) !!}
-            {!! $errors->first('managernote2', '<p class="help-block">:message</p>') !!}
-        </div>
-        <div class="col-md-4"><div> -</div>
-            {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Munkaidő felvitel', ['class' => 'btn btn-primary','name' => 'timeadd']) !!}
-          {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Munkaidők törlése', ['class' => 'btn btn-danger','name' => 'timedel']) !!}
-        
-        </div>
-     
-        </div>
+
 
 @include('calendar.calendar')
 
 {!! Form::close() !!}
-  

@@ -28,150 +28,87 @@ class WorkerdaytimesController extends MoController
     use \App\Handler\trt\set\Orm; // with, where, order_by stb
     use \App\Handler\trt\set\Base; //akkor kell ha csak kiegészítjük A paramétereket nem PAR-t csak par-t adunk meg 
     use \App\Handler\trt\set\GetT;
+     //calendár------------------------------------
     use \App\Handler\trt\set\Date;
     use \App\Handler\trt\get\Day;
     use \App\Handler\trt\get\Time;
-
+    use \App\Handler\trt\get\Calendar;
 
     protected $par= [
-        'create_button'=>false,
-       //'cancel_button'=>true,
-        'search'=>false,
-        'routes'=>['base'=>'workadmin/workerdaytimes'],
-        //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
-        'view' => ['base' => 'crudbase', 'include' => 'workadmin.workerdaytimes',
-        'workermodal' => 'workadmin.workerdaytimes.workermodal'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
-       // 'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
-        'cim'=>'Naptár',
-        'getT'=>[], 
-        'show'=>[
-            ['colname'=>'id','label'=>'Id'],
-            ['colname'=>'fullname','label'=>'név'],
-            ['colname'=>'foto','label'=>'Foto','func'=>'image'],
-            ['colname'=>'cim','label'=>'Cím'],
-            ['colname'=>'birth','label'=>'Születési dátum'],
-            ['colname'=>'tel','label'=>'Telefon'],
-            ['colname'=>'ado','label'=>'Adószám'],
-            ['colname'=>'tb','label'=>'TBszám'],
-            ['colname'=>'start','label'=>'Kezdés'],
-           ]    
-    ];
-  
-    protected $base= [
-       // 'search_column'=>'daytype_id,datum,managernote,usernote',
-        'get'=>['ev'=>null,'ho'=>null,'worker_id'=>null,'edittask'=>null], //a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
-        'post_to_getT'=>['ev'=>null,'ho'=>null],
-        'obname'=>'\App\Worker',
-        'ob'=>null,
-       'orm'=>[ 'with'=>['workerday','workertime']],
-    ];
+        // 'create_button'=>false,
+       'addbutton_label'=>'Naptár sterkesztése',
+        'cancel_button'=>false,
+         'calendar'=>['view'=>['days' => 'workadmin.workerdaytimes.days']],
+         'search'=>false,
+         'routes'=>['base'=>'workadmin/workerdaytimes','worker'=>'manager/worker'],
+         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
+         'view' => ['base' => 'crudbase', 'include' => 'workadmin.workerdaytimes'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
+        // 'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
+         'cim'=>'Naptár',
+         'getT'=>[],       
+     ];
+     protected $tpar= [
 
-    protected $tpar= [
-     
-        'edit'=>['calendar'=>[
-            'view' => ['days' => 'workadmin.workerdaytimes.editdays'],
-           // 'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
-            'checkbutton'=>true, //kikapcsolja az év hó válastó mezőt
-            'pdf_print'=>false, 
-        ]], 
-    ];
+         'edit'=>[
+             'formopen_in_crudview'=>false,
+             //'cancel_button'=>True,
+             'calendar'=>[
+                 'view' => ['days' => 'workadmin.workerdaytimes.editdays'],
+             // 'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
+                 'checkbutton'=>true, //kikapcsolja az év hó válastó mezőt
+                 'pdf_print'=>false, 
+         ]], 
+     ];
+     protected $TBASE= [ 'edit'=>[ 'obname'=>'\App\Workerday', ],  'orm'=>[ 'with'=>['workerday','workertime']],];
 
+//protected $tbase= [ 'edit'=>[ 'obname'=>'\App\Workerday', ], 'orm'=>[ 'with'=>['workerday','workertime']], ];
+     protected $base= [
+        // 'search_column'=>'daytype_id,datum,managernote,usernote',
+         'get'=>['ev'=>null,'ho'=>null], //a  set_getT automatikusan fltölti a getbőll a $this->PAR['getT']-be
+         'post_to_getT'=>['ev'=>null,'ho'=>null],//a set_getT automatikusan fltölti a postból a $this->PAR['getT']-be
+         'obname'=>'\App\Worker',
+         'ob'=>null,
+       //  'with'=>['worker','daytype'],
+     ];
+ 
 
 
 public function construct_set()
 {
-   
+  
 }
     public function index_set()
     {
-
+        $this->set_date();
     }
 
     public function edit_set()
-    {
-        $this->set_date(); //nem jó a construktorban  mert a crud edit() felülírja a BASE['data']-t
-       // $this->BASE['data']['worker_id']=$this->PAR['getT']['worker_id']?? 0;
-       
-        $this->BASE['data']['worker_id']=$this->BASE['data']['id']  ?? 0;
+    {  
+        $this->set_date();
+        $user_id=\Auth::user()->id ?? 0;
+        $worker=Worker::select('id')->where('user_id','=',$user_id)->first();
+        $this->BASE['data']['worker_id']=$worker->id ?? 0;
+
         $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
         $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
+        $this->BASE['data']['daytype']['0']='nincs változtatás';
+       // print_r( $this->BASE['data']['daytype']);
     //calendar-------------------------------------- 
-        $calendar=new \App\Handler\Calendar;
-        $this->BASE['data']['calendar']=$calendar->getMonthDays($this->BASE['data']['ev'],$this->BASE['data']['ho']);      
-    //\App\Handler\trt\get\Day;    
-        $this->BASE['data']['calendar']=array_merge($this->BASE['data']['calendar'],$this->getWorkerday());
-    //\App\Handler\trt\get\Time; 
-        $this->BASE['data']['calendar']= $this->getWorkertime($this->BASE['data']['calendar']);   
-  
+    $this->getMonthDays();   
+    $this->getWorkerday();
+    $this->getWorkertime();   
     }
-    public function update($id, Request $request)
-    {  
-      
-        if(isset($this->val)){
-           $this->validate($request,$this->val );  
-        }
 
- 
-        if($request->has('daytypechange')){ 
-            $daytypedata=[
-                'daytype_id'=>$request->daytype_id,
-                'managernote'=>$request->workernote,
-                'worker_id'=>$id,
-            ];
-           // $daytypedata['worker_id']=$this->BASE['data']['worker_id'];
-    //print_r($request->all());  echo '-------------mmmmmmm'; exit(); 
-            foreach ($request->datum as $datum) {
-                $daytypedata['datum']=$datum;
-               // $daytypebase = Workerday::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>0]);
-
-            //  $dt_id=$daytypebase->daytype_id ?? 'nincs';
-
-            //   if($dt_id != $daytypedata['daytype_id'])
-            //   { 
-                    $daytype = Workerday::firstOrCreate(['worker_id' =>$id,'datum' =>$datum,'pub' =>0]);        
-                     $daytype->update($daytypedata); 
-           //    }   
-              
-            }
-        
-        }
-        if($request->has('daytypedel')){ 
-
-            foreach ($request->datum as $datum) {
-                
-                $daytype = Workerday::where(['worker_id' =>$id,'datum' =>$datum]);     
-                $daytype->delete(); 
-            }
-        
-        }
-        if($request->has('timeadd')){ 
-            $timeT=$request->only(['start', 'end', 'timetype_id']);
-            $timeT['worker_id']=$id;
-            $timeT['pub']=0;
-            $timeT['managerernote']=$request->managernote2;
-    //print_r($request->all());  echo '-------------mmmmmmm'; exit(); 
-            foreach ($request->datum as $datum) {
- 
-                $timeT['datum']=$datum;
-               $time = Workertime::create($timeT);     
-               // $daytype->update($timeT); 
-            }
-
-    }  
-    if($request->has('timedel')){ 
-
-        foreach ($request->datum as $datum) {
-           
-            $time = Workerday::where(['worker_id' =>'worker_id','datum' =>$datum]);     
-            $time->delete(); 
-        }
-    
+    public function edit($id)
+    {   // echo 'index';
+      /*  if(isset($this->BASE['orm']['with'])){$this->BASE['ob']= $this->BASE['ob']->with($this->BASE['orm']['with']);}
+        $this->BASE['data']  =$this->BASE['ob']->findOrFail($id);
+        $this->BASE['data']['id']=$id;*/
+       if (method_exists($this,'edit_set')) {$this->edit_set();} 
+       $data=$this->BASE['data'] ?? [];
+        $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
+        if (method_exists($this,$viewfunc)) {return $this->$viewfunc();} 
+       else{return view($this->PAR['view'].'.edit',compact('data'));} 
     }
-    session(['datum' => $request->datum]);
-return redirect(\MoHandF::url($this->PAR['routes']['base'].'/'.$id.'/edit',$this->PAR['getT'])); 
-    }
- 
-
-
 
 }

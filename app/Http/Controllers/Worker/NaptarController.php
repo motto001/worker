@@ -14,13 +14,7 @@ use App\Workerday;
 use App\Timetype;
 use App\Daytype;
 use App\Day;
-//use App\Workerwrole;
-//use App\Workerwroleunit;
-//use App\Wroletime;
-//use App\Workertimewish;
-//use App\Wrole;
-//use App\Wroleunit;
-//use Carbon\Carbon;
+
 class NaptarController extends MoController
 {
     use \App\Handler\trt\crud\IndexFull;
@@ -37,11 +31,11 @@ class NaptarController extends MoController
     use \App\Handler\trt\set\Date; //construktor hívja meg 
     use \App\Handler\trt\get\Day; 
     use \App\Handler\trt\get\Time; 
-
+    use \App\Handler\trt\get\Calendar;
     protected $par= [
        // 'create_button'=>false,
+      'addbutton_label'=>'Naptár sterkesztése',
        'cancel_button'=>false,
-       'formopen_in_crudview'=>false,
         'calendar'=>['view'=>['days' => 'worker.naptar.days']],
         'search'=>false,
         'routes'=>['base'=>'worker/naptar','worker'=>'manager/worker'],
@@ -56,11 +50,14 @@ class NaptarController extends MoController
             'view' => ['days' => 'worker.naptar.days'],
             //'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
         ]],
-        'create'=>['calendar'=>[
-            'view' => ['days' => 'worker.naptar.editdays'],
-           // 'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
-            'checkbutton'=>true, //kikapcsolja az év hó válastó mezőt
-            'pdf_print'=>false, 
+        'create'=>[
+            'formopen_in_crudview'=>false,
+            //'cancel_button'=>True,
+            'calendar'=>[
+                'view' => ['days' => 'worker.naptar.editdays'],
+            // 'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
+                'checkbutton'=>true, //kikapcsolja az év hó válastó mezőt
+                'pdf_print'=>false, 
         ]], 
     ];
     protected $base= [
@@ -78,26 +75,18 @@ public function construct_set()
         $user_id=\Auth::user()->id ?? 0;
         $worker=Worker::select('id')->where('user_id','=',$user_id)->first();
         $this->BASE['data']['worker_id']=$worker->id ?? 0;
-       // echo  $this->BASE['data']['worker_id'].'-------------mmmmmmm'; exit(); 
         $this->set_date(); //calendarhoz kell \App\Handler\trt\set\Date; 
-     //   echo  $this->PAR['basetask'];
-   //  print_r( $this->PAR['view'] );
+
 ;
 }
     public function index_set()
     {
+    $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
 
-        $user_id=\Auth::user()->id ?? 0;
-        $worker=Worker::select('id')->where('user_id','=',$user_id)->first();
-        $this->BASE['data']['worker_id']=$worker->id ?? 0;
-        $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
-    //calendar-------------------------------------- 
-        $calendar=new \App\Handler\Calendar;
-        $this->BASE['data']['calendar']=$calendar->getMonthDays($this->BASE['data']['ev'],$this->BASE['data']['ho']);      
-    //\App\Handler\trt\get\Day;    
-        $this->BASE['data']['calendar']=array_merge($this->BASE['data']['calendar'],$this->getWorkerday());
-    //\App\Handler\trt\get\Time; 
-        $this->BASE['data']['calendar']= $this->getWorkertime($this->BASE['data']['calendar']);   
+    //calendar--------------------------------------     
+    $this->getMonthDays();   
+    $this->getWorkerday();
+    $this->getWorkertime();   
   
     }
     public function create_set()
@@ -105,13 +94,12 @@ public function construct_set()
 
         $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
         $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
+        $this->BASE['data']['daytype']['0']='nincs változtatás';
+       // print_r( $this->BASE['data']['daytype']);
     //calendar-------------------------------------- 
-        $calendar=new \App\Handler\Calendar;
-        $this->BASE['data']['calendar']=$calendar->getMonthDays($this->BASE['data']['ev'],$this->BASE['data']['ho']);      
-    //\App\Handler\trt\get\Day;    
-        $this->BASE['data']['calendar']=array_merge($this->BASE['data']['calendar'],$this->getWorkerday());
-    //\App\Handler\trt\get\Time; 
-        $this->BASE['data']['calendar']= $this->getWorkertime($this->BASE['data']['calendar']);   
+    $this->getMonthDays();   
+    $this->getWorkerday();
+    $this->getWorkertime();   
   
     }
     public function store(Request $request)
@@ -121,62 +109,68 @@ public function construct_set()
            $this->validate($request,$this->val );  
         }
 
- 
-        if($request->has('daytypechange')){ 
-            $daytypedata=[
-                'daytype_id'=>$request->daytype_id,
-                'workernote'=>$request->workernote,
-            ];
-            $daytypedata['worker_id']=$this->BASE['data']['worker_id'];
-    //print_r($request->all());  echo '-------------mmmmmmm'; exit(); 
-            foreach ($request->datum as $datum) {
-                $daytypedata['datum']=$datum;
-               // $daytypebase = Workerday::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>0]);
+        if($request->has('change'))
+        {
+            if($request->has('daytask') && $request->daytype_id!=0 ){ $this->daytypechange($request);}
+            if($request->has('timetask') && !empty($request->start) && !empty($request->end))
+            { $this->timeadd($request); }
+        } 
+        if($request->has('del'))
+        { 
+            if($request->has('daytask')){$this->daytypedel($request);}
+            if($request->has('timetask')){ $this->timedel($request);  }
+         }
 
-            //  $dt_id=$daytypebase->daytype_id ?? 'nincs';
+        session(['datum' => $request->datum]);
+        return redirect(\MoHandF::url($this->PAR['routes']['base'].'/create',$this->PAR['getT'])); 
+    }
 
-            //   if($dt_id != $daytypedata['daytype_id'])
-            //   { 
-                    $daytype = Workerday::firstOrCreate(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>1]);        
-                     $daytype->update($daytypedata); 
-           //    }   
-              
-            }
-        
-        }
-        if($request->has('daytypedel')){ 
-
-            foreach ($request->datum as $datum) {
-                
-                $daytype = Workerday::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>1]);     
-                $daytype->delete(); 
-            }
-        
-        }
-        if($request->has('timeadd')){ 
-            $timeT=$request->only(['start', 'end', 'timetype_id']);
-            $timeT['worker_id']=$this->BASE['data']['worker_id'];
-             $timeT['workernote']=$request->workernote2;
-    //print_r($request->all());  echo '-------------mmmmmmm'; exit(); 
-            foreach ($request->datum as $datum) {
- 
-                $timeT['datum']=$datum;
-               $time = Workertime::create($timeT);     
-               // $daytype->update($timeT); 
-            }
-
-    }  
-    if($request->has('timedel')){ 
+  
+    public function daytypechange(Request $request)
+    {  
+        $daytypedata=[
+            'daytype_id'=>$request->daytype_id,
+            'workernote'=>$request->workernote,
+        ];
+        $daytypedata['worker_id']=$this->BASE['data']['worker_id'];
 
         foreach ($request->datum as $datum) {
-           
+            $daytypedata['datum']=$datum;
+                $daytype = Workerday::firstOrCreate(['worker_id' =>$daytypedata['worker_id'],'datum' =>$datum,'pub' =>1]);        
+               // echo 'mmm'.$daytype->id; exit();
+                $daytype->update($daytypedata);     
+        }
+    }
+
+  public function daytypedel(Request $request)
+    {  
+        foreach ($request->datum as $datum) 
+        {        
+            $daytype = Workerday::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>1]);     
+            $daytype->delete(); 
+        }
+    }
+
+    public function timeadd(Request $request)
+    {  
+        $timeT=$request->only(['start', 'end', 'timetype_id']);
+        $timeT['worker_id']=$this->BASE['data']['worker_id'];
+        $timeT['workernote']=$request->workernote2;
+
+        foreach ($request->datum as $datum)
+         {
+            $timeT['datum']=$datum;
+            $time = Workertime::create($timeT);     
+        }
+    }
+
+
+    public function timedel(Request $request)
+    {  
+        foreach ($request->datum as $datum) {          
             $time = Workerday::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum,'pub' =>1]);     
             $time->delete(); 
         }
-    
-    }
-    session(['datum' => $request->datum]);
-return redirect(\MoHandF::url($this->PAR['routes']['base'].'/create',$this->PAR['getT'])); 
-    }
+    }   
 
 }

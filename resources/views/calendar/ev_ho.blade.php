@@ -1,5 +1,7 @@
 @php 
-$year=$data['year'] ?? $this->PAR['getT']['ev'] ?? \Carbon::now()->year; 
+//$year=$data['year'] ?? $this->PAR['getT']['ev'] ?? \Carbon::now()->year; 
+$year=$data['ev'] ;
+//$ho=$data['ho'] ?? $this->PAR['getT']['ho'] ?? \Carbon::now()->month; 
 $months_magyar=['hónapok','Január','Február','Március','Április','Jájus','Június','Július','Augusztus','Szeptember','Október','November','Decenber'];
 $months=$this->PAR['calendar']['months'] ?? $months_magyar; unset($months[0]);// kiveszi az alapfeliratot és 1-el kezdődikaz index nem 0-val!!!!!
 $ev_ho_formurl=$param['routes']['ev_ho_form'] ?? MoHandF::url($param['routes']['base'],$param['getT']);
@@ -55,7 +57,7 @@ $checkbutton=$param['calendar']['checkbutton'] ?? false;
       </div>
 
         <div class="col-xs-2"> 
-            {!! Form::select('ho', $months, null, ['class' => 'form-control input-sm col-xs-2']) !!}       
+            {!! Form::select('ho', $months, $data['ho']  , ['class' => 'form-control input-sm col-xs-2']) !!}       
         </div>    
         <div class="col-xs-2"> 
             {!! Form::submit(isset($submitButtonText) ? $submitButtonText : @trans('mo.update'), ['class' => 'btn btn-primary input-sm','name' => 'ev_ho']) !!}            
