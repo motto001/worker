@@ -53,7 +53,10 @@ class Worker extends Model
         return $this->hasMany('App\Workertime');
        // return $this->belongsToMany('App\Workertimeframe', 'worker_timeframes', 'worker_id', 'timeframe_id');
     }
-
+    public function workerwrole()
+	{
+		return $this->hasMany('App\Workerwrole');
+	}
 
 //---------------------------------------
 /*

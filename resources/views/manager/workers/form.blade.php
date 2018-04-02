@@ -1,6 +1,6 @@
 
 <div class="form-group {{ $errors->has('user_id') ? 'has-error' : ''}}">
-    {!! Form::label('user_id', 'Felhasználó', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('user_id', 'Naptipus', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
       
           {!! Form::select('user_id',$data['user'],

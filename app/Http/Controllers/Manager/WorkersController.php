@@ -38,11 +38,12 @@ class WorkersController extends MoController
         'view'=>[
             'base' => 'crudbase',
             'include' =>'manager.workers',
+            'editform' => 'manager.workers.edit_form',
             'modaltable' =>'manager.workers.workerlist'
         ], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
      
         'cim'=>'Dolgozók',
-        'getT'=>['user_id'=>'0'],  
+        'getT'=>[],  
         'show'=>[
             ['colname'=>'id','label'=>'Id'],
             ['colname'=>'fullname','label'=>'név'],
@@ -57,12 +58,15 @@ class WorkersController extends MoController
         // 'search'=>false,         
      ];
      protected $base= [    
-        'get'=>['user_id'=>'0','view'=>null,'group_id'=>null,'addroute'=>null], //Ha a wrolunitból hvjuk a wruvissza true lesz, a store az update és a delete visszaírányít az aktuális wroleunitra.mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
+       // 'get'=>['user_id'=>null,'view'=>null,'group_id'=>null,'addroute'=>null], //Ha a wrolunitból hvjuk a wruvissza true lesz, a store az update és a delete visszaírányít az aktuális wroleunitra.mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
         'obname'=>'\App\Worker',
         'with'=>['user','timeframe'],
         'search_column' => [ 'wrole_id', 'status_id','workertype_id', 'workergroup_id',  'salary', 'salary_type','foto', 'fullname',
         'cim', 'LIKE','tel', 'LIKE', 'birth', 'ado',
         'LIKE',  'tb', 'start', 'end', 'note','pub'],
+        'orm'=>[
+          'with'=>['user']  
+        ],
         'image'=>[
             'inputmezo'=>'foto'
         ]
@@ -134,7 +138,7 @@ public function index_set()
             $checked[] =  $item->id;
         }
         $this->BASE['data']['checked_timeframe']=$checked;
-        $this->BASE['data']['user']=User::get()->pluck('name','id');
+        $this->BASE['data']['userT']=User::get()->pluck('name','id');
         $this->BASE['data']['base_timeframe']=Timeframe::get(['id','name'])->toarray();
         $this->BASE['data']['status']=Status::get()->pluck('name','id');
         $this->BASE['data']['workertype']=Workertype::get()->pluck('name','id');

@@ -38,9 +38,10 @@ class WorkerdaytimesController extends MoController
         // 'create_button'=>false,
        'addbutton_label'=>'Naptár sterkesztése',
         'cancel_button'=>false,
+        'create_button'=>false,
          'calendar'=>['view'=>['days' => 'workadmin.workerdaytimes.days']],
          'search'=>false,
-         'routes'=>['base'=>'workadmin/workerdaytimes','worker'=>'manager/worker'],
+         'routes'=>['base'=>'workadmin/workerdaytimes'],
          //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
          'view' => ['base' => 'crudbase', 'include' => 'workadmin.workerdaytimes'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
         // 'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
@@ -58,8 +59,21 @@ class WorkerdaytimesController extends MoController
                  'checkbutton'=>true, //kikapcsolja az év hó válastó mezőt
                  'pdf_print'=>false, 
          ]], 
+
+         'calendar'=>[
+            'formopen_in_crudview'=>false,
+            'view' => ['base' => 'crudbase', 'include' => 'workadmin.workerdaytimes','show2' => 'crudbase.show','calendar' => 'crudbase.index',
+            'showcontent' => 'workadmin.workerdaytimes.show2', 'workermodal' => 'workadmin.workerdaytimes.workermodal','table'=>'workadmin.workerdaytimes.calendar'],
+         // 'view'=>['table'=>'workadmin.groups.calendar'],
+            'calendar'=>[
+            'ev_ho_formopen'=>false,
+            'view' => ['days' => 'worker.naptar.editdays'],
+             'ev_ho'=>true, //ki-bekapcsolja az év hó válastó mezőt
+                'checkbutton'=>true, //ki-be kapcsolja az év hó válastó mezőt
+                'pdf_print'=>false, 
+        ]], 
      ];
-     protected $TBASE= [ 'edit'=>[ 'obname'=>'\App\Workerday', ],  'orm'=>[ 'with'=>['workerday','workertime']],];
+     protected $TBASE= [ 'edit'=>[ 'obname'=>'\App\Worker', ],  'orm'=>[ 'with'=>['group']],];
 
 //protected $tbase= [ 'edit'=>[ 'obname'=>'\App\Workerday', ], 'orm'=>[ 'with'=>['workerday','workertime']], ];
      protected $base= [
@@ -75,40 +89,152 @@ class WorkerdaytimesController extends MoController
 
 public function construct_set()
 {
-  
+  $this->set_date();
 }
     public function index_set()
     {
-        $this->set_date();
+        
     }
 
     public function edit_set()
     {  
-        $this->set_date();
-        $user_id=\Auth::user()->id ?? 0;
-        $worker=Worker::select('id')->where('user_id','=',$user_id)->first();
-        $this->BASE['data']['worker_id']=$worker->id ?? 0;
-
+       // $this->set_date();  
+    }
+    public function workermodal()
+    {
+        $perPage = $this->PAR['perpage'] ?? 50;
+        $this->BASE['data'] = Worker::paginate($perPage);
+      
+    }
+    public function calendar($id)
+    {   // echo 'index';
+        $this->BASE['data']['worker_id']=$id;
         $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
         $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
         $this->BASE['data']['daytype']['0']='nincs változtatás';
-       // print_r( $this->BASE['data']['daytype']);
-    //calendar-------------------------------------- 
-    $this->getMonthDays();   
-    $this->getWorkerday();
-    $this->getWorkertime();   
-    }
-
-    public function edit($id)
-    {   // echo 'index';
-      /*  if(isset($this->BASE['orm']['with'])){$this->BASE['ob']= $this->BASE['ob']->with($this->BASE['orm']['with']);}
-        $this->BASE['data']  =$this->BASE['ob']->findOrFail($id);
-        $this->BASE['data']['id']=$id;*/
-       if (method_exists($this,'edit_set')) {$this->edit_set();} 
-       $data=$this->BASE['data'] ?? [];
+        //calendar--------------------------------------     
+        $this->getMonthDays();   
+        $this->getGroupday($id);
+        $this->getGrouptime($id);  
+        $this->getMonthDays();   
+        $this->getWorkerday();
+        $this->getWorkertime();
+    
+      //  $data=$this->BASE['data'] ?? [];
         $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
         if (method_exists($this,$viewfunc)) {return $this->$viewfunc();} 
-       else{return view($this->PAR['view'].'.edit',compact('data'));} 
+       else{return view($this->PAR['view'].'.create',compact('data'));} 
     }
-
+    public function calendarsave($id) 
+    {  
+        $request= $this->BASE['request'];
+        $this->BASE['data']['group_id']=$id;
+        if(isset($this->val)){
+         //  $this->validate($request,$this->val );  
+        } 
+    
+        if($request->has('change'))
+        {
+         //  echo 'hhhhhhj.....jjjj';  exit();
+          
+            if($request->has('daytask') && $request->daytype_id!=0 ){ $this->daytypechange($request);}
+            if($request->has('timetask') && !empty($request->start) && !empty($request->end))
+            { $this->timeadd($request); }
+        } 
+        if($request->has('del'))
+        { 
+            if($request->has('daytask')){$this->daytypedel($request);}
+            if($request->has('timetask')){ $this->timedel($request);  }
+         }
+    
+        session(['datum' => $request->datum]);
+        return redirect(\MoHandF::url($this->PAR['routes']['base'].'/calendar/'.$id,$this->PAR['getT'])); 
+    }
+    
+    
+    public function daytypechange(Request $request)
+    {  
+        $daytypedata=[
+            'daytype_id'=>$request->daytype_id,
+            'note'=>$request->note,
+        ];
+        $daytypedata['group_id']=$this->BASE['data']['group_id'];
+    //echo 'hhhhhhhhhmmmmmmmmmmhhhh';
+    //exit();
+        foreach ($request->datum as $datum) {
+            $daytypedata['datum']=$datum;
+                $daytype = Groupday::firstOrCreate(['group_id' =>$daytypedata['group_id'],'datum' =>$datum]);        
+            //  echo 'mmm'.$daytype->id; exit();
+                $daytype->update($daytypedata);     
+        }
+    }
+    
+    public function daytypedel(Request $request)
+    {  
+        foreach ($request->datum as $datum) 
+        {        
+            $daytype = Groupday::where(['group_id' =>$this->BASE['data']['group_id'],'datum' =>$datum]);     
+            $daytype->delete(); 
+        }
+    }
+    
+    public function timeadd(Request $request)
+    {  
+        $timeT=$request->only(['start', 'end', 'timetype_id']);
+        $timeT['group_id']=$this->BASE['data']['group_id'];
+        $timeT['note2']=$request->note2;
+    
+        foreach ($request->datum as $datum)
+         {
+            $timeT['datum']=$datum;
+            $time = Grouptime::create($timeT);     
+        }
+    }
+    
+    
+    public function timedel(Request $request)
+    {  ///echo 'töröl';exit();
+        foreach ($request->datum as $datum) {          
+            $time =  Grouptime::where(['group_id' =>$this->BASE['data']['group_id'],'datum' =>$datum]);     
+            $time->delete(); 
+        }
+    }   
+    
+    public function show2_set()
+    {
+        $group_id=$this->BASE['data']['id'];
+        $request=$this->BASE['request'];
+        if($request->worker_id){
+            $workerO=Worker::findOrFail($request->worker_id); 
+            if($request->edittask=='addworker'){$workergroup_id=$group_id;}
+            if($request->edittask=='delworker'){$workergroup_id=null;
+           // echo 'jhkjhkjhjk';
+            
+            }
+            foreach($workerO as $worker) {
+    
+                $worker->update(['group_id'=>$workergroup_id]);
+            } 
+            
+        }
+       
+        
+    
+    
+    }
+    //előbb hívja meg show_set()-et mnt az eredeti hogy ne kelljen frissíteni woeker törléss és hozzáadás esetén
+    public function show2($id)
+    {  
+        
+        $this->BASE['data']['id']=$id;
+        $this->show2_set();
+        $data=$this->BASE['data'];
+    
+        if(isset($this->BASE['orm']['with'])){$this->BASE['ob']= $this->BASE['ob']->with($this->BASE['orm']['with']);} 
+        $this->BASE['data'] =$this->BASE['ob']->findOrFail($id);
+    
+    $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
+    return $this->$viewfunc();
+    } 
+    
 }

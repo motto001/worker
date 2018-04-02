@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class Daytype extends Model
 {
-    use SoftDeletes;
-    protected $dates = ['deleted_at'];
-    /**
+   //use SoftDeletes;
+   // protected $dates = ['deleted_at'];
+   /**  
      * The database table used by the model.
      *
      * @var string

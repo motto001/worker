@@ -31,6 +31,9 @@ class Group extends Model
 	{
 		return $this->hasMany('App\Worker');
 	}
-    
+    public function groupwrole()
+	{
+		return $this->hasMany('App\Groupwrole');
+	}
 
 }

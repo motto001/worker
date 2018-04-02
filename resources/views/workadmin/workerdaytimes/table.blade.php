@@ -19,20 +19,10 @@ $getT=$param['getT'];
                     <td>{{ $item->id }}</td><td> <img src="/{{ $item->foto }}" alt="foto" height="20" width="25"> </td>
                     <td>{{ $item['user']['name'] }}</td><td>{{ $item->fullname }}</td><td>{{ $item['user']['email'] }}</td><td>{{  $item->position }}</td>
                     <td>
+                        <a href="{{ url('/'.$param['routes']['base'].'/calendar/' . $item->id,$param['getT']) }}" 
+                            title="View "><button class="btn btn-info btn-xs">
+                            <i class="fa fa-calendar" aria-hidden="true"></i> </button></a>
 
-                         
-                        <a href=" {!! MoHandF::url($param['routes']['base'].'/'.$item->id,$getT) !!}  " title="View ">
-                            <button class="btn btn-info btn-xs">
-                                    <i class="fa fa-eye" aria-hidden="true"></i> 
-                            </button>
-                        </a>
-                        
-                       
-                        {!! 
-                            MoHandF::linkButton([
-                            'link'=> MoHandF::url($param['routes']['base'].'/'.$item->id.'/edit',$param['getT']),
-                            'fa'=>'pencil-square-o']) 
-                        !!}
                     
                   
                     </td>

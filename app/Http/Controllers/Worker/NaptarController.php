@@ -28,17 +28,18 @@ class NaptarController extends MoController
     use \App\Handler\trt\set\GetT;
    
     //calendár------------------------------------
-    use \App\Handler\trt\set\Date; //construktor hívja meg 
+    use \App\Handler\trt\set\Date;  //construct_set()-el kell meghívni
     use \App\Handler\trt\get\Day; 
     use \App\Handler\trt\get\Time; 
     use \App\Handler\trt\get\Calendar;
+
     protected $par= [
        // 'create_button'=>false,
       'addbutton_label'=>'Naptár sterkesztése',
        'cancel_button'=>false,
         'calendar'=>['view'=>['days' => 'worker.naptar.days']],
         'search'=>false,
-        'routes'=>['base'=>'worker/naptar','worker'=>'manager/worker'],
+        'routes'=>['base'=>'worker/naptar'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
         'view' => ['base' => 'crudbase', 'include' => 'worker.naptar'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
        // 'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
@@ -47,16 +48,20 @@ class NaptarController extends MoController
     ];
     protected $tpar= [
         'index'=>['calendar'=>[
+            'formopen_in_crudview'=>false,   
             'view' => ['days' => 'worker.naptar.days'],
-            //'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
+            'checkbutton'=>false,
+            'ev_ho_formopen'=>true,
+            'ev_ho_form_method'=>'GET',
         ]],
         'create'=>[
             'formopen_in_crudview'=>false,
             //'cancel_button'=>True,
             'calendar'=>[
-                'view' => ['days' => 'worker.naptar.editdays'],
-            // 'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
-                'checkbutton'=>true, //kikapcsolja az év hó válastó mezőt
+            'ev_ho_formopen'=>false,
+            'view' => ['days' => 'worker.naptar.editdays'],
+             'ev_ho'=>true, //ki-bekapcsolja az év hó válastó mezőt
+                'checkbutton'=>true, //ki-be kapcsolja az év hó válastó mezőt
                 'pdf_print'=>false, 
         ]], 
     ];

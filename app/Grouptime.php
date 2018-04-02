@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Workergroup extends Model
+class Grouptime extends Model
 {
-    use \Illuminate\Database\Eloquent\SoftDeletes;
-    protected $dates = ['deleted_at'];
+   // use \Illuminate\Database\Eloquent\SoftDeletes;
+   // protected $dates = ['deleted_at'];
 
     /**
      * The database table used by the model.

@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Workergroup extends Model
+class Groupday extends Model
 {
-    use \Illuminate\Database\Eloquent\SoftDeletes;
-    protected $dates = ['deleted_at'];
+  //  use \Illuminate\Database\Eloquent\SoftDeletes;
+  //  protected $dates = ['deleted_at'];
     /**
      * The database table used by the model.
      *
@@ -29,7 +29,7 @@ class Workergroup extends Model
      */
     protected $fillable = ['daytype_id', 'group_id', 'datum', 'note', 'pub'];
 
-    public function timetypes()
+    public function daytype()
 	{
 		return $this->belongsTo('App\Daytype');
 	}

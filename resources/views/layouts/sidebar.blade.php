@@ -20,7 +20,7 @@ $menuT=[
 'manager'=>[  
 ['/manager/users', 'Felhasználók'],
 ['/manager/workers' , 'Dolgozók'],
-['/manager/statuses' ,'Dolgozói státusz'],
+//['/manager/statuses' ,'Dolgozói státusz'],
 //['/manager/workergroups' , 'Dolgozói csoportok'],
 ['/manager/workertypes' ,  'Munka tipusok'],
 ['/manager/days','Napok'],
@@ -34,8 +34,9 @@ $menuT=[
 ],
 
 'workadmin'=>[
+['/workadmin/wroles', 'Munkarendek'],   
 ['/workadmin/groups', 'Müszak tervező'],
-['/workadmin/groupdaytimes', 'Múszak naptárak'],
+//['/workadmin/groupdaytimes', 'Múszak naptárak'],
 ['/workadmin/workerdaytimes','Dolgozói naptárak'],
 ['/workadmin/workerdays',  'Napok'],
 ['/workadmin/workertimes', 'Munkaidők'],

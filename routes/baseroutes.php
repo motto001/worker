@@ -60,14 +60,22 @@ Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles
 {
     Route::resource('/groups', 'Workadmin\\GroupsController');
     Route::any('/groups/show2/{id}', 'Workadmin\\GroupsController@show2');
-    Route::resource('/groupdaytimes', 'Workadmin\\GroupdaytimesController');
+    Route::any('/groups/calendar/{id}', 'Workadmin\\GroupsController@calendar');
+    Route::any('/groups/calendarsave/{id}', 'Workadmin\\GroupsController@calendarsave'); 
+
     Route::resource('/workerdaytimes', 'Workadmin\\WorkerdaytimesController');
+    Route::any('/workerdaytimes/calendar/{id}', 'Workadmin\\WorkerdaytimesController@calendar');
+    Route::any('/workerdaytimes/calendarsave/{id}', 'Workadmin\\WorkerdaytimesController@calendarsave'); 
+
   //  Route::resource('/grouptimes', 'Workadmin\\GrouptimesController');
     Route::resource('/workertimes', 'Workadmin\\WorkertimesController');
     Route::resource('/workerdays', 'Workadmin\\WorkerdaysController');
     Route::resource('/workerwroles', 'Workadmin\\WorkerwrolesController');
     Route::resource('/workertimeframes', 'Workadmin\\WorkertimeframesController');
-  //  Route::resource('/workerwroleunit', 'Workadmin\\WorkerwroleunitsController');
+
+   Route::resource('/wroles', 'Workadmin\\WrolesController');
+   Route::any('/wroles/addtime/{wroleid}', 'Workadmin\\WrolesController@addtime');
+   Route::any('/wroles/deltime/{timeid}/{wroleid}', 'Workadmin\\WrolesController@deltime'); 
 });
 Route::group(['prefix' => '/worker','middleware' => ['auth', 'roles'], 'roles' => 'worker'],function()
 { 

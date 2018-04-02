@@ -14,7 +14,7 @@ class DaytypesController extends MoController
 {
     use \App\Handler\trt\show;
     use \App\Handler\trt\crud\IndexFull;
-    use \App\Handler\trt\crud\MOcrud;
+    use \App\Handler\trt\crud\MOCrud;
     use \App\Handler\trt\redirect\Base;
     use \App\Handler\trt\view\Base;
     use \App\Handler\trt\set\Base; //akkor kell ha csak kiegészítjük A paramétereket nem PAR-t csak par-t adunk meg
@@ -35,7 +35,8 @@ class DaytypesController extends MoController
         'szorzo' => 'between:0,4|nullable',
         'fixplusz' => 'integer|nullable',
         'color' => 'string|nullable|max:50',
-        'note' => 'string|nullable|max:150',
+        'note' => 'string|nullable|max:150', 
+        'workday' => 'bool',
     ];
 
 }

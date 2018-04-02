@@ -27,5 +27,25 @@ Trait Time
 
     }
 
+    public function getGrouptime($id)
+    {
+        $res=[];
+        $ev=$this->BASE['data']['ev'];
+        $ho=$this->BASE['data']['ho'];
+
+        $datum1=$ev.'-'.$ho.'-01';
+        $datum2=\Carbon::create($ev,$ho, 1, 0)->endOfMonth();
+
+            $wrtimes= [];
+            $wrtimes= \App\Grouptime::where('group_id','=',$id)
+            ->whereBetween('datum', [$datum1,$datum2])
+            ->get()->toarray() ?? $wrtimes ; 
+         //   print_r($wrtimes);
+        foreach($wrtimes as $time) 
+        {
+            $this->BASE['data']['calendar'][$time['datum']]['times'][]=$time; 
+        }  
+
+    }
 
 }

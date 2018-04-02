@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 //use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Workerday extends Model
+class Wrole extends Model
 {
    // use SoftDeletes;
   //  protected $dates = ['deleted_at'];
@@ -14,7 +14,7 @@ class Workerday extends Model
      *
      * @var string
      */
-    protected $table = 'workerdays';
+    protected $table = 'wroles';
 
     /**
     * The database primary key value.
@@ -28,7 +28,7 @@ class Workerday extends Model
      *
      * @var array
      */
-    protected $fillable = ['worker_id', 'daytype_id', 'datum', 'managernote', 'workernote','pub'];
+    protected $fillable = ['name', 'note', 'start', 'pub'];
     /*
     public function workertime()
     {
@@ -38,14 +38,17 @@ class Workerday extends Model
     {
         return $this->hasOne('App\Chworkerday');
     }*/
-    public function worker()
+    public function wroletime()
     {
-        return $this->belongsTo('App\Worker')->with('user');
+        return $this->hasMany('App\Wroletime');
     } 
-    public function daytype()
+    public function groupwrole()
     {
-        return $this->belongsTo('App\Daytype');
-    }
-    
+        return $this->hasMany('App\Groupwrole');
+    } 
+    public function workerwrole()
+    {
+        return $this->hasMany('App\Workerwrole');
+    } 
     
 }

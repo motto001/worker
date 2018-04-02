@@ -3,20 +3,19 @@
 @php
 //adatok-----------------
 if(!isset($data)) {$data=[];}
-
 $getT=$param['getT'] ?? [];
-//$modal=$getT['modal'] ?? false;
-//$modal=$param['modal'] ?? $modal;
-
 $list=$data['list'] ?? [];
+$pagin_appends='';
+if(!is_array($list)){$pagin_appends=$list->appends(['search' => Request::get('search')])->render() ;}
+$pagination=$param['pagination']=true;
 $tableview=$param['view']['table'] ??  $param['view']['include'].'.table'; 
 //urlek------------------------
 $createUrl=$param['routes']['create'] ?? MoHandF::url($param['routes']['base'].'/create',$getT);
 $cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
 $formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
 //gombok,mezők----------------------------------
-//$search= $param['search'] ?? false;
-$search=  false;
+$search= $param['search'] ?? false;
+//$search=  false;
 $create_button=$param['create_button'] ?? true;
 $cancel_button=$param['cancel_button'] ?? false;
 //feliratok----------------------
@@ -38,8 +37,8 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
 
                     <div class="panel-heading">{{  $cim  }} lista</div>
                     <div class="panel-body">
-@if($search)                
-                  <div class="pagination-wrapper"> {!! $list->appends(['search' => Request::get('search')])->render() !!} </div>  
+@if($pagination)                
+<div class="pagination-wrapper"> {!! $pagin_appends !!} </div>  
 @endif   
 @if($create_button)
                        
@@ -57,7 +56,7 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
                         
                         <br />
                         <br />
-     
+@if($search)      
                         {!! Form::open(['method' => 'GET', 'url' => $formurl, 
                         'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
                         <div class="input-group">
@@ -67,8 +66,9 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
-                        </div>
+                        </div>               
                     {!! Form::close() !!}
+ @endif                  
 @include ($tableview)
                         <br/>
                         <br/>

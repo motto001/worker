@@ -9,7 +9,7 @@ trait MoControllerBase
         //NH 'crudview' => 'crudbase_4', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
         'cim' => '', //a crud templétben megjelenő cím
         'getT' => [],
-        'search' => true, // ha false kikapcsolja az index táblázat kereső mezőjét
+         //  'search' => true, //a crudbase/index alapból false-ra állítja ha false kikapcsolja az index táblázat kereső mezőjét
         'task' => 'index', //mocontroller construktor beállítja
         'showT' => [], //alapértelmezés a show blade-ben,nem jelenít meg semmit
         //'showT'=>['auto'],//ekkor a blade generálja ha van a data-ban label abból,ha nincs langfileból ha egyik sincs a data kulcsa lesz a label.
