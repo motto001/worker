@@ -111,6 +111,7 @@ public function construct_set()
     public function calendar($id)
     {   // echo 'index';
         $worker=Worker::with('user')->find($id);
+        $group_id=$worker->group_id ?? 0;
         $this->BASE['data']['cim']='<img width="50px" height="50px" src="/'.$worker->foto.'"> '. $worker->user->name. ' Naptárja';
         $this->BASE['data']['worker_id']=$id;
         $this->BASE['data']['wrole']=Wrole::get()->pluck('name','id');
@@ -119,12 +120,13 @@ public function construct_set()
         $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
         $this->BASE['data']['daytype']['0']='nincs változtatás';
         //calendar--------------------------------------     
-        $this->getMonthDays();   
-        $this->getGroupday($id);
-        $this->getGrouptime($id);  
-        $this->getMonthDays();   
-        $this->getWorkerday();
-        $this->getWorkertime();
+          //calendar--------------------------------------     
+    $this->getMonthDays(); 
+    if( $group_id>0){$this->getGroupday($group_id);}  
+    $this->getWorkerday();
+    
+    if( $group_id>0){$this->getGrouptime($group_id);}  
+    $this->getWorkertime();
     
         $data=$this->BASE['data'] ?? [];
         $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';

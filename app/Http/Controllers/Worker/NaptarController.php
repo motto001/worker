@@ -78,8 +78,9 @@ class NaptarController extends MoController
 public function construct_set()
 {
         $user_id=\Auth::user()->id ?? 0;
-        $worker=Worker::select('id')->where('user_id','=',$user_id)->first();
+        $worker=Worker::select('id','group_id')->where('user_id','=',$user_id)->first();
         $this->BASE['data']['worker_id']=$worker->id ?? 0;
+        $this->BASE['data']['group_id']=$worker->group_id ?? 0;
         $this->set_date(); //calendarhoz kell \App\Handler\trt\set\Date; 
 
 ;
@@ -87,11 +88,15 @@ public function construct_set()
     public function index_set()
     {
     $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
-
+echo  '----' .$this->BASE['data']['group_id'];
     //calendar--------------------------------------     
-    $this->getMonthDays();   
+    $this->getMonthDays(); 
+    if( $this->BASE['data']['group_id']>0){$this->getGroupday($this->BASE['data']['group_id']);}  
     $this->getWorkerday();
-    $this->getWorkertime();   
+
+    if( $this->BASE['data']['group_id']>0){$this->getGrouptime($this->BASE['data']['group_id']);}  
+    $this->getWorkertime();
+   
   
     }
     public function create_set()
@@ -102,9 +107,13 @@ public function construct_set()
         $this->BASE['data']['daytype']['0']='nincs változtatás';
        // print_r( $this->BASE['data']['daytype']);
     //calendar-------------------------------------- 
-    $this->getMonthDays();   
+    //calendar--------------------------------------     
+    $this->getMonthDays(); 
+    if( $this->BASE['data']['group_id']>0){$this->getGroupday($this->BASE['data']['group_id']);}  
     $this->getWorkerday();
-    $this->getWorkertime();   
+    
+    if( $this->BASE['data']['group_id']>0){$this->getGrouptime($this->BASE['data']['group_id']);}  
+    $this->getWorkertime();  
   
     }
     public function store(Request $request)

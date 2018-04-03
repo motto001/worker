@@ -62,7 +62,8 @@ $menuT=[
 ];
 $workerbool=true;
 $user_id=\Auth::user()->id;
-$worker=App\Worker::select('id')->where('user_id','=',$user_id)->first();
+$worker=App\Worker::select('id','foto')->where('user_id','=',$user_id)->first();
+$foto=$worker->foto;
 if(empty($worker)){$workerbool=false;}
 @endphp
 <aside >
@@ -70,7 +71,7 @@ if(empty($worker)){$workerbool=false;}
                   <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
                   
-                <p class="centered"><a style="padding:10px;font-size:16px;" class="{{ Request::path() == 'manager/users' ? 'active' : '' }}" href="profile.html"><img src="/assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+                <p class="centered"><a style="padding:10px;font-size:16px;" class="{{ Request::path() == 'manager/users' ? 'active' : '' }}" href="/worker/personal"><img src="/{{ $foto }}" class="img-circle" width="60"></a></p>
                 <h5 class="centered">{{ Auth::user()->name }} </h5>
            
             </ul> 
