@@ -43,7 +43,7 @@ class WrolesController extends MoController
         'obname'=>'\App\Wrole',
         'ob'=>null,
        // 'func'=>[  'set_task', 'set_getT','set_date', 'set_redir','set_routes','set_ob'],
-        'with'=>['timetype'],
+      'orm'=> [ 'with'=>['wroletime']],
 
     ];
 
@@ -52,7 +52,11 @@ class WrolesController extends MoController
          'note' => 'string|max:200|nullable',
          'name' => 'required|string',
      ];
-
+     public function edit_set()
+     {   
+         $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
+     }
+//az editre iráníit vissza nemaz indexre
      public function store(Request $request)
      {
          if(isset($this->val)){
@@ -68,22 +72,50 @@ class WrolesController extends MoController
          $redirfunc=$this->BASE['redirfunc']  ?? 'mo_redirect';
        return redirect($this->PAR['routes']['base'].'/'.$id.'/edit' );  
      }
+   
+     public function update($id,Request $request)
+     {  
+        if($request->has('addtime'))
+        {
+         $this->addtime($id);  
+        return redirect($this->PAR['routes']['base'].'/'.$id.'/edit' ); 
+        } 
+        else
+        { 
+            $valT=$this->val_update ?? $this->val ?? [];
+
+            $this->validate($request,$valT );
+            $this->BASE['data'] = $request->only('name', 'note');;
+
+            $this->BASE['ob']= $this->BASE['ob']->findOrFail($id);
+            $this->BASE['ob']->update($this->BASE['data']);
+    
+            Session::flash('flash_message',  trans('mo.item_updated'));
+            $redirfunc=$this->BASE['redirfunc']  ?? 'mo_redirect';
+            if (method_exists($this,$redirfunc)) {return $this->$redirfunc();} //behívja  a task specifikus routot is
+           else{return redirect($this->PAR['routes']['base'] ); }
+        }       
+     }
+
+
+     
      public function addtime($wroleid)
      {
+         $request=$this->BASE['request'];
          if(isset($this->timeval)){
             $this->validate($request,$this->timeval );  
          }
         
          $this->BASE['data'] = $request->all();
-         $this->BASE['data']['wrole_id']=$this->BASE['data'] ;
-     
+         $this->BASE['data']['wrole_id']=$wroleid;
+         $this->BASE['data']['note']=$request->timenote;
          Wroletime::create($this->BASE['data']);
 
-       return redirect($this->PAR['routes']['base'].'/'.$wroleid.'/edit' );  
      }
+
      public function deltime($timeid,$wroleid)
      {
-        Wroletime::delete($timeid);
+        Wroletime::destroy($timeid);
        return redirect($this->PAR['routes']['base'].'/'.$wroleid.'/edit' );  
      }
 

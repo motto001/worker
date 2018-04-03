@@ -7,12 +7,15 @@ use Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use App\Group;
+use App\Wrole;
+use App\Wroletime;
 use App\Worker;
 use App\Grouptime;
 use App\Groupday;
 use App\Timetype;
 use App\Daytype;
 use App\Day;
+use App\Workertime;
 class GroupsController extends MoController
 { 
     use \App\Handler\trt\crud\IndexFull;
@@ -42,6 +45,7 @@ class GroupsController extends MoController
     ];
     protected $tpar= [
         'calendar'=>[
+            'create_button' => false, 
             'formopen_in_crudview'=>false,
             'view' => ['base' => 'crudbase', 'include' => 'workadmin.groups','show2' => 'crudbase.show','calendar' => 'crudbase.index',
             'showcontent' => 'workadmin.groups.show2', 'workermodal' => 'workadmin.groups.workermodal','table'=>'workadmin.groups.calendar'],
@@ -86,7 +90,9 @@ public function workermodal()
 }
 public function calendar($id)
 {   
-    $this->BASE['data']['group_id']=$id;
+    $this->BASE['data']['group_id']=$id;  
+    $this->BASE['data']['wrole']=Wrole::get()->pluck('name','id');
+    $this->BASE['data']['wrole']['0']='nincs változtatás';
     $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
     $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
     $this->BASE['data']['daytype']['0']='nincs változtatás';
@@ -112,7 +118,7 @@ public function calendarsave($id)
     if($request->has('change'))
     {
      //  echo 'hhhhhhj.....jjjj';  exit();
-      
+     if($request->has('wroletask') && $request->wrole_id!=0 ){ $this->wrolechange($request);}
         if($request->has('daytask') && $request->daytype_id!=0 ){ $this->daytypechange($request);}
         if($request->has('timetask') && !empty($request->start) && !empty($request->end))
         { $this->timeadd($request); }
@@ -126,7 +132,24 @@ public function calendarsave($id)
     session(['datum' => $request->datum]);
     return redirect(\MoHandF::url($this->PAR['routes']['base'].'/calendar/'.$id,$this->PAR['getT'])); 
 }
+public function wrolechange(Request $request)
+{  
+    $wroletimeT=Wroletime::where('wrole_id',$request->wrole_id)->get()->toarray() ;
 
+    $group_id=$this->BASE['data']['group_id'];
+
+
+    foreach ($request->datum as $datum) {
+        Grouptime::where('group_id',$group_id)->where('datum',$datum)->delete();
+        foreach ($wroletimeT as $wroletime) {
+
+            $wroletime['datum']=$datum;
+            $wroletime['group_id']=$group_id;
+            $daytype = Grouptime::create($wroletime);        
+                
+        }
+    }
+}
 
 public function daytypechange(Request $request)
 {  

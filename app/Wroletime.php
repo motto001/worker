@@ -14,7 +14,7 @@ class Wroletime extends Model
      *
      * @var string
      */
-    protected $table = 'wroletime';
+    protected $table = 'wroletimes';
 
     /**
     * The database primary key value.

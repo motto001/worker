@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 
 use App\Workertime;
+use App\Wrole;
+use App\Wroletime;
 use App\Worker;
 use App\Workerday;
 use App\Timetype;
@@ -108,7 +110,11 @@ public function construct_set()
     }
     public function calendar($id)
     {   // echo 'index';
+        $worker=Worker::with('user')->find($id);
+        $this->BASE['data']['cim']='<img width="50px" height="50px" src="/'.$worker->foto.'"> '. $worker->user->name. ' Naptárja';
         $this->BASE['data']['worker_id']=$id;
+        $this->BASE['data']['wrole']=Wrole::get()->pluck('name','id');
+        $this->BASE['data']['wrole']['0']='nincs változtatás';
         $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
         $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
         $this->BASE['data']['daytype']['0']='nincs változtatás';
@@ -120,7 +126,7 @@ public function construct_set()
         $this->getWorkerday();
         $this->getWorkertime();
     
-      //  $data=$this->BASE['data'] ?? [];
+        $data=$this->BASE['data'] ?? [];
         $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
         if (method_exists($this,$viewfunc)) {return $this->$viewfunc();} 
        else{return view($this->PAR['view'].'.create',compact('data'));} 
@@ -128,7 +134,7 @@ public function construct_set()
     public function calendarsave($id) 
     {  
         $request= $this->BASE['request'];
-        $this->BASE['data']['group_id']=$id;
+        $this->BASE['data']['worker_id']=$id;
         if(isset($this->val)){
          //  $this->validate($request,$this->val );  
         } 
@@ -136,7 +142,7 @@ public function construct_set()
         if($request->has('change'))
         {
          //  echo 'hhhhhhj.....jjjj';  exit();
-          
+         if($request->has('wroletask') && $request->wrole_id!=0 ){ $this->wrolechange($request);}
             if($request->has('daytask') && $request->daytype_id!=0 ){ $this->daytypechange($request);}
             if($request->has('timetask') && !empty($request->start) && !empty($request->end))
             { $this->timeadd($request); }
@@ -150,22 +156,39 @@ public function construct_set()
         session(['datum' => $request->datum]);
         return redirect(\MoHandF::url($this->PAR['routes']['base'].'/calendar/'.$id,$this->PAR['getT'])); 
     }
-    
+    public function wrolechange(Request $request)
+    {  
+        $wroletimeT=Wroletime::where('wrole_id',$request->wrole_id)->get()->toarray() ;
+
+        $worker_id=$this->BASE['data']['worker_id'];
+
+
+        foreach ($request->datum as $datum) {
+            Workertime::where('worker_id',$worker_id)->where('datum',$datum)->delete();
+            foreach ($wroletimeT as $wroletime) {
+
+                $wroletime['datum']=$datum;
+                $wroletime['worker_id']=$worker_id;
+                $wroletime['pub']='0';
+                $daytype =  Workertime::create($wroletime);        
+                    
+            }
+        }
+   //  return redirect(\MoHandF::url($this->PAR['routes']['base'].'/calendar/'.$id,$this->PAR['getT'])); 
+    }
     
     public function daytypechange(Request $request)
     {  
-        $daytypedata=[
-            'daytype_id'=>$request->daytype_id,
-            'note'=>$request->note,
-        ];
-        $daytypedata['group_id']=$this->BASE['data']['group_id'];
-    //echo 'hhhhhhhhhmmmmmmmmmmhhhh';
-    //exit();
+        $daytypedata['worker_id']=$this->BASE['data']['worker_id'];
+        $daytypedata['daytype_id']=$request->daytype_id;
+
         foreach ($request->datum as $datum) {
+          Workerday::where('worker_id',$this->BASE['data']['worker_id'])->where('datum',$datum)->update(['pub'=>'2']);
             $daytypedata['datum']=$datum;
-                $daytype = Groupday::firstOrCreate(['group_id' =>$daytypedata['group_id'],'datum' =>$datum]);        
+           
+                $daytype = Workerday::firstOrCreate($daytypedata);        
             //  echo 'mmm'.$daytype->id; exit();
-                $daytype->update($daytypedata);     
+                $daytype->update(['pub'=>'0']);     
         }
     }
     
@@ -173,7 +196,7 @@ public function construct_set()
     {  
         foreach ($request->datum as $datum) 
         {        
-            $daytype = Groupday::where(['group_id' =>$this->BASE['data']['group_id'],'datum' =>$datum]);     
+            $daytype = Workerday::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum]);     
             $daytype->delete(); 
         }
     }
@@ -181,13 +204,13 @@ public function construct_set()
     public function timeadd(Request $request)
     {  
         $timeT=$request->only(['start', 'end', 'timetype_id']);
-        $timeT['group_id']=$this->BASE['data']['group_id'];
-        $timeT['note2']=$request->note2;
+        $timeT['worker_id']=$this->BASE['data']['worker_id'];
+        $timeT['note']=$request->note2;
     
         foreach ($request->datum as $datum)
          {
             $timeT['datum']=$datum;
-            $time = Grouptime::create($timeT);     
+            $time = Workertime::create($timeT);     
         }
     }
     
@@ -195,7 +218,7 @@ public function construct_set()
     public function timedel(Request $request)
     {  ///echo 'töröl';exit();
         foreach ($request->datum as $datum) {          
-            $time =  Grouptime::where(['group_id' =>$this->BASE['data']['group_id'],'datum' =>$datum]);     
+            $time =  Workertime::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum]);     
             $time->delete(); 
         }
     }   
@@ -213,7 +236,7 @@ public function construct_set()
             }
             foreach($workerO as $worker) {
     
-                $worker->update(['group_id'=>$workergroup_id]);
+                $worker->update(['worker_id'=>$workergroup_id]);
             } 
             
         }

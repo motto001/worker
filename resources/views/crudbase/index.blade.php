@@ -19,7 +19,7 @@ $search= $param['search'] ?? false;
 $create_button=$param['create_button'] ?? true;
 $cancel_button=$param['cancel_button'] ?? false;
 //feliratok----------------------
-$cim=$param['cim'] ?? '';
+$cim=$data['cim'] ?? $param['cim'] ?? '';
 $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
 $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
 
@@ -35,7 +35,7 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
             <div class="col-lg-12 main-chart">
                 <div class="panel panel-default">
 
-                    <div class="panel-heading">{{  $cim  }} lista</div>
+                    <div class="panel-heading">{!!  $cim  !!}</div>
                     <div class="panel-body">
 @if($pagination)                
 <div class="pagination-wrapper"> {!! $pagin_appends !!} </div>  

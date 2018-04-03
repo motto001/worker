@@ -2,16 +2,16 @@
 {!! Form::open(['url' => MoHandF::url($param['routes']['base'].'/calendarsave/'. $data['group_id'],$getT), 
 'class' => 'form-horizontal', 'files' => true]) !!}
 <div class="row"> 
-        <div class="col-md-6"  >  <span>Nap típus változtatás </span> 
+        <div class="col-md-6"  >  <span>Nap típus,munkarend változtatás </span> 
             <div class="row" style=" border: 1px solid lightslategray; padding:5px 5px 25px 5px;"> 
                 <div class="col-md-6">  <span>Nap típus </span> 
-                    {!! Form::select('daytype_id', $data['daytype'], 0, ['class' => 'form-control input-sm', 'required' => 'required']) !!}       
+                    {!! Form::select('daytype_id', $data['daytype'], 0, ['class' => 'form-control input-sm']) !!}       
                     {!! $errors->first('daytype_id', '<p class="help-block">:message</p>') !!}
                 </div>
-                <div class="col-md-6"><span>Megjegyzés</span>
-                    {!! Form::text('note', null, ['class' => 'form-control input-sm']) !!}
-                    {!! $errors->first('note', '<p class="help-block">:message</p>') !!}
-                </div> 
+                <div class="col-md-6">  <span>Munkarend</span> 
+                    {!! Form::select('wrole_id', $data['wrole'], 0, ['class' => 'form-control input-sm']) !!}       
+                    {!! $errors->first('wrole_id', '<p class="help-block">:message</p>') !!}
+                </div>
             </div> 
             <div class="row"> 
                 <div class="col-md-12"><div> -</div>
@@ -22,6 +22,8 @@
                     {{ Form::checkbox('timetask', 'time',true) }} 
                 <span>Naptípusok</span>        
                     {{ Form::checkbox('daytask', 'day',true) }} 
+                <span>Munkarendek</span>        
+                    {{ Form::checkbox('wroletask', 'wrole',true) }}    
                 </div>
             </div>
 
