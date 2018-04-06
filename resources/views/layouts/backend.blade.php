@@ -7,6 +7,7 @@ if(isset($data['param'])){$param=array_merge($param,$data['param']);}
 //$modal=$param['modal'] ?? $modal;
 $header= $param['header'] ?? true;
 $sidebar = $param['sidebar'] ?? true ;
+$modaltitle=$param['modal']['title'] ?? '' ;
 @endphp
 
 <html lang="en">
@@ -144,20 +145,22 @@ $( ".datepickernoyear" ).datepicker({
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-header" style="background-color:blue;">
-            <button type="button" style="color:red;" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Modal title</h4>
+            <button type="button" style="color:red;background-color:white; opacity: 0.6;" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{ $modaltitle }}</h4>
     
         </div>
             <div class="modal-content">
              
                 <div class="modal-body"><div id="myModalContent" class="te"></div></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
+             
+            </div>    
             <!-- /.modal-content -->
+             <div class="modal-footer">
+              <!--  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
         </div>
+       
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->  

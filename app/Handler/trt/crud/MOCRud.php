@@ -6,7 +6,17 @@ use Session;
 use Illuminate\Support\Facades\Input;
 //use Illuminate\Support\Facades\Image;
 Trait MOCrud
-{
+{    public function info_set(){}//ha nincs sem baj de a call_func() a logban hibát jelez
+    public function info($view)
+    {   
+        
+        $funcT=$this->TBASE['create']['task_func'] ?? ['info_set'];
+        $this->call_func($funcT);
+        $data=$this->BASE['data'] ?? [];
+        $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
+
+        return view($this->PAR['view']['include'].'.'.$view,compact('data'));
+    }
     public function create_set(){}//ha nincs sem baj de a call_func() a logban hibát jelez
     public function create()
     {   

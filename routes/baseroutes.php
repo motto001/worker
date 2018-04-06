@@ -73,7 +73,9 @@ Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles
     Route::resource('/workerwroles', 'Workadmin\\WorkerwrolesController');
     Route::resource('/workertimeframes', 'Workadmin\\WorkertimeframesController');
 
-   Route::resource('/wroles', 'Workadmin\\WrolesController');
+    Route::get('/wroles/info/{view}', 'Workadmin\\WrolesController@info');
+    Route::resource('/wroles', 'Workadmin\\WrolesController');
+
    Route::any('/wroles/addtime/{wroleid}', 'Workadmin\\WrolesController@addtime');
    Route::any('/wroles/deltime/{timeid}/{wroleid}', 'Workadmin\\WrolesController@deltime'); 
 });

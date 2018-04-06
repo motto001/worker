@@ -10,12 +10,14 @@ if(!is_array($list)){$pagin_appends=$list->appends(['search' => Request::get('se
 $pagination=$param['pagination']=true;
 $tableview=$param['view']['table'] ??  $param['view']['include'].'.table'; 
 //urlek------------------------
+$infoUrl=$param['routes']['info'] ?? MoHandF::url($param['routes']['base'].'/info/baseinfo',$getT);
 $createUrl=$param['routes']['create'] ?? MoHandF::url($param['routes']['base'].'/create',$getT);
 $cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
 $formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
 //gombok,mezők----------------------------------
 $search= $param['search'] ?? false;
 //$search=  false;
+$info_button=$param['info_button'] ?? true;
 $create_button=$param['create_button'] ?? true;
 $cancel_button=$param['cancel_button'] ?? false;
 //feliratok----------------------
@@ -35,7 +37,17 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
             <div class="col-lg-12 main-chart">
                 <div class="panel panel-default">
 
-                    <div class="panel-heading">{!!  $cim  !!}</div>
+                    <div class="panel-heading">
+                         {!!  $cim  !!}
+                      
+                        @if($info_button)  
+            
+                            <a href="{{ $infoUrl }}" title="Cancel" style="float:right;" data-toggle="modal" data-target="#myModal">
+                                    <i class="fa fa-info-circle fa-3x"></i>
+                           </a>       
+                        @endif   
+                       
+                    </div>
                     <div class="panel-body">
 @if($pagination)                
 <div class="pagination-wrapper"> {!! $pagin_appends !!} </div>  
@@ -48,8 +60,8 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
  @endif                       
  @if($cancel_button)
  
-    <a href="{{ $cancelUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>{{ $cancel_label }}</button></a>
+    <a href="{{ $cancelUrl }}" title="Cancel" class="btn btn-warning btn-sm">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>{{ $cancel_label }}</a>
 
 @endif   
 
