@@ -88,7 +88,7 @@ public function construct_set()
     public function index_set()
     {
     $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
-echo  '----' .$this->BASE['data']['group_id'];
+//echo  '----' .$this->BASE['data']['group_id'];
     //calendar--------------------------------------     
     $this->getMonthDays(); 
     if( $this->BASE['data']['group_id']>0){$this->getGroupday($this->BASE['data']['group_id']);}  
@@ -107,7 +107,7 @@ echo  '----' .$this->BASE['data']['group_id'];
         $this->BASE['data']['daytype']['0']='nincs változtatás';
        // print_r( $this->BASE['data']['daytype']);
     //calendar-------------------------------------- 
-    //calendar--------------------------------------     
+    
     $this->getMonthDays(); 
     if( $this->BASE['data']['group_id']>0){$this->getGroupday($this->BASE['data']['group_id']);}  
     $this->getWorkerday();

@@ -58,6 +58,8 @@ Route::group(['prefix' => '/manager','middleware' => ['auth', 'roles'], 'roles' 
 //workadmin---------------------------------------------------------------
 Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles' => 'workadmin'],function()
 {
+    Route::resource('/savecal', 'Workadmin\\SavecalsController');
+
     Route::resource('/groups', 'Workadmin\\GroupsController');
     Route::any('/groups/show2/{id}', 'Workadmin\\GroupsController@show2');
     Route::any('/groups/calendar/{id}', 'Workadmin\\GroupsController@calendar');

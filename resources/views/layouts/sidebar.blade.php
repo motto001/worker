@@ -36,7 +36,7 @@ $menuT=[
 'workadmin'=>[
 ['/workadmin/wroles', 'Munkarendek'],   
 ['/workadmin/groups', 'Müszak tervező'],
-//['/workadmin/groupdaytimes', 'Múszak naptárak'],
+['/workadmin/savecal', 'Havi mentések'],
 ['/workadmin/workerdaytimes','Dolgozói naptárak'],
 ['/workadmin/workerdays',  'Napok'],
 ['/workadmin/workertimes', 'Munkaidők'],
@@ -63,7 +63,7 @@ $menuT=[
 $workerbool=true;
 $user_id=\Auth::user()->id;
 $worker=App\Worker::select('id','foto')->where('user_id','=',$user_id)->first();
-$foto=$worker->foto;
+$foto=$worker->foto ?? 'images/user-circle.svg';
 if(empty($worker)){$workerbool=false;}
 @endphp
 <aside >

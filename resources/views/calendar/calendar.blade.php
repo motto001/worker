@@ -10,13 +10,14 @@
 //echo  '-----------------'. $calendarbase;
  $pdf_print_view=$param['calendar']['view']['pdf_print'] ??  $calendarbase.'.pdf_print';
  $ev_ho_view=$param['calendar']['view']['ev_ho_view'] ??  $calendarbase.'.ev_ho';
+ $checkbutton_view=$param['calendar']['view']['checkbutto_view'] ??  $calendarbase.'.checkbutton';
  $style_view=$param['calendar']['view']['style'] ??  $calendarbase.'.style';
  $days_view=$param['calendar']['view']['days'] ?? $calendarbase.'.days';
 //echo  '-----------------'.$days_view;
 //kapcsolók----------------------------------------------------
  $pdf_print=$param['calendar']['pdf_print']  ?? true;
  $ev_ho=$param['calendar']['ev_ho']  ?? true;
-
+ $checkbutton=$param['calendar']['checkbutton']  ?? true;
 //styleok-------------------------------------------------
 $daystyle=$param['calendar']['daystyle'] ?? [
         'empty'=>'border: 1px solid silver;',
@@ -40,11 +41,23 @@ $timestyle=$param['calendar']['timestyle'] ??[
     @include( $pdf_print_view)
 @endif    
 
-     <br><br> 
-@if( $ev_ho)            
-@include($ev_ho_view)
-@endif 
+     <div class="col-xs-6">Év hónap választás:</div><div class="col-xs-6">Kijelölés:</div>
 
+<div class="row">     
+@if( $ev_ho) 
+    <div class="col-xs-6">           
+        @include($ev_ho_view)
+    </div>
+@endif 
+      @if($checkbutton)          
+        <div class="col-xs-6"> 
+               
+            @include($checkbutton_view)   
+         
+        </div>
+         @endif  
+</div>               
+  
 <div style="background-color:#c5c5d6;">
 
     <ul class="flex-container nowrap"  style="backgroun-color:white;">

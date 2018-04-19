@@ -17,32 +17,34 @@ public function getWorkerday()
         //-----------------------
         $dayT= \App\Day::with('daytype')->where('datum',  'LIKE', $ev."-".$ho."%")
             ->orwhere('datum',  'LIKE', "0000-".$ho."%")
-            ->get();
+            ->get()->toarray();
             foreach($dayT as $day) 
             {
-               $day->datum = str_replace("0000", $ev, $day->datum);
-
-
-               $ujdayT=  ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'days','munkanap'=>$day['daytype']['workday'],
-               'type'=>$this->BASE['data']['daytype'][$day->daytype_id],'pub'=>0];
-                $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
-              }  
-
+                $day['datum']= str_replace("0000", $ev, $day['datum']); 
+                //blade hez egyszerúsítés
+                $day['munkanap']=$day['daytype']['workday'];
+                $day['type']=$this->BASE['data']['daytype'][$day['daytype_id']];
+                //----------------
+               $this->BASE['data']['calendar'][$day['datum']]=array_merge($this->BASE['data']['calendar'][$day['datum']],$day);
+               
+            }
         //------------------------
         $workerdayT= \App\Workerday::with('daytype')->where([
           //  ['pub', '=', 0],
             ['worker_id', '=', $worker_id],
             ['datum',  'LIKE', $ev."-".$ho."%"],
-            ])->get(); 
+            ])->get()->toarray(); 
       
             foreach($workerdayT as $day) 
             { 
-                $ujdayT= ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'munkanap'=>$day['daytype']['workday'],
-                'type'=>$this->BASE['data']['daytype'][$day->daytype_id],'pub'=>$day->pub];
-                if($day->pub=='0'){
-                $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
+                //blade hez egyszerúsítés
+                    $day['munkanap']=$day['daytype']['workday'];
+                    $day['type']=$this->BASE['data']['daytype'][$day['daytype_id']];
+                // ---------   
+                if($day['pub']=='0'){
+                $this->BASE['data']['calendar'][$day['datum']]=array_merge($this->BASE['data']['calendar'][$day['datum']],$day);
                  }
-                 else{$this->BASE['data']['calendar'][$day->datum]['wish']=$ujdayT;}
+                 else{$this->BASE['data']['calendar'][$day['datum']]['wish']=$day;}
             }   
 //print_r( $this->BASE['data']['calendar']); exit();
     }
@@ -60,15 +62,16 @@ public function getWorkerday()
         $dayT= \App\Groupday::with('daytype')->where([
         ['group_id', '=', $group_id ],
         ['datum',  'LIKE', $ev."-".$ho."%"],
-        ])->get();
+        ])->get()->toarray();
 
             foreach($dayT as $day) 
-            {
-               
-               $ujdayT=  ['datatype'=>'day','datum'=>$day->datum,'id'=>$day->id,'ch'=>'days','munkanap'=>$day->daytype->munkanap,
-               'type'=>$this->BASE['data']['daytype'][$day->daytype_id]];
-                $this->BASE['data']['calendar'][$day->datum]=array_merge($this->BASE['data']['calendar'][$day->datum],$ujdayT);
-            }  
+            {   
+                //blade hez egyszerúsítés  
+                  $day['munkanap']=$day['daytype']['workday'];
+                $day['type']=$this->BASE['data']['daytype'][$day['daytype_id']];           
+               //--------------------
+                $this->BASE['data']['calendar'][$day['datum']]=array_merge($this->BASE['data']['calendar'][$day['datum']],$day);
+             }  
 
     }
 }

@@ -5,6 +5,10 @@ use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Input;
 //use Illuminate\Support\Facades\Image;
+
+/**
+ * alap crud functions
+ */
 Trait MOCrud
 {    public function info_set(){}//ha nincs sem baj de a call_func() a logban hibát jelez
     public function info($view)
@@ -52,6 +56,7 @@ Trait MOCrud
         if (method_exists($this,$redirfunc)) {return $this->$redirfunc();} //behívja  a task specifikus routot is
        else{return redirect($this->PAR['routes']['base'] ); } 
     }
+ 
     public function edit_set(){}
     public function edit($id)
     {   // echo 'index';
@@ -63,7 +68,7 @@ Trait MOCrud
         $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
         if (method_exists($this,$viewfunc)) {return $this->$viewfunc();} 
        else{return view($this->PAR['view'].'.edit',compact('data'));} }
-    
+
     public function update_set_data(){}//mentés előtt manipulálható vele a validált BASE['data']
     public function update_set(){} //mentés után  újabb save functionok lefuttatására
     public function update($id, Request $request)
