@@ -7,7 +7,7 @@ use Session;
 use Carbon\Carbon;
 use App\facades\MoCal;
 
-class Calendar 
+trait Calendar 
 {
 
 

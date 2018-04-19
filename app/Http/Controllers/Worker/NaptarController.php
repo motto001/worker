@@ -32,7 +32,7 @@ class NaptarController extends MoController
     use \App\Handler\trt\get\Day; 
     use \App\Handler\trt\get\Time; 
     use \App\Handler\trt\get\Calendar;
-
+    use \App\Handler\trt\calendar\Savecal;
     protected $par= [
        // 'create_button'=>false,
       'addbutton_label'=>'Naptár sterkesztése',
@@ -123,18 +123,26 @@ public function construct_set()
            $this->validate($request,$this->val );  
         }
 
-        if($request->has('change'))
-        {
-            if($request->has('daytask') && $request->daytype_id!=0 ){ $this->daytypechange($request);}
-            if($request->has('timetask') && !empty($request->start) && !empty($request->end))
-            { $this->timeadd($request); }
-        } 
-        if($request->has('del'))
-        { 
-            if($request->has('daytask')){$this->daytypedel($request);}
-            if($request->has('timetask')){ $this->timedel($request);  }
-         }
+        switch ($request->change) {
+            case 'del' :
+                if($request->has('daytask')){$this->daytypedel($request);}
+                if($request->has('timetask')){ $this->timedel($request);  }
+                break; 
+            case 'day_wrole':
+                if( $request->daytype_id!=0 ){ $this->daytypechange($request);}
+           
+            case 'time' :
+                if( !empty($request->start) && !empty($request->end))
+            {    $this->timeadd($request); }
 
+            case 'create_save' :
+            //SavecalsController@get_savecal_data($worker_id)
+             case 'update_save' :
+               // echo "i equals 2";       
+        }
+
+       // if($request->has('del'))
+      
         session(['datum' => $request->datum]);
         return redirect(\MoHandF::url($this->PAR['routes']['base'].'/create',$this->PAR['getT'])); 
     }

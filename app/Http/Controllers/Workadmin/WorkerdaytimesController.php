@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Workadmin;
 use App\Handler\MoController;
-use App\Http\Requests;
+//use App\Http\Requests;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\View;
@@ -35,7 +35,8 @@ class WorkerdaytimesController extends MoController
     use \App\Handler\trt\get\Day;
     use \App\Handler\trt\get\Time;
     use \App\Handler\trt\get\Calendar;
-
+    use \App\Handler\trt\calendar\Savecal; //get_savecal_data(),store_savecal(),update_store_savecal()
+    use \App\Handler\trt\calendar\Change; //wrolechange(), daytypechange(),daytypedel(),timeadd()....
     protected $par= [
         // 'create_button'=>false,
        'addbutton_label'=>'Naptár sterkesztése',
@@ -112,7 +113,7 @@ public function construct_set()
     {   // echo 'index';
         $worker=Worker::with('user')->find($id);
         $group_id=$worker->group_id ?? 0;
-        $this->BASE['data']['cim']='<img width="50px" height="50px" src="/'.$worker->foto.'"> '. $worker->user->name. ' Naptárja';
+        $this->BASE['data']['cim']='<img width="50px" height="50px" src="/'.$worker->foto.'"> '. $worker->user->name. ' naptár szerkesztés';
         $this->BASE['data']['worker_id']=$id;
         $this->BASE['data']['wrole']=Wrole::get()->pluck('name','id');
         $this->BASE['data']['wrole']['0']='nincs változtatás';
@@ -141,89 +142,29 @@ public function construct_set()
          //  $this->validate($request,$this->val );  
         } 
     
-        if($request->has('change'))
-        {
-         //  echo 'hhhhhhj.....jjjj';  exit();
-         if($request->has('wroletask') && $request->wrole_id!=0 ){ $this->wrolechange($request);}
-            if($request->has('daytask') && $request->daytype_id!=0 ){ $this->daytypechange($request);}
-            if($request->has('timetask') && !empty($request->start) && !empty($request->end))
-            { $this->timeadd($request); }
-        } 
-        if($request->has('del'))
-        { 
-            if($request->has('daytask')){$this->daytypedel($request);}
-            if($request->has('timetask')){ $this->timedel($request);  }
-         }
+        switch ($request->change) {
+            case 'del' :
+                if($request->has('daytask')){$this->daytypedel(0);}
+                if($request->has('timetask')){ $this->timedel(0);  }
+                break; 
+            case 'day_wrole':
+                if( $request->daytype_id!=0 ){ $this->daytypechange(0);}
+                if( $request->wrole_id!=0 ){ $this->wrolechange(0);}
+           
+            case 'time' :
+                if( !empty($request->start) && !empty($request->end))
+                {  $this->timeadd(0); }
+
+            case 'create_save' :
+            //SavecalsController@get_savecal_data($worker_id)
+             case 'update_save' :
+               // echo "i equals 2";       
+        }
     
         session(['datum' => $request->datum]);
         return redirect(\MoHandF::url($this->PAR['routes']['base'].'/calendar/'.$id,$this->PAR['getT'])); 
     }
-    public function wrolechange(Request $request)
-    {  
-        $wroletimeT=Wroletime::where('wrole_id',$request->wrole_id)->get()->toarray() ;
-
-        $worker_id=$this->BASE['data']['worker_id'];
-
-
-        foreach ($request->datum as $datum) {
-            Workertime::where('worker_id',$worker_id)->where('datum',$datum)->delete();
-            foreach ($wroletimeT as $wroletime) {
-
-                $wroletime['datum']=$datum;
-                $wroletime['worker_id']=$worker_id;
-                $wroletime['pub']='0';
-                $daytype =  Workertime::create($wroletime);        
-                    
-            }
-        }
-   //  return redirect(\MoHandF::url($this->PAR['routes']['base'].'/calendar/'.$id,$this->PAR['getT'])); 
-    }
-    
-    public function daytypechange(Request $request)
-    {  
-        $daytypedata['worker_id']=$this->BASE['data']['worker_id'];
-        $daytypedata['daytype_id']=$request->daytype_id;
-
-        foreach ($request->datum as $datum) {
-          Workerday::where('worker_id',$this->BASE['data']['worker_id'])->where('datum',$datum)->update(['pub'=>'2']);
-            $daytypedata['datum']=$datum;
-           
-                $daytype = Workerday::firstOrCreate($daytypedata);        
-            //  echo 'mmm'.$daytype->id; exit();
-                $daytype->update(['pub'=>'0']);     
-        }
-    }
-    
-    public function daytypedel(Request $request)
-    {  
-        foreach ($request->datum as $datum) 
-        {        
-            $daytype = Workerday::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum]);     
-            $daytype->delete(); 
-        }
-    }
-    
-    public function timeadd(Request $request)
-    {  
-        $timeT=$request->only(['start', 'end', 'timetype_id']);
-        $timeT['worker_id']=$this->BASE['data']['worker_id'];
-        $timeT['note']=$request->note2;
-    
-        foreach ($request->datum as $datum)
-         {
-            $timeT['datum']=$datum;
-            $time = Workertime::create($timeT);     
-        }
-    }
-    
-    
-    public function timedel(Request $request)
-    {  ///echo 'töröl';exit();
-        foreach ($request->datum as $datum) {          
-            $time =  Workertime::where(['worker_id' =>$this->BASE['data']['worker_id'],'datum' =>$datum]);     
-            $time->delete(); 
-        }
-    }   
+   
     
     public function show2_set()
     {
@@ -242,10 +183,6 @@ public function construct_set()
             } 
             
         }
-       
-        
-    
-    
     }
     //előbb hívja meg show_set()-et mnt az eredeti hogy ne kelljen frissíteni woeker törléss és hozzáadás esetén
     public function show2($id)

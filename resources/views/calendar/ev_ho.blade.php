@@ -49,7 +49,7 @@ if($ev_ho_formurl_addgetT){$ev_ho_formurl= MoHandF::url($ev_ho_formurl,$param['g
             {!! Form::select('ho', $months, $data['ho']  , ['class' => 'form-control input-sm col-xs-2']) !!}       
         </div>    
         <div class="col-xs-4"> 
-            {!! Form::submit(isset($submitButtonText) ? $submitButtonText : @trans('mo.update'), ['class' => 'btn btn-primary input-sm','name' => 'ev_ho']) !!}            
+            {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Dátum frissítés', ['class' => 'btn btn-primary input-sm','name' => 'ev_ho']) !!}            
         </div>
 @if($ev_ho_formopen) 
 {!! Form::close() !!}

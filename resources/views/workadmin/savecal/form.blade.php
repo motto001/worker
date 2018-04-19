@@ -76,10 +76,12 @@ $checkbutton_view=$param['calendar']['view']['checkbutto_view'] ??  $calendarbas
 </div>  
 <br/>
 <div class="row"> 
-    <div class="col-xs-6">    
-        <input type="hidden"  name="savebutton" value="save" >   
-        <button type="submit" class=" btn-primary btn btn-large">
-        <i class="fa fa-save" aria-hidden="true"> mentés</i> 
+    <div class="col-xs-6">     
+        <button type="submit" name="store" value="new" class=" btn-primary btn btn-large">
+        <i class="fa fa-save" aria-hidden="true"> új mentés</i> 
+        </button>
+        <button type="submit" name="store" value="update"  class=" btn-primary btn btn-large">
+                <i class="fa fa-save" aria-hidden="true"> frissítés/új</i> 
         </button>
     </div> 
 </div> 

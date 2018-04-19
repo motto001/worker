@@ -3,6 +3,7 @@
 namespace App\Handler;
 
 use App\Http\Controllers\Controller;
+//use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;

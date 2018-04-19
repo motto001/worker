@@ -7,14 +7,14 @@ $getT=$param['getT'];
         <table class="table table-borderless">
             <thead>
                 <tr>
-                    <th>ID</th><th>Foto</th><th>User név</th><th>Teljes név</th><th>Email</th><th>Munkakör</th><th>Actions</th>
+                    <th>ID</th><th>Dolgozó</th><th>Év</th><th>Hó</th><th>Mentés neve</th><th>Megjegyzés</th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($data['list']  as $item)
                 <tr>
-                    <td>{{ $item->id }}</td><td> <img src="/{{ $item->foto }}" alt="foto" height="20" width="25"> </td>
-                    <td>{{ $item['user']['name'] }}</td><td>{{ $item->fullname }}</td><td>{{ $item['user']['email'] }}</td><td>{{  $item->position }}</td>
+                    <td>{{ $item->id }}</td><td>{{ $item->worker_id }}</td>
+                    <td>{{ $item->ev }}</td><td>{{ $item->ho }}</td><td>{{ $item->name }}</td><td>{{  $item->note }}</td>
                     <td>
                         <a href="{{ url('/'.$param['routes']['base'].'/calendar/' . $item->id,$param['getT']) }}" 
                             title="View "><button class="btn btn-info btn-xs">

@@ -14,11 +14,7 @@
  $style_view=$param['calendar']['view']['style'] ??  $calendarbase.'.style';
  $days_view=$param['calendar']['view']['days'] ?? $calendarbase.'.days';
 //echo  '-----------------'.$days_view;
-//kapcsolók----------------------------------------------------
- $pdf_print=$param['calendar']['pdf_print']  ?? true;
- $ev_ho=$param['calendar']['ev_ho']  ?? true;
- $checkbutton=$param['calendar']['checkbutton']  ?? true;
-//styleok-------------------------------------------------
+
 $daystyle=$param['calendar']['daystyle'] ?? [
         'empty'=>'border: 1px solid silver;',
         'base'=>['li'=>'border: 1px solid silver;','div'=>'','span'=>'color:silver'],
@@ -37,26 +33,7 @@ $timestyle=$param['calendar']['timestyle'] ??[
 @endif  
 
 
-@if( $pdf_print)
-    @include( $pdf_print_view)
-@endif    
-
-     <div class="col-xs-6">Év hónap választás:</div><div class="col-xs-6">Kijelölés:</div>
-
-<div class="row">     
-@if( $ev_ho) 
-    <div class="col-xs-6">           
-        @include($ev_ho_view)
-    </div>
-@endif 
-      @if($checkbutton)          
-        <div class="col-xs-6"> 
-               
-            @include($checkbutton_view)   
-         
-        </div>
-         @endif  
-</div>               
+              
   
 <div style="background-color:#c5c5d6;">
 
