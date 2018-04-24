@@ -8,6 +8,7 @@ use Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 
+
 use App\Workertime;
 use App\Worker;
 use App\Workerday;
@@ -29,10 +30,11 @@ class NaptarController extends MoController
    
     //calendár------------------------------------
     use \App\Handler\trt\set\Date;  //construct_set()-el kell meghívni
-    use \App\Handler\trt\get\Day; 
-    use \App\Handler\trt\get\Time; 
-    use \App\Handler\trt\get\Calendar;
-    use \App\Handler\trt\calendar\Savecal;
+    //use \App\Handler\trt\get\Day; 
+   // use \App\Handler\trt\get\Time; 
+    use \App\Handler\trt\get\Daytime;
+   // use \App\Handler\trt\get\Calendar;
+    //use \App\Handler\trt\calendar\Savecal;
     protected $par= [
        // 'create_button'=>false,
       'addbutton_label'=>'Naptár sterkesztése',
@@ -46,7 +48,7 @@ class NaptarController extends MoController
         'cim'=>'Naptár',
         'getT'=>[],       
     ];
-    protected $tpar= [
+    protected $tpar= [ 
         'index'=>['calendar'=>[
             'formopen_in_crudview'=>false,   
             'view' => ['days' => 'worker.naptar.days'],
@@ -82,29 +84,17 @@ public function construct_set()
         $this->BASE['data']['worker_id']=$worker->id ?? 0;
         $this->BASE['data']['group_id']=$worker->group_id ?? 0;
         $this->set_date(); //calendarhoz kell \App\Handler\trt\set\Date; 
-
-;
+       
 }
     public function index_set()
     {
-    $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
-//echo  '----' .$this->BASE['data']['group_id'];
-    //calendar--------------------------------------     
-    $this->getMonthDays(); 
-    if( $this->BASE['data']['group_id']>0){$this->getGroupday($this->BASE['data']['group_id']);}  
-    $this->getWorkerday();
-
-    if( $this->BASE['data']['group_id']>0){$this->getGrouptime($this->BASE['data']['group_id']);}  
-    $this->getWorkertime();
-   
-  
+        $this->getWorkerCal_or_savecal($this->BASE['data']['worker_id']);
     }
     public function create_set()
     {
 
-        $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
-        $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
-        $this->BASE['data']['daytype']['0']='nincs változtatás';
+       
+       
        // print_r( $this->BASE['data']['daytype']);
     //calendar-------------------------------------- 
     

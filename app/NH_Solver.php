@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Savecal extends Model
+class Solver extends Model
 {
 
     use \Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,7 +14,7 @@ class Savecal extends Model
      *
      * @var string
      */
-    protected $table = 'savecals';
+    protected $table = 'solver';
 
     /**
     * The database primary key value.
@@ -30,10 +30,20 @@ class Savecal extends Model
      */
     protected $fillable = ['worker_id','ev','ho','name', 'note', 'pub','act'];
   
-
-    public function savecalday()
+    public function worker()
 	{
-		return $this->hasMany('App\SavecalDay');
+		return $this->belongsTo('App\Worker');
 	}
-  
+    public function solverlday()
+	{
+		return $this->hasMany('App\SolverDay');
+	}
+    public function solverdaytime()
+	{
+		return $this->hasMany('App\SolverDayTime');
+	}
+    public function solvertimeframe()
+	{
+		return $this->hasMany('App\SolverDayTime');
+	}
 }

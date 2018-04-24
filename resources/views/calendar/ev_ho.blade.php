@@ -20,7 +20,7 @@ if($ev_ho_formurl_addgetT){$ev_ho_formurl= MoHandF::url($ev_ho_formurl,$param['g
     function minusyear(){
         $('#ev').val(parseFloat($('#ev').val())-1);    
       }
-
+ 
 </script> 
 
 @if($ev_ho_formopen) 

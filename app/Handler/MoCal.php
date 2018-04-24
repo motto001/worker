@@ -10,6 +10,8 @@ class MoCal
 {
     public $days=['vasárnap','hétfő','kedd','szerda','csütörtök','péntek','szombat'];
 
+
+
     public function getMonths()
     { 
       return  [       
@@ -52,32 +54,7 @@ class MoCal
         else{                         $dt = Carbon::create($year, $month , 1, 0);}
         return $dt;
     }
-  /*  
-    public function getFirstEmptyDays($daysnumber,$days=[])
-    {
-        for ($i=0; $i <= $daysnumber; $i++) { 
-            $days[]=  [
-                'weeknum'=>$i,
-                'name'=>'Empty',
-                'type'=>'empty',
-                'color'=>'gray'
-            ];
-        }
-        return $days;
-    }
-    public function getLastEmptyDays($daysnumber=0,$days=[])
-    {
-        for ($i=$daysnumber; $i <= 6; $i++) { 
-            $days[]=  [
-                'weeknum'=>$i,
-                'name'=>'Empty',
-                'type'=>'empty',
-                'color'=>'gray'
-            ];
-        }
-        return $days;
-    }
- */  
+   
 public function getMonthDays($year='0',$month='0')
 {
     $date=$this->getDate($year,$month);

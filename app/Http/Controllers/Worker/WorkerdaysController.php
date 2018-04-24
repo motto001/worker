@@ -34,15 +34,16 @@ class WorkerdaysController extends MoController
         'cim'=>'Dolgozói napok',
         'getT'=>[],   
         'show'=>['auto'],  
-        'orm'=>['with'=>['daytype']], 
+        'perpage'=>20,
     ];
   
     protected $base= [
+
        'get'=>['ev'=>null,'ho'=>null], //a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be
        // 'get_post'=>['ev'=>null,'ho'=>null],//a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be ha van ilyen kulcs a postban azzal felülírja
         'obname'=>'\App\Workerday',
         'ob'=>null,
-   // 'with'=>['worker','daytype'],
+        'orm'=>['with'=>['daytype'],'order_by'=>['datum'=>'DESC']], 
     ];
 
     protected $val= [

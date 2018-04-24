@@ -5,10 +5,10 @@ namespace App\Handler\trt\get;
 Trait Time
 {
 
-    public function getWorkertime()
+    public function getWorkertime($worker_id=0)
     {
         $res=[];
-        $worker_id=$this->BASE['data']['worker_id'];
+        if($worker_id==0){ $worker_id=$this->BASE['data']['worker_id'] ?? 0;}
         $ev=$this->BASE['data']['ev'];
         $ho=$this->BASE['data']['ho'];
 

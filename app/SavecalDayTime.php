@@ -30,7 +30,7 @@ class SavecalDayTime extends Model
 
     public function saveday()
 	{
-		 return $this->belongsTo('App\Savecal');
+		 return $this->belongsTo('App\SavecalDay');
 	}
   public function Timetype()
 	{

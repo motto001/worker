@@ -2,7 +2,8 @@
 namespace App\Handler\trt\set;
 trait Orm{
 
-public function set_orm($ob){
+public function set_orm(){
+$ob=$this->BASE['ob']  ;
         $with=$this->BASE['orm']['with'] ?? '';
         if ($with!='') {$ob= $ob->with($with); }
         $where=$this->BASE['orm']['where'] ?? '';

@@ -36,5 +36,9 @@ class SavecalDay extends Model
 	{
 		 return $this->belongsTo('App\Daytype');
 	}
+  public function savecaldaytime()
+	{
+		return $this->hasMany('App\SavecalDayTime');
+	}
 
 }

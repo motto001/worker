@@ -9,9 +9,7 @@ use Carbon\Carbon;
 trait Calendar 
 {
 
-public function getMonthDays()
-{
-    $calendar=new \App\Handler\Calendar;
-    $this->BASE['data']['calendar']=$calendar->getMonthDays($this->BASE['data']['ev'],$this->BASE['data']['ho']); 
-}
+ 
+
+
 }
