@@ -33,17 +33,19 @@ class NaptarController extends MoController
     //use \App\Handler\trt\get\Day; 
    // use \App\Handler\trt\get\Time; 
     use \App\Handler\trt\get\Daytime;
+    use \App\Handler\trt\calendar\Change; //wrolechange(), daytypechange(),daytypedel(),timeadd().
    // use \App\Handler\trt\get\Calendar;
     //use \App\Handler\trt\calendar\Savecal;
     protected $par= [
        // 'create_button'=>false,
+       'perpage'=>100,
       'addbutton_label'=>'Naptár sterkesztése',
        'cancel_button'=>false,
-        'calendar'=>['view'=>['days' => 'worker.naptar.days']],
+       // 'calendar'=>['view'=>['days' => 'worker.naptar.days']],
         'search'=>false,
         'routes'=>['base'=>'worker/naptar'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
-        'view' => ['base' => 'crudbase', 'include' => 'worker.naptar'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
+        'view' => ['base' => 'crudbase', 'include' => 'worker.naptar', 'pdf' => 'worker.pdf'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
        // 'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
         'cim'=>'Naptár',
         'getT'=>[],       
@@ -51,7 +53,9 @@ class NaptarController extends MoController
     protected $tpar= [ 
         'index'=>['calendar'=>[
             'formopen_in_crudview'=>false,   
-            'view' => ['days' => 'worker.naptar.days'],
+         //   'view' => ['days' => 'worker.naptar.days'],
+         'checkbox'=>false,
+         'pubview'=>'csaknull', //all
             'checkbutton'=>false,
             'ev_ho_formopen'=>true,
             'ev_ho_form_method'=>'GET',
@@ -61,7 +65,7 @@ class NaptarController extends MoController
             //'cancel_button'=>True,
             'calendar'=>[
             'ev_ho_formopen'=>false,
-            'view' => ['days' => 'worker.naptar.editdays'],
+           // 'view' => ['days' => 'worker.naptar.editdays'],
              'ev_ho'=>true, //ki-bekapcsolja az év hó válastó mezőt
                 'checkbutton'=>true, //ki-be kapcsolja az év hó válastó mezőt
                 'pdf_print'=>false, 
@@ -82,28 +86,45 @@ public function construct_set()
         $user_id=\Auth::user()->id ?? 0;
         $worker=Worker::select('id','group_id')->where('user_id','=',$user_id)->first();
         $this->BASE['data']['worker_id']=$worker->id ?? 0;
+        $this->BASE['data']['worker_name']=$worker->fullname ?? '';
         $this->BASE['data']['group_id']=$worker->group_id ?? 0;
         $this->set_date(); //calendarhoz kell \App\Handler\trt\set\Date; 
-       
+        $this->set_wrole_daytype_timetype_select();
 }
     public function index_set()
     {
+       
+
         $this->getWorkerCal_or_savecal($this->BASE['data']['worker_id']);
+
+    }
+    public function pdf()
+    {
+        $this->getWorkerCal_or_savecal($this->BASE['data']['worker_id']);
+      /*  if (method_exists($this, 'set_orm')) {
+            $this->BASE['ob']= $this->set_orm($this->BASE['ob']);
+        }
+        $this->BASE['data']['list'] = $this->BASE['ob']->paginate($perPage);
+        if (!empty($getT)) {$this->BASE['data']['list']->appends($getT);}*/
+        $data=$this->BASE['data'] ?? [];
+       // return view($this->PAR['view']['include'].'.pdf',compact('data'));
+   /*     $html = view($this->PAR['view']['include'].'.pdf',compact('data'))->render();
+    NiklaPDF
+        $defaultOptions = \PDF::getOptions();
+        $defaultOptions->setDpi(300);
+        $defaultOptions->setDefaultPaperSize('A4');
+        return \PDF::setOptions($defaultOptions)->load($html)->download();*/
+   //     $pdf =  \NiklaPDF::loadView($this->PAR['view']['include'].'.pdf',compact('data'));
+   // return $pdf->stream('document.pdf');
+    //$html = view($this->PAR['view']['include'].'.pdf',compact('data'))->render();
+    //return \NiklaPDF::load($html)->download();
+    return view($this->PAR['view']['include'].'.pdf',compact('data'));
     }
     public function create_set()
     {
-
-       
-       
-       // print_r( $this->BASE['data']['daytype']);
-    //calendar-------------------------------------- 
-    
-    $this->getMonthDays(); 
-    if( $this->BASE['data']['group_id']>0){$this->getGroupday($this->BASE['data']['group_id']);}  
-    $this->getWorkerday();
-    
-    if( $this->BASE['data']['group_id']>0){$this->getGrouptime($this->BASE['data']['group_id']);}  
-    $this->getWorkertime();  
+        $this->BASE['data']['wrole']=\App\Wrole::get()->pluck('name','id');
+        $this->BASE['data']['wrole']['0']='nincs változtatás';
+        $this->getWorkerCal_or_savecal($this->BASE['data']['worker_id']);
   
     }
     public function store(Request $request)
@@ -113,31 +134,25 @@ public function construct_set()
            $this->validate($request,$this->val );  
         }
 
+     
         switch ($request->change) {
             case 'del' :
-                if($request->has('daytask')){$this->daytypedel($request);}
-                if($request->has('timetask')){ $this->timedel($request);  }
+                if($request->has('daytask')){$this->daytypedel(1);}
+                if($request->has('timetask')){ $this->timedel(1);  }
                 break; 
             case 'day_wrole':
-                if( $request->daytype_id!=0 ){ $this->daytypechange($request);}
+                if( $request->daytype_id!=0 ){ $this->daytypechange(1);}
+                if( $request->wrole_id!=0 ){ $this->wrolechange(1);}
            
             case 'time' :
                 if( !empty($request->start) && !empty($request->end))
-            {    $this->timeadd($request); }
-
-            case 'create_save' :
-            //SavecalsController@get_savecal_data($worker_id)
-             case 'update_save' :
-               // echo "i equals 2";       
-        }
-
-       // if($request->has('del'))
-      
+                {  $this->timeadd(1); }  
+        }    
         session(['datum' => $request->datum]);
         return redirect(\MoHandF::url($this->PAR['routes']['base'].'/create',$this->PAR['getT'])); 
     }
 
-  
+/*  
     public function daytypechange(Request $request)
     {  
         $daytypedata=[
@@ -184,5 +199,5 @@ public function construct_set()
             $time->delete(); 
         }
     }   
-
+*/
 }

@@ -12,7 +12,7 @@
  $ev_ho_view=$param['calendar']['view']['ev_ho_view'] ??  $calendarbase.'.ev_ho';
  $checkbutton_view=$param['calendar']['view']['checkbutto_view'] ??  $calendarbase.'.checkbutton';
  $style_view=$param['calendar']['view']['style'] ??  $calendarbase.'.style';
- $days_view=$param['calendar']['view']['days'] ?? $calendarbase.'.days';
+ $days_view=$param['calendar']['view']['days'] ?? $calendarbase.'.day_times';
 //echo  '-----------------'.$days_view;
 
 $daystyle=$param['calendar']['daystyle'] ?? [
@@ -49,14 +49,15 @@ $timestyle=$param['calendar']['timestyle'] ??[
     </ul>
 </div>     
 <div id="naptar">
+
 @foreach($data['calendar'] as $dt) 
 <!-- sorkezdés---------------------------------------------->
-    @if($dt['dayOfWeek']==1 or $dt['day']==1) 
+    @if($dt['baseday']['dayOfWeek']==1 or $dt['baseday']['day']==1) 
             <ul class="flex-container nowrap" style="justify-content:flex-start"> 
     <!-- **sortöltés üres divek---------------------------------------------------------->
         @php
-        if( $dt['dayOfWeek']==0){$emptydiv=6;}
-        else{$emptydiv=$dt['dayOfWeek']-1;}
+        if( $dt['baseday']['dayOfWeek']==0){$emptydiv=6;}
+        else{$emptydiv=$dt['baseday']['dayOfWeek']-1;}
         @endphp     
         @if ($emptydiv>0) 
             @for ($i = 0; $i < $emptydiv; $i++)
@@ -71,17 +72,18 @@ $timestyle=$param['calendar']['timestyle'] ??[
  <!-- Napok--------------------------------------------------->        
  @include($days_view)
 <!-- sor lezárása ha teljes a hét------------------------->   
-    @if($dt['dayOfWeek']==0) 
+    @if($dt['baseday']['dayOfWeek']==0) 
     </ul > 
     @endif 
+ 
 @endforeach
 
- <!-- üres divek sortöltés és sorlezárás ha nem teljes a hét------------------------------------>
-@if($dt['dayOfWeek']>0) 
-    @for ($i = $dt['dayOfWeek']; $i < 7; $i++)
+  <!-- üres divek sortöltés és sorlezárás ha nem teljes a hét------------------------------------>        
+ @if(isset($dt) && $dt['baseday']['dayOfWeek']>0) 
+    @for ($i = $dt['baseday']['dayOfWeek']; $i < 7; $i++)
             <li class="flex-item" style="{{ $daystyle['empty'] }}"> </li>
     @endfor
 </ul > 
-@endif 
-          
+@endif   
+    
 </div>    

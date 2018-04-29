@@ -9,8 +9,16 @@ use Carbon\Carbon;
 class MoCal
 {
     public $days=['vasárnap','hétfő','kedd','szerda','csütörtök','péntek','szombat'];
-
-
+    public $day_propertyT= [
+        'datatype'=>'base',
+        'name'=>'',
+        'day'=>0,
+        'dayOfWeek'=>0,
+        'datum'=>'0000-00-00',
+        'daytype_id'=>1,
+        'type'=>'Munkanap',
+        'munkanap'=>true,
+    ];
 
     public function getMonths()
     { 
@@ -54,6 +62,7 @@ class MoCal
         else{                         $dt = Carbon::create($year, $month , 1, 0);}
         return $dt;
     }
+
    
 public function getMonthDays($year='0',$month='0')
 {
@@ -63,19 +72,17 @@ public function getMonthDays($year='0',$month='0')
             while ($aktMonth == $date->month) { 
                 //$datum=$year.'-'.$month.'-'.$date->day;
                 $datum= \MoCalF::datumTwoChar($year.'-'.$month.'-'.$date->day);
-                $ujdays= [
-                    'datatype'=>'base',
+                $ujdaysB= [
                     'name'=>$this->days[$date->dayOfWeek],
                     'day'=>$date->day,
                     'dayOfWeek'=>$date->dayOfWeek,
                     'datum'=>$datum,
-                    'daytype_id'=>1,
-                    'type'=>'Munkanap',
-                    'munkanap'=>true,
                 ]; 
+                $ujdays=array_merge($this->day_propertyT, $ujdaysB);
                 if( $date->dayOfWeek==0){$ujdays['daytype_id']=2;$ujdays['type']='Szabadnap';$ujdays['munkanap']=false;}
                if($date->dayOfWeek==6 ){$ujdays['daytype_id']=3;$ujdays['type']='Pihenőnap';$ujdays['munkanap']=false;}
-                $days[$datum]= $ujdays;
+                $days[$datum]['baseday']= $ujdays;
+                $days[$datum]['days']= [];
                 $date->addDay();
             }  
      return $days;       

@@ -34,28 +34,7 @@ trait Calendar
  
 public function getMonthDays($year='0',$month='0')
 {
-    $date=$this->getDate($year,$month);
-    $aktMonth=$date->month;
-    
-            while ($aktMonth == $date->month) { 
-                //$datum=$year.'-'.$month.'-'.$date->day;
-                $datum= \MoCalF::datumTwoChar($year.'-'.$month.'-'.$date->day);
-                $ujdays= [
-                    'datatype'=>'base',
-                    'name'=>$this->days[$date->dayOfWeek],
-                    'day'=>$date->day,
-                    'dayOfWeek'=>$date->dayOfWeek,
-                    'datum'=>$datum,
-                    'daytype_id'=>1,
-                    'type'=>'Munkanap',
-                    'munkanap'=>true,
-                ]; 
-                if( $date->dayOfWeek==0){$ujdays['daytype_id']=2;$ujdays['type']='Szabadnap';$ujdays['munkanap']=false;}
-               if($date->dayOfWeek==6 ){$ujdays['daytype_id']=3;$ujdays['type']='Pihenőnap';$ujdays['munkanap']=false;}
-                $days[$datum]= $ujdays;
-                $date->addDay();
-            }  
-     return $days;       
+    return MoCal::getDate($year,$month);    
 }
 /*
     public function getDays($year='0',$month='0',$dayT=[],$timeT=[])

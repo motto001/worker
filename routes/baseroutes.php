@@ -59,6 +59,7 @@ Route::group(['prefix' => '/manager','middleware' => ['auth', 'roles'], 'roles' 
 Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles' => 'workadmin'],function()
 {
     Route::resource('/savecal', 'Workadmin\\SavecalsController');
+    Route::get('/savecal/calendar/{id}', 'Workadmin\\SavecalsController@calendar');
 
     Route::resource('/groups', 'Workadmin\\GroupsController');
     Route::any('/groups/show2/{id}', 'Workadmin\\GroupsController@show2');
@@ -88,6 +89,8 @@ Route::group(['prefix' => '/worker','middleware' => ['auth', 'roles'], 'roles' =
     Route::resource('/workertimes', 'Worker\\WorkertimesController');
     Route::resource('/workerdays', 'Worker\\WorkerdaysController');
     Route::resource('/naptar', 'Worker\\NaptarController');
+  Route::get('/naptarpdf', 'Worker\\NaptarController@pdf');
+
     Route::resource('/personal', 'Worker\\WorkersController');
     
   //  Route::get('/worktimes/{year}/{month}/{day}/{user}', 'Worker\\WorktimesController@index2');

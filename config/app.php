@@ -186,6 +186,9 @@ Appzcoder\LaravelAdmin\LaravelAdminServiceProvider::class,
   // Jadjoubran\LaravelAngular\Provider\LaravelServiceProvider::class,
   // Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
   // Irazasyed\JwtAuthGuard\JwtAuthGuardServiceProvider::class,
+ // Barryvdh\DomPDF\ServiceProvider::class,
+ Vsmoraes\Pdf\PdfServiceProvider::class,
+ niklasravnsborg\LaravelPdf\PdfServiceProvider::class
 ],
 
     /*
@@ -242,7 +245,10 @@ Appzcoder\LaravelAdmin\LaravelAdminServiceProvider::class,
  'MoViewF' => App\facades\MoView::class,
  'MoHandF' => App\facades\MoHand::class,
  'MoCalF' => App\facades\MoCal::class,
- 'MoShow' => App\facades\MoShow::class
+ 'MoShow' => App\facades\MoShow::class,
+//'PDF' => Barryvdh\DomPDF\Facade::class,
+'PDF' => 'Vsmoraes\Pdf\PdfFacade',
+'NiklaPDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
     ],
 
 ];

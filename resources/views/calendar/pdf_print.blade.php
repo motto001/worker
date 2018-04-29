@@ -9,22 +9,22 @@
 <script>
 var doc = new jsPDF();
 var specialElementHandlers = {
-    '#editor': function (element, renderer) {
+    'editor': function (element, renderer) { 
         return true;
     }
 };
 
 $('#cmd').click(function () {   
-    doc.fromHTML($('#naptar').html(), 15, 15, {
-        'width': 170,
+    doc.fromHTML($('document').html(), 10, 10, {
+        'width': 100,
             'elementHandlers': specialElementHandlers
     });
-    doc.save('sample-file.pdf');
+    doc.save('naptar.pdf');
 });
 
 $('.print-button').on('click', function() {  
     //window.print(); 
-    var DocumentContainer = document.getElementById('naptar');
+    var DocumentContainer = document.getElementById('naptarprint');
     var WindowObject = window.open('', "PrintWindow", "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
     WindowObject.document.writeln(DocumentContainer.innerHTML);
     WindowObject.document.close();

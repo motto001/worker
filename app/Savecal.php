@@ -35,5 +35,8 @@ class Savecal extends Model
 	{
 		return $this->hasMany('App\SavecalDay');
 	}
-  
+    public function savecaltime()
+	{
+		return $this->hasMany('App\SavecalTime');
+	}
 }

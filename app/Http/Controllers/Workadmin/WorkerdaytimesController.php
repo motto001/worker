@@ -32,8 +32,7 @@ class WorkerdaytimesController extends MoController
     use \App\Handler\trt\set\GetT;
      //calendár------------------------------------
     use \App\Handler\trt\set\Date;
-    use \App\Handler\trt\get\Day;
-    use \App\Handler\trt\get\Time;
+    use \App\Handler\trt\get\Daytime;
     use \App\Handler\trt\get\Calendar;
     use \App\Handler\trt\calendar\Savecal; //get_savecal_data(),store_savecal(),update_store_savecal()
     use \App\Handler\trt\calendar\Change; //wrolechange(), daytypechange(),daytypedel(),timeadd()....
@@ -42,7 +41,7 @@ class WorkerdaytimesController extends MoController
        'addbutton_label'=>'Naptár sterkesztése',
         'cancel_button'=>false,
         'create_button'=>false,
-         'calendar'=>['view'=>['days' => 'workadmin.workerdaytimes.days']],
+       //  'calendar'=>['view'=>['days' => 'workadmin.workerdaytimes.days']],
          'search'=>false,
          'routes'=>['base'=>'workadmin/workerdaytimes'],
          //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
@@ -57,7 +56,7 @@ class WorkerdaytimesController extends MoController
              'formopen_in_crudview'=>false,
              //'cancel_button'=>True,
              'calendar'=>[
-                 'view' => ['days' => 'workadmin.workerdaytimes.editdays'],
+             //    'view' => ['days' => 'workadmin.workerdaytimes.editdays'],
              // 'ev_ho'=>false, //kikapcsolja az év hó válastó mezőt
                  'checkbutton'=>true, //kikapcsolja az év hó válastó mezőt
                  'pdf_print'=>false, 
@@ -69,6 +68,7 @@ class WorkerdaytimesController extends MoController
             'showcontent' => 'workadmin.workerdaytimes.show2', 'workermodal' => 'workadmin.workerdaytimes.workermodal','table'=>'workadmin.workerdaytimes.calendar'],
          // 'view'=>['table'=>'workadmin.groups.calendar'],
             'calendar'=>[
+            'checkbox'=>false,   
             'ev_ho_formopen'=>false,
             'view' => ['days' => 'worker.naptar.editdays'],
              'ev_ho'=>true, //ki-bekapcsolja az év hó válastó mezőt
@@ -93,6 +93,7 @@ class WorkerdaytimesController extends MoController
 public function construct_set()
 {
   $this->set_date();
+  $this->set_wrole_daytype_timetype_select();
 }
     public function index_set()
     {
@@ -115,19 +116,10 @@ public function construct_set()
         $group_id=$worker->group_id ?? 0;
         $this->BASE['data']['cim']='<img width="50px" height="50px" src="/'.$worker->foto.'"> '. $worker->user->name. ' naptár szerkesztés';
         $this->BASE['data']['worker_id']=$id;
-        $this->BASE['data']['wrole']=Wrole::get()->pluck('name','id');
-        $this->BASE['data']['wrole']['0']='nincs változtatás';
-        $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
-        $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
-        $this->BASE['data']['daytype']['0']='nincs változtatás';
+        $this->set_wrole_daytype_timetype_select();
+       
         //calendar--------------------------------------     
-          //calendar--------------------------------------     
-    $this->getMonthDays(); 
-    if( $group_id>0){$this->getGroupday($group_id);}  
-    $this->getWorkerday();
-    
-    if( $group_id>0){$this->getGrouptime($group_id);}  
-    $this->getWorkertime();
+        $this->getWorkerCal($this->BASE['data']['worker_id']);
     
         $data=$this->BASE['data'] ?? [];
         $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
@@ -156,9 +148,11 @@ public function construct_set()
                 {  $this->timeadd(0); }
 
             case 'create_save' :
-            //SavecalsController@get_savecal_data($worker_id)
+            $this->getWorkerCal($id);
+            $this->store_savecal();
              case 'update_save' :
-               // echo "i equals 2";       
+             $this->getWorkerCal($id); 
+             $this-> update_store_savecal();       
         }
     
         session(['datum' => $request->datum]);

@@ -108,14 +108,18 @@ if(empty($worker)){$workerbool=false;}
         <i class="fa fa-edit "> </i>Admin  <span class="badge"> lenyiló </span>
       </a>
        
-        <div class="collapse" id="collapseExample3">
+        <div class="collapse in" id="collapseExample3">
               @foreach($menuT['workadmin'] as $menu)
               <a href="{{$menu[0]}}" style="background-color:#214761;"  class="btn btn-primary menugomb">{{$menu[1]}}</a>
                @endforeach
        </div> 
        @endif 
         @if ($workerbool)   
-       <div >
+        <a  class="btn btn-primary menucsoport"
+        data-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample" >
+        <i class="fa fa-edit "> </i>Dolgozói menü  <span class="badge"> lenyiló </span>
+      </a>
+       <div class="collapse in" id="collapseExample4">
             @foreach($menuT['worker'] as $menu)
             <a href="{{$menu[0]}}" style="background-color:#214761;"  class="btn btn-primary menugomb">{{$menu[1]}}</a>
              @endforeach

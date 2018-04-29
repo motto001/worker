@@ -26,7 +26,7 @@ class SavecalDay extends Model
      *
      * @var array
      */
-    protected $fillable = ['savecal_id', 'daytype_id', 'datum','note','workday'];
+    protected $fillable = ['savecal_id', 'daytype_id', 'datum','note','workday','pub'];
 
     public function savecal()
 	{
@@ -35,10 +35,15 @@ class SavecalDay extends Model
   public function daytype()
 	{
 		 return $this->belongsTo('App\Daytype');
-	}
+  }
+  /*
   public function savecaldaytime()
 	{
 		return $this->hasMany('App\SavecalDayTime');
 	}
-
+  public function times()
+	{
+		return $this->hasMany('App\SavecalDayTime');
+  }
+  */
 }

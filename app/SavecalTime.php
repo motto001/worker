@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SavecalDayTime extends Model
+class SavecalTime extends Model
 {
 
     /**
@@ -12,7 +12,7 @@ class SavecalDayTime extends Model
      *
      * @var string
      */
-    protected $table = 'savecal_day_times';
+    protected $table = 'savecal_times';
 
     /**
     * The database primary key value.
@@ -26,11 +26,11 @@ class SavecalDayTime extends Model
      *
      * @var array
      */
-    protected $fillable = ['savecal_day_id', 'timetype_id', 'note','start','end','hour'];
+    protected $fillable = ['savecal_id', 'timetype_id', 'datum', 'note','start','end','hour','pub'];
 
-    public function saveday()
+    public function savecal()
 	{
-		 return $this->belongsTo('App\SavecalDay');
+		 return $this->belongsTo('App\Savecal');
 	}
   public function Timetype()
 	{

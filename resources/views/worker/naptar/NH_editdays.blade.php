@@ -1,6 +1,6 @@
 @php
     $daytype='base';
-    if($dt['dayOfWeek']==6 || $dt['dayOfWeek']==0 ){$daytype='hollyday';}
+    if($dt['baseday']['dayOfWeek']==6 || $dt['baseday']['dayOfWeek']==0 ){$daytype='hollyday';}
     
     $timetype='base';
 @endphp 
@@ -31,7 +31,6 @@
     @endif  
     @php 
     $checked=false; 
-    if(is_array(session('datum')) && in_array($dt['datum'], session('datum'))){$checked=true;}
     if(is_array(session('datum')) && in_array($dt['datum'], session('datum'))){$checked=true;}
     $munkanap=$dt['munkanap'] ?? false;
     $munkanapClass='';

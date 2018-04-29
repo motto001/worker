@@ -29,7 +29,7 @@ Trait Day
             $day['munkanap']=$day['daytype']['workday'];
             $day['type']=$this->BASE['data']['daytype'][$day['daytype_id']];
             //----------------
-            $this->BASE['data']['calendar'][$day['datum']]=array_merge($this->BASE['data']['calendar'][$day['datum']],$day);
+            $this->BASE['data']['calendar'][$day['datum']]['baseday']=array_merge($this->BASE['data']['calendar'][$day['datum']]['baseday'],$day);
             
         }
 
@@ -57,9 +57,9 @@ public function getWorkerday($worker_id=0)
                     $day['type']=$this->BASE['data']['daytype'][$day['daytype_id']];
                 // ---------   
                 if($day['pub']=='0'){
-                $this->BASE['data']['calendar'][$day['datum']]=array_merge($this->BASE['data']['calendar'][$day['datum']],$day);
+                $this->BASE['data']['calendar'][$day['datum']]['baseday']=array_merge($this->BASE['data']['calendar'][$day['datum']]['baseday'],$day);
                  }
-                 else{$this->BASE['data']['calendar'][$day['datum']]['wish']=$day;}
+                 else{$this->BASE['data']['calendar'][$day['datum']]['days'][]=$day;}
             }   
 //print_r( $this->BASE['data']['calendar']); exit();
     }
@@ -85,7 +85,7 @@ public function getWorkerday($worker_id=0)
                   $day['munkanap']=$day['daytype']['workday'];
                 $day['type']=$this->BASE['data']['daytype'][$day['daytype_id']];           
                //--------------------
-                $this->BASE['data']['calendar'][$day['datum']]=array_merge($this->BASE['data']['calendar'][$day['datum']],$day);
+                $this->BASE['data']['calendar'][$day['datum']]['baseday']=array_merge($this->BASE['data']['calendar'][$day['datum']]['baseday'],$day);
              }  
 
     }

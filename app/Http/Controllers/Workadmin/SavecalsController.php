@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
-
+//use Illuminate\Support\Facades\Facade; 
 use App\Savecal;
 use App\SavecalDay;
 use App\SavecalDayTime;
@@ -31,8 +31,9 @@ class SavecalsController extends MoController
     use \App\Handler\trt\set\GetT;
      //calendár------------------------------------
     use \App\Handler\trt\set\Date;
-    use \App\Handler\trt\get\Day;
-    use \App\Handler\trt\get\Time;
+   // use \App\Handler\trt\get\Day;
+  //  use \App\Handler\trt\get\Time;
+    use \App\Handler\trt\get\Daytime;
     use \App\Handler\trt\get\Calendar;
     use \App\Handler\trt\calendar\Savecal;
     protected $par= [
@@ -79,6 +80,7 @@ public function construct_set()
     }   
     public function create_set()
     {  
+        
         $this->BASE['data']['worker']=Worker::get();
     }
    
@@ -114,28 +116,18 @@ $workerT=$request->worker_id ?? [];
 
     public function calendar($id)
     {   // echo 'index';
-        $worker=Worker::with('user')->find($id);
+       // $savecalB=Savecal::with(['savecalday','savecalday.times'])->find($id);
+        
+       // print_r($savecalB);
+      /*  $worker=Worker::with('user')->find($savecal->worker_id);
         $group_id=$worker->group_id ?? 0;
         $this->BASE['data']['cim']='<img width="50px" height="50px" src="/'.$worker->foto.'"> '. $worker->user->name. ' Naptárja';
-        $this->BASE['data']['worker_id']=$id;
-        $this->BASE['data']['wrole']=Wrole::get()->pluck('name','id');
-        $this->BASE['data']['wrole']['0']='nincs változtatás';
-        $this->BASE['data']['daytype']=Daytype::get()->pluck('name','id');
-        $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
-        $this->BASE['data']['daytype']['0']='nincs változtatás';
-        //calendar--------------------------------------     
-          //calendar--------------------------------------     
-    $this->getMonthDays(); 
-    if( $group_id>0){$this->getGroupday($group_id);}  
-    $this->getWorkerday();
-    
-    if( $group_id>0){$this->getGrouptime($group_id);}  
-    $this->getWorkertime();
-    
+        $this->BASE['data']['worker_id']=$id;*/
+         
+        //calendar-------------------------------------- 
+     
         $data=$this->BASE['data'] ?? [];
-        $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
-        if (method_exists($this,$viewfunc)) {return $this->$viewfunc();} 
-       else{return view($this->PAR['view'].'.create',compact('data'));} 
+         return view($this->PAR['view']['include'].'.calendar',compact('data'));
     }
  
     
