@@ -31,12 +31,12 @@
         @if($pubview=='all')
         @foreach($dt['days'] as $day) 
             @if($day['pub']==1)
-            <div style="{{ $daystyle[$daytype]['div'] }}">       
+            <div style="color:gray;">       
                     Új: {{ $day['type'] }}       
                 </div>
             @endif
             @if($day['pub']==2)
-            <div style="{{ $daystyle[$daytype]['div'] }}">       
+            <div style=" color:red;">       
                     Tilt: {{ $day['type'] }}       
                 </div>
             @endif   

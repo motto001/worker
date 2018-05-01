@@ -138,21 +138,15 @@
         "Handler": {
           "Calendar.php": {
             "type": "-",
-            "size": 5115,
+            "size": 5117,
             "lmtime": 1522022201849,
-            "modified": false
+            "modified": true
           },
           "MoCal.php": {
             "type": "-",
-            "size": 182,
+            "size": 3561,
             "lmtime": 0,
-            "modified": false
-          },
-          "MoController.1.php": {
-            "type": "-",
-            "size": 9237,
-            "lmtime": 0,
-            "modified": false
+            "modified": true
           },
           "MoController.php": {
             "type": "-",
@@ -1368,12 +1362,6 @@
       "composer.json": {
         "type": "-",
         "size": 1700,
-        "lmtime": 0,
-        "modified": false
-      },
-      "composer.lock": {
-        "type": "-",
-        "size": 171730,
         "lmtime": 0,
         "modified": false
       },

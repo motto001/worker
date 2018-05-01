@@ -1,5 +1,61 @@
-
-      <div class="table-responsive">
+{!! Form::open([
+    'url' =>  $param['routes']['base'], 
+    'method' => 'post',
+    'class' => 'form-horizontal'
+    ]) !!}
+<div class="row">
+        <div class="col-lg-2">
+                {!! Form::select('worker_id', $data['workers'], 0, ['class' => 'form-control', 'required' => 'required']) !!}     
+        </div>
+        <div class="col-lg-10">
+                @php
+                $year=$data['ev'] ;
+            
+                $months=['Minden hónap','Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','Decenber'];
+               // $months=$param['calendar']['months'] ?? $months_magyar; unset($months[0]);// kiveszi az alapfeliratot és 1-el kezdődikaz index nem 0-val!!!!!
+          
+                 @endphp
+                
+                <script>
+                    function addyear(){
+                  
+                      $('#ev').val(parseFloat($('#ev').val())+1);    
+                    }
+                    function minusyear(){
+                        $('#ev').val(parseFloat($('#ev').val())-1);    
+                      }
+                 
+                </script> 
+            
+            
+                
+                          
+                    <div class="form-group ">
+                      <div class="col-xs-4">
+                  
+                        <div class="input-group">
+                            <span  onclick="minusyear()" style="cursor: pointer;" class="input-group-addon"><</span>
+                            {!! Form::text('ev',  $year, ['id'=>'ev','class' => 'form-control input-sm','style' => 'padding-right:0px;padding-left:5px;']) !!}
+                            <span onclick="addyear()" style="cursor: pointer;" class="input-group-addon">></span>
+                        </div>
+                          
+                                    
+                      </div>
+                
+                        <div class="col-xs-4"> 
+                            {!! Form::select('ho', $months, $data['ho']  , ['class' => 'form-control input-sm col-xs-2']) !!}       
+                        </div>    
+                        <div class="col-xs-4"> 
+                                <button type="submit" name="ev_ho" value="szures" class=" btn-primary btn btn-large">
+                                        <i class="fa fa-search" aria-hidden="true">Szűrés</i> 
+                                </button> 
+                        </div>
+         
+                {!! Form::close() !!}
+                </div>
+         </div>  
+    </div>       
+   <div class="table-responsive">
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>

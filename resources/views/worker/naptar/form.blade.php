@@ -14,8 +14,6 @@
                        {{ Form::checkbox('timetask', 'time',true) }} 
                    <span>Naptípusok</span>        
                        {{ Form::checkbox('daytask', 'day',true) }} 
-                   <span>Munkarendek</span>        
-                       {{ Form::checkbox('wroletask', 'wrole',true) }}    
                    </div>
                </div>
                <div style="padding-top:15px;" class="row"> 

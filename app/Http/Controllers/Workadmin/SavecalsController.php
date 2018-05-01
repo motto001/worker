@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Input;
 //use Illuminate\Support\Facades\Facade; 
 use App\Savecal;
 use App\SavecalDay;
-use App\SavecalDayTime;
+use App\SavecaTime;
 use App\Worker;
 use App\Timetype;
 use App\Daytype;
@@ -125,7 +125,7 @@ $workerT=$request->worker_id ?? [];
         $this->BASE['data']['worker_id']=$id;*/
          
         //calendar-------------------------------------- 
-     
+        $this->set_savecal($id);
         $data=$this->BASE['data'] ?? [];
          return view($this->PAR['view']['include'].'.calendar',compact('data'));
     }

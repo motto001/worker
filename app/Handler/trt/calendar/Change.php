@@ -43,12 +43,14 @@ trait Change
         foreach ($request->datum as $datum) {
             $daytypedata['datum']=$datum;
             if($pub==0){
+               // echo '----------'.$daytypedata['daytype_id'];exit();
                 Workerday::where('worker_id',$this->BASE['data']['worker_id'])->where('datum',$datum)->update(['pub'=>'2']);
                 
                 $daytype = Workerday::firstOrCreate($daytypedata);        
                 $daytype->update(['pub'=>$pub]);   
             }
             else{
+             
                 $daytype = Workerday::firstOrCreate($daytypedata);      
                 //$daytype->update(['pub'=>$pub]);  //nem kell mert az alapértelmezett érték 1   
             }             

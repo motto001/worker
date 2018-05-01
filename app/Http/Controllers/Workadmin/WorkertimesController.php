@@ -24,7 +24,7 @@ class WorkertimesController extends MoController
     use \App\Handler\trt\property\MoControllerBase; //PAR és BASE propertyk hogy legyen mit kiegéaszíteni
     use \App\Handler\trt\set\Orm; // with, where, order_by
     use \App\Handler\trt\crud\Task;
-
+    use \App\Handler\trt\set\Date;
     protected $par= [
          'get_key'=>'worktime',
         'routes'=>['base'=>'workadmin/workertimes','worker'=>'manager/worker'],
@@ -46,8 +46,7 @@ class WorkertimesController extends MoController
        // 'get_post'=>['ev'=>null,'ho'=>null],//a mocontroller automatikusan feltölti a getből a $this->PAR['getT']-be ha van ilyen kulcs a postban azzal felülírja
         'obname'=>'\App\Workertime',
         'ob'=>null,
-       // 'func'=>[  'set_task', 'set_getT','set_date', 'set_redir','set_routes','set_ob'],
-        'with'=>['worker','timetype'],
+     // 'orm'=> ['where'=>[['pub','1'],['datum','2018-03-05']]],
 
     ];
 
@@ -74,21 +73,62 @@ public function search(){
          'hour' => 'required|integer|max:24',
          'managernote' => 'string|max:200|nullable',
          'workernote' => 'string|max:200|nullable',
-         'pub' => 'integer'
+         'pub' => 'integer' 
      ];
-     public function set_baseparam()
-     {
-         
-     }
-     public function index_set()
+     public function construct_set()
+     {  
+        $request= $this->BASE['request'];
+           if($request->ev){  
+            $this->BASE['orm']['where'][]=['datum','like',$request->ev.'%']; 
+           }
+           if($request->ho!=0){  
+            if(strlen($request->ho)<2){
+                $ho='0'.$request->ho;
+            }else{$ho=$request->ho;}
+            $this->BASE['orm']['where'][]=['datum','like','%-'.$ho.'-%']; 
+           } 
+            if($request->worker_id!=0){  
+           //  $worker=Worker::select('id')->where('user_id','=',$request->user_id)->first();
+           //  if($worker){}
+         $this->BASE['orm']['where'][]=['worker_id',$request->worker_id]; 
+           }
+
+     }/*
+     public function table()
      {
         $user_id = \Auth::id();
         $this->BASE['data']['worker_id']=Worker::select('id')->where('user_id','=',$user_id)->first()->id;
         $this->BASE['where'][]= ['worker_id', '=', $this->BASE['data']['worker_id']]; 
+        $this->BASE['data']['workers']=\App\User::pluck('name','id');
+        $this->BASE['data']['workers'][0]='Minden dolgozó';
+        $this->set_date(); //ev_ho.blade használja
+        if (method_exists($this, 'set_orm')) {
+            $this->BASE['ob']= $this->set_orm($this->BASE['ob']);
+        }
+        $this->BASE['data']['list'] = $this->BASE['ob']->paginate(50);
+       // if (!empty($getT)) {$this->BASE['data']['list']->appends($getT);}
 
-     }
+        $data=$this->BASE['data'];
+     return view($this->PAR['view']['base'] . '.index', compact('data'));
+  
+     }*/
    
- 
+     public function index_set()
+     {
+      //  exit();
+        $user_id = \Auth::id();
+        $this->BASE['data']['worker_id']=Worker::select('id')->where('user_id','=',$user_id)->first()->id;
+        $this->BASE['where'][]= ['worker_id', '=', $this->BASE['data']['worker_id']]; 
+        $workers=\App\Worker::with('user')->get();
+       $this->BASE['data']['workers'][0]='Minden dolgozó'; 
+        foreach($workers as $worker){
+            $this->BASE['data']['workers'][$worker->id]=$worker->user->name;
+        }
+        
+        $this->set_date(); //ev_ho.blade használja
+     //   exit();
+  
+     }
      public function create_set()
      {
         $user_id = \Auth::id();

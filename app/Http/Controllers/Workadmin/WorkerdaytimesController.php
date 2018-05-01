@@ -68,9 +68,9 @@ class WorkerdaytimesController extends MoController
             'showcontent' => 'workadmin.workerdaytimes.show2', 'workermodal' => 'workadmin.workerdaytimes.workermodal','table'=>'workadmin.workerdaytimes.calendar'],
          // 'view'=>['table'=>'workadmin.groups.calendar'],
             'calendar'=>[
-            'checkbox'=>false,   
+            'checkbox'=>true,   
             'ev_ho_formopen'=>false,
-            'view' => ['days' => 'worker.naptar.editdays'],
+           // 'view' => ['days' => 'worker.naptar.editdays'],
              'ev_ho'=>true, //ki-bekapcsolja az év hó válastó mezőt
                 'checkbutton'=>true, //ki-be kapcsolja az év hó válastó mezőt
                 'pdf_print'=>false, 
@@ -92,7 +92,7 @@ class WorkerdaytimesController extends MoController
 
 public function construct_set()
 {
-  $this->set_date();
+  $this->set_date(); //use \App\Handler\trt\set\Date;
   $this->set_wrole_daytype_timetype_select();
 }
     public function index_set()
@@ -142,17 +142,19 @@ public function construct_set()
             case 'day_wrole':
                 if( $request->daytype_id!=0 ){ $this->daytypechange(0);}
                 if( $request->wrole_id!=0 ){ $this->wrolechange(0);}
-           
+                break; 
             case 'time' :
                 if( !empty($request->start) && !empty($request->end))
                 {  $this->timeadd(0); }
-
+                break; 
             case 'create_save' :
-            $this->getWorkerCal($id);
-            $this->store_savecal();
-             case 'update_save' :
-             $this->getWorkerCal($id); 
-             $this-> update_store_savecal();       
+                $this->getWorkerCal($id);
+                $this->store_savecal();
+                break; 
+            case 'update_save' :
+                $this->getWorkerCal($id); 
+                $this-> update_store_savecal(); 
+                 break;    
         }
     
         session(['datum' => $request->datum]);

@@ -57,16 +57,15 @@ public function set_getT() {}
         $this->BASE['request'] = $request;
         $this->PAR['basetask'] = \Route::getCurrentRoute()->getActionMethod();     
         $this->set_base(); //ezt kell felülírni ha minden előtt lfuttatandó metódusunk van.   
-        $func = $this->BASE['func'] ?? [
-        'set_ob',
-        'set_getT',//App\Handler\trt\set\GetT;
-       // 'getT_honosit',//App\Handler\trt\set\GetT; begelyettesíti 
-        'construct_set'
-    ];
-        $this->call_func($func);
+        $this->set_ob(); 
+        $this->set_getT(); 
+        $this->construct_set(); 
+      
         $view_varname = $this->PAR['view_varname'] ?? 'param';
         View::share($view_varname, $this->PAR);
+       
         $this->run_task();
+       
       //  echo $this->PAR['task']. \Route::getCurrentRoute()->getActionMethod();
     }
 

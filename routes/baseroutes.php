@@ -56,6 +56,8 @@ Route::group(['prefix' => '/manager','middleware' => ['auth', 'roles'], 'roles' 
    // Route::get('/wroletimes-to-unit/create2/{unit_id}', 'Manager\\WroletimesToUnitController@create2'); 
 });
 //workadmin---------------------------------------------------------------
+
+
 Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles' => 'workadmin'],function()
 {
     Route::resource('/savecal', 'Workadmin\\SavecalsController');
@@ -71,7 +73,10 @@ Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles
     Route::any('/workerdaytimes/calendarsave/{id}', 'Workadmin\\WorkerdaytimesController@calendarsave'); 
 
   //  Route::resource('/grouptimes', 'Workadmin\\GrouptimesController');
-    Route::resource('/workertimes', 'Workadmin\\WorkertimesController');
+  Route::post('/workertimes', 'Workadmin\\WorkertimesController@index');
+  Route::post('/workertimes/create', 'Workadmin\\WorkertimesController@create');
+  Route::resource('/workertimes', 'Workadmin\\WorkertimesController', ['except' => ['store']]);
+
     Route::resource('/workerdays', 'Workadmin\\WorkerdaysController');
     Route::resource('/workerwroles', 'Workadmin\\WorkerwrolesController');
     Route::resource('/workertimeframes', 'Workadmin\\WorkertimeframesController');
