@@ -5,7 +5,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Session;
-class UsersController extends Controller
+class NH_UsersController extends Controller
 {
 
  public   $val= ['name' => 'required', 'email' => 'required', 'roles' => 'required'];

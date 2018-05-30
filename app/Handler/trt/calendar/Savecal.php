@@ -14,8 +14,7 @@ trait Savecal
     public function set_savecal($id)
     {  
         $savecal=\App\Savecal::with(['savecalday','savecaltime'])->find($id)->toarray();
-        $this->BASE['data']['calendar'] =\MoCalF::getMonthDays($this->BASE['data']['ev'],$this->BASE['data']['ho']);     
-       
+
         $this->BASE['data']['savecal']['id']=$savecal['id'];
         $this->BASE['data']['savecal']['worker_id']=$savecal['worker_id'];
         $this->BASE['data']['savecal']['ev']=$savecal['ev'];
@@ -24,10 +23,15 @@ trait Savecal
         $this->BASE['data']['savecal']['note']=$savecal['note'];
         $this->BASE['data']['savecal']['created_at']=$savecal['created_at'];
         $this->BASE['data']['savecal']['updated_at']=$savecal['updated_at'];
+
+        $this->BASE['data']['calendar'] =\MoCalF::getMonthDays($savecal['ev'],$savecal['ho']);
+
         $daytype=\App\Daytype::get()->pluck('name','id');
+      // print_r(  $this->BASE['data']['calendar']);exit();
 
    foreach ( $savecal['savecalday'] as $day) {
         $day['type']=$daytype[$day['daytype_id']];
+
         if($day['pub']==0){$this->BASE['data']['calendar'][$day['datum']]['baseday']=array_merge($this->BASE['data']['calendar'][$day['datum']]['baseday'],$day);}
         else{$this->BASE['data']['calendar'][$day['datum']]['days'][]=array_merge($this->BASE['data']['calendar'][$day['datum']]['days'],$day);    }
         

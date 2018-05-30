@@ -11,7 +11,7 @@ Trait Base
     if(isset($this->tbase)){$this->TBASE= array_merge($this->TBASE, $this->tbase);}
     if(isset($this->tpar)){$this->TPAR= array_merge($this->TPAR, $this->tpar);}
    // $this->PAR['task'] 
-    $task=$this->PAR['basetask'] ?? \Route::getCurrentRoute()->getActionMethod();
+    $task=$this->PAR['task'];
     
     if(isset($this->TPAR[$task])){$this->PAR= array_merge($this->PAR, $this->TPAR[$task]);} 
     if(isset($this->TBASE[$task])){$this->BASE= array_merge($this->BASE, $this->TBASE[$task]);} 

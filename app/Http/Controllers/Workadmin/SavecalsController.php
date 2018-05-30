@@ -16,6 +16,7 @@ use App\Timetype;
 use App\Daytype;
 use App\Day;
 use App\Group;
+
 //use Carbon\Carbon;
 
 class SavecalsController extends MoController
@@ -43,7 +44,7 @@ class SavecalsController extends MoController
         //'create_button'=>false,
          'calendar'=>['view'=>['days' => 'workadmin.workerdaytimes.days']],
          'search'=>false,
-         'routes'=>['base'=>'workadmin/savecal'],
+         'routes'=>['base'=>'workadmin/savecal','create'=>'/workadmin/workerdaytimes'],
          //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
          'view' => ['base' => 'crudbase', 'include' => 'workadmin.savecal'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
         // 'crudview'=>'crudbase_3', //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view
@@ -129,6 +130,49 @@ $workerT=$request->worker_id ?? [];
         $data=$this->BASE['data'] ?? [];
          return view($this->PAR['view']['include'].'.calendar',compact('data'));
     }
- 
+    public function solver($id)
+    {  
+        //calendar-------------------------------------- 
+        $this->set_savecal($id);
+        $sum=['workday'=>0,'napsum'=>0,'ledolg'=>0,'timesum'=>0];
+        $daytypes=Daytype::get()->toarray();
+        $daytypes= \MoHandF::setIndexFromKey($daytypes,'id');
+      $timetypes=Timetype::get()->toarray();
+      $timetypes= \MoHandF::setIndexFromKey( $timetypes,'id');
+     //  print_r($this->BASE['data']['calendar']);
+        foreach ($this->BASE['data']['calendar']  as $key => $calendar) {
+        // print_r($calendar);
+//echo'------------------------------------------------------------------------------';
+            $day=$calendar['baseday'];
+            $dayT[$day['daytype_id']]=$dayT[$day['daytype_id']] ?? 0;
+            $dayT[$day['daytype_id']]++;
+
+            if($day['workday']){$sum['workday']++;}
+            $sum['napsum']++;
+            
+           // $dayT[$day['fixplusz']][$day['type']]=$day['fixplusz'] ?? 0;
+           
+           if(isset($calendar['times'])){
+                foreach ($calendar['times']  as  $times) {
+                $timeT[$times['timetype_id']]=$timeT[$times['timetype_id']] ?? 0;
+                $timeT[$times['timetype_id']]++;
+                $sum['timesum']++;
+            }
+            $sum['ledolg']++;
+           }
+           
+        }
+     //   $data=$this->BASE['data'] ?? [];
+     $workerid=Savecal::where('id', '=', $id)->select('worker_id')->first()->worker_id ?? 0;
+     $data['oraber'] = Worker::where('id', '=', $workerid)->select('salary')->first()->salary ?? 0;
+    $data['daytypes']=$daytypes;
+  $data['timetypes']=$timetypes;
+     $data['sum']=$sum;
+        $data['dayT']=$dayT;
+        $data['timeT']=$timeT;
+        // return view($this->PAR['view']['include'].'.solver',compact('data'));
+       // print_r($data);
+       return view($this->PAR['view']['include'].'.solver',compact('data'));
+    }
     
 }

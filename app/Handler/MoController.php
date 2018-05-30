@@ -45,6 +45,7 @@ public function set_getT() {}
     public function set_ob()
     {
         $obname = $this->BASE['obname'];
+     //   echo $obname ;
         $this->BASE['ob'] = new $obname();
     }
    
@@ -55,7 +56,7 @@ public function set_getT() {}
     {
 
         $this->BASE['request'] = $request;
-        $this->PAR['basetask'] = \Route::getCurrentRoute()->getActionMethod();     
+       $this->PAR['basetask'] = $this->PAR['task']=\Route::getCurrentRoute()->getActionMethod();
         $this->set_base(); //ezt kell felülírni ha minden előtt lfuttatandó metódusunk van.   
         $this->set_ob(); 
         $this->set_getT(); 

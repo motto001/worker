@@ -30,6 +30,11 @@ class WorkersController extends MoController
     use \App\Handler\trt\Image;
     use  \App\Handler\trt\Show; // show task. par['show'] és  par[''controllername']  kell neki
     use \App\Handler\trt\set\GetT;
+  // use \App\Handler\trt\crud\Task;
+
+ 
+
+
     protected $par= [
         'controllername'=>'Manager\WorkersController',
         // 'baseroute'=>'manager/wroletimes', // a routes-be kerüt (base)
@@ -38,7 +43,7 @@ class WorkersController extends MoController
         'view'=>[
             'base' => 'crudbase',
             'include' =>'manager.workers',
-            'editform' => 'manager.workers.edit_form',
+           'editform' => 'manager.workers.edit_form',
             'modaltable' =>'manager.workers.workerlist'
         ], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
      

@@ -17,7 +17,7 @@ class MoCal
         'datum'=>'0000-00-00',
         'daytype_id'=>1,
         'type'=>'Munkanap',
-        'munkanap'=>true,
+        'workday'=>true,
     ];
 
     public function getMonths()
@@ -79,13 +79,14 @@ public function getMonthDays($year='0',$month='0')
                     'datum'=>$datum,
                 ]; 
                 $ujdays=array_merge($this->day_propertyT, $ujdaysB);
-                if( $date->dayOfWeek==0){$ujdays['daytype_id']=2;$ujdays['type']='Szabadnap';$ujdays['munkanap']=false;}
-               if($date->dayOfWeek==6 ){$ujdays['daytype_id']=3;$ujdays['type']='Pihenőnap';$ujdays['munkanap']=false;}
+                if( $date->dayOfWeek==0){$ujdays['daytype_id']=2;$ujdays['type']='Szabadnap';$ujdays['workday']=false;}
+               if($date->dayOfWeek==6 ){$ujdays['daytype_id']=3;$ujdays['type']='Pihenőnap';$ujdays['workday']=false;}
                 $days[$datum]['baseday']= $ujdays;
                 $days[$datum]['days']= [];
                 $date->addDay();
             }  
      return $days;       
 }
+
  
 }

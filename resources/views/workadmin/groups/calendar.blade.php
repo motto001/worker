@@ -1,4 +1,6 @@
-
+@php
+$getT=[];
+@endphp
 {!! Form::open(['url' => MoHandF::url($param['routes']['base'].'/calendarsave/'. $data['group_id'],$getT), 
 'class' => 'form-horizontal', 'files' => true]) !!}
 <div class="row"> 

@@ -7,7 +7,7 @@ use App\Permission;
 use Illuminate\Http\Request;
 use Session;
 
-class PermissionsController extends Controller
+class NH_PermissionsController extends Controller
 {
     /**
      * Display a listing of the resource.

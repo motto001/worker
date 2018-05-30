@@ -17,7 +17,7 @@
                 @php 
                 $checked=false; 
                 if( is_array(session('datum')) && in_array($dt['baseday']['datum'], session('datum'))){$checked=true;}
-                $munkanap=$dt['baseday']['munkanap'] ?? false;
+                $munkanap=$dt['baseday']['workerday'] ?? false;
                 $munkanapClass='';
                 if($munkanap){$munkanapClass='workerdayclass';}
                 @endphp

@@ -17,7 +17,7 @@ class ProbaController extends Controller
      */
     public function index(Request $request)
     {
-       
+     echo '-----------------------';  
     //  $roles = Role::where('name', 'LIKE', "%$keyword%")->orWhere('label', 'LIKE', "%$keyword%")->paginate($perPage);            
     //  $proba = Proba::with('proba23')->get();
     $with='proba4_hasone';
@@ -29,6 +29,35 @@ class ProbaController extends Controller
     print_r($proba->toarray()); 
         //echo $proba->proba4_hasone->proba2_id;
         //return view('admin.roles.index', compact('roles'));
+         //$arr['h']=1;
+         $arr['h']=$arr['h'] ?? 5;
+        $arr['h']++;
+        $arr['h']=$arr['h'] ?? 0;
+        $arr['h']++;
+     //  $proba = Proba2::with('proba4_hasone:proba2_id,name')->get()->pluck('proba4_hasone.name', 'id'); //lehet hogy a with mezőkbe be kellírni az id-et
+     // $proba2= \MoHandF::subArrMerge($proba->toarray(),'proba4_hasone');
+      // print_r($proba2);
+      //print_r($proba->toarray());
+       print_r($arr); 
+       //$controller = app()->make('App\Http\Controllers\MyController');
+    //   app()->call([ app()->make('App\Http\Controllers\Admin\ProbaController'), 'tombplus'], []);
+    //app()->call([ app()->make('App\Http\Controllers\Admin\ProbaController'), 'index'], []);
+    }
+    public function tombplus()
+    {
+       
+    //  $roles = Role::where('name', 'LIKE', "%$keyword%")->orWhere('label', 'LIKE', "%$keyword%")->paginate($perPage);            
+    //  $proba = Proba::with('proba23')->get();
+    $arr['h']=1;
+     $arr['h']++;
+     $arr['h']++;
+  //  $proba = Proba2::with('proba4_hasone:proba2_id,name')->get()->pluck('proba4_hasone.name', 'id'); //lehet hogy a with mezőkbe be kellírni az id-et
+  // $proba2= \MoHandF::subArrMerge($proba->toarray(),'proba4_hasone');
+   // print_r($proba2);
+   //print_r($proba->toarray());
+    print_r($arr); 
+        //echo $proba->proba4_hasone->proba2_id;
+        //return view('admin.roles.index', compact('roles'));
 
     }
 
@@ -37,7 +66,7 @@ class ProbaController extends Controller
      *
      * @return void
      */
-    public function create()
+    public function create2()
     {
         return view('admin.roles.create');
     }

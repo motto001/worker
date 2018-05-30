@@ -26,7 +26,7 @@ Trait Day
         {
             $day['datum']= str_replace("0000", $ev, $day['datum']); 
             //blade hez egyszerúsítés
-            $day['munkanap']=$day['daytype']['workday'];
+            $day['workday']=$day['daytype']['workday'];
             $day['type']=$this->BASE['data']['daytype'][$day['daytype_id']];
             //----------------
             $this->BASE['data']['calendar'][$day['datum']]['baseday']=array_merge($this->BASE['data']['calendar'][$day['datum']]['baseday'],$day);
@@ -53,7 +53,7 @@ public function getWorkerday($worker_id=0)
             foreach($workerdayT as $day) 
             { 
                 //blade hez egyszerúsítés
-                    $day['munkanap']=$day['daytype']['workday'];
+                    $day['workday']=$day['daytype']['workday'];
                     $day['type']=$this->BASE['data']['daytype'][$day['daytype_id']];
                 // ---------   
                 if($day['pub']=='0'){
@@ -82,7 +82,7 @@ public function getWorkerday($worker_id=0)
             foreach($dayT as $day) 
             {   
                 //blade hez egyszerúsítés  
-                  $day['munkanap']=$day['daytype']['workday'];
+                  $day['workday']=$day['daytype']['workday'];
                 $day['type']=$this->BASE['data']['daytype'][$day['daytype_id']];           
                //--------------------
                 $this->BASE['data']['calendar'][$day['datum']]['baseday']=array_merge($this->BASE['data']['calendar'][$day['datum']]['baseday'],$day);

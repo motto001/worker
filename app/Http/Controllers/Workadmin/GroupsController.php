@@ -52,7 +52,7 @@ class GroupsController extends MoController
          // 'view'=>['table'=>'workadmin.groups.calendar'],
             'calendar'=>[
             'ev_ho_formopen'=>false,
-            'view' => ['days' => 'worker.naptar.editdays'],
+            'view' => ['days' => 'calendar.day_times'],
              'ev_ho'=>true, //ki-bekapcsolja az év hó válastó mezőt
                 'checkbutton'=>true, //ki-be kapcsolja az év hó válastó mezőt
                 'pdf_print'=>false, 
@@ -97,14 +97,17 @@ public function calendar($id)
     $this->BASE['data']['timetype']=Timetype::get()->pluck('name','id');
     $this->BASE['data']['daytype']['0']='nincs változtatás';
     //calendar--------------------------------------     
-    $this->getMonthDays();   
+    $this->getMonthDays();  
     $this->getGroupday($id);
     $this->getGrouptime($id);   
+  $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
+    $data=$this->BASE['data'] ?? [];
+  //  print_r($this->BASE['data']['calendar']);
 
-  //  $data=$this->BASE['data'] ?? [];
-    $viewfunc=$this->BASE['viewfunc']  ?? 'mo_view';
-    if (method_exists($this,$viewfunc)) {return $this->$viewfunc();} 
-   else{return view($this->PAR['view'].'.create',compact('data'));} 
+ // return view('workadmin.groups.calendar',compact('data'));
+   
+  if (method_exists($this,$viewfunc)) {return $this->$viewfunc();} 
+ else{return view($this->PAR['view'].'.create',compact('data'));} 
 }
 
 public function calendarsave($id) 

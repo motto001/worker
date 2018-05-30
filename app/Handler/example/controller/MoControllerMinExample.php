@@ -1,4 +1,5 @@
 <?php
+//
 namespace App\Http\Controllers\Manager;
 
 use App\Handler\MoController;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use App\Appname; //!átírni-kibővíteni!!!!!!!!!!!
 
-class DaytypesController extends MoController
+class NH_DaytypesController extends MoController
 {
     use \App\Handler\trt\crud\IndexFull;
     use \App\Handler\trt\crud\MOcrud;

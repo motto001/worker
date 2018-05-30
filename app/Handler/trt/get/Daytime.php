@@ -42,7 +42,7 @@ public function getWorkerCal_or_savecal($worker_id)
           ['ev',  '=', $ev],
           ['ho',  '=', $ho],
           ['pub',  '=', 0],
-          ])->orderBy('id', 'desc')->orderBy('lezart', 'desc')->first(); 
+          ])->orderBy('id', 'desc')->first(); 
     if(isset($cal->id)){
         $this->BASE['data']['savecal']['id']='0';
         $this->BASE['data']['savecal']['savecalname']='Ehhez az időszakhoz még nem készült jóváhagyott Munkarend.';

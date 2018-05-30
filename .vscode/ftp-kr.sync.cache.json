@@ -99,9 +99,9 @@
         },
         "Daytype.php": {
           "type": "-",
-          "size": 1195,
+          "size": 1199,
           "lmtime": 0,
-          "modified": false
+          "modified": true
         },
         "Exceptions": {
           "Handler.php": {
@@ -113,8 +113,14 @@
         },
         "Group.php": {
           "type": "-",
-          "size": 550,
+          "size": 627,
           "lmtime": 1522028142205,
+          "modified": true
+        },
+        "Groupday.php": {
+          "type": "-",
+          "size": 755,
+          "lmtime": 0,
           "modified": false
         },
         "Groupdays.php": {
@@ -123,10 +129,22 @@
           "lmtime": 1521675126030,
           "modified": false
         },
+        "Grouptime.php": {
+          "type": "-",
+          "size": 785,
+          "lmtime": 0,
+          "modified": false
+        },
         "Grouptimes.php": {
           "type": "-",
           "size": 783,
           "lmtime": 1521675442778,
+          "modified": false
+        },
+        "Groupwrole.php": {
+          "type": "-",
+          "size": 978,
+          "lmtime": 0,
           "modified": false
         },
         "Groupwroleunit.php": {
@@ -144,14 +162,14 @@
           },
           "MoCal.php": {
             "type": "-",
-            "size": 3561,
-            "lmtime": 0,
-            "modified": true
+            "size": 3103,
+            "lmtime": 1524974890736,
+            "modified": false
           },
           "MoController.php": {
             "type": "-",
-            "size": 2416,
-            "lmtime": 1521824104574,
+            "size": 2311,
+            "lmtime": 1525111387249,
             "modified": false
           },
           "MoHand.php": {
@@ -247,6 +265,12 @@
             "modified": false
           },
           "trt": {
+            "Image.php": {
+              "type": "-",
+              "size": 1768,
+              "lmtime": 0,
+              "modified": false
+            },
             "SetController.php": {
               "type": "-",
               "size": 2466,
@@ -258,6 +282,26 @@
               "size": 950,
               "lmtime": 0,
               "modified": false
+            },
+            "calendar": {
+              "Calendar.php": {
+                "type": "-",
+                "size": 2269,
+                "lmtime": 1524834301662,
+                "modified": false
+              },
+              "Change.php": {
+                "type": "-",
+                "size": 3123,
+                "lmtime": 1525022909645,
+                "modified": false
+              },
+              "Savecal.php": {
+                "type": "-",
+                "size": 4268,
+                "lmtime": 1525033983840,
+                "modified": false
+              }
             },
             "crud": {
               "ChainTask.php": {
@@ -310,8 +354,8 @@
               },
               "MOCrud.php": {
                 "type": "-",
-                "size": 6394,
-                "lmtime": 1522072189611,
+                "size": 6863,
+                "lmtime": 1523813941553,
                 "modified": false
               },
               "NH_CrudSimple.php": {
@@ -345,6 +389,32 @@
                 "modified": false
               }
             },
+            "get": {
+              "Calendar.php": {
+                "type": "-",
+                "size": 181,
+                "lmtime": 1524524101404,
+                "modified": false
+              },
+              "Day.php": {
+                "type": "-",
+                "size": 3454,
+                "lmtime": 1524997981883,
+                "modified": false
+              },
+              "Time.php": {
+                "type": "-",
+                "size": 1464,
+                "lmtime": 1524525358803,
+                "modified": false
+              },
+              "Daytime.php": {
+                "type": "-",
+                "size": 2263,
+                "lmtime": 1524997482526,
+                "modified": false
+              }
+            },
             "image.php": {
               "type": "-",
               "size": 1768,
@@ -354,21 +424,21 @@
             "property": {
               "MoControllerBase.php": {
                 "type": "-",
-                "size": 2229,
+                "size": 2275,
                 "lmtime": 0,
-                "modified": false
+                "modified": true
               },
               "MoControllerFull.php": {
                 "type": "-",
-                "size": 2351,
+                "size": 2400,
                 "lmtime": 0,
-                "modified": false
+                "modified": true
               },
               "MoControllerMin.php": {
                 "type": "-",
-                "size": 2189,
+                "size": 2240,
                 "lmtime": 0,
-                "modified": false
+                "modified": true
               }
             },
             "redirect": {
@@ -406,6 +476,12 @@
                 "lmtime": 1521821032663,
                 "modified": false
               },
+              "Date.php": {
+                "type": "-",
+                "size": 1932,
+                "lmtime": 1522070248352,
+                "modified": false
+              },
               "GetT.php": {
                 "type": "-",
                 "size": 2611,
@@ -420,8 +496,8 @@
               },
               "Orm.php": {
                 "type": "-",
-                "size": 687,
-                "lmtime": 0,
+                "size": 710,
+                "lmtime": 1524506482356,
                 "modified": false
               },
               "Redir.php": {
@@ -441,12 +517,6 @@
                 "size": 595,
                 "lmtime": 0,
                 "modified": false
-              },
-              "Date.php": {
-                "type": "-",
-                "size": 1932,
-                "lmtime": 1522070248352,
-                "modified": false
               }
             },
             "show.php": {
@@ -458,22 +528,8 @@
             "view": {
               "Base.php": {
                 "type": "-",
-                "size": 1180,
-                "lmtime": 1522028732137,
-                "modified": false
-              }
-            },
-            "get": {
-              "Day.php": {
-                "type": "-",
-                "size": 2655,
-                "lmtime": 1522073173331,
-                "modified": false
-              },
-              "Time.php": {
-                "type": "-",
-                "size": 1177,
-                "lmtime": 1522024793307,
+                "size": 1189,
+                "lmtime": 1524718421100,
                 "modified": false
               }
             }
@@ -514,8 +570,8 @@
               },
               "PermissionsController.php": {
                 "type": "-",
-                "size": 2749,
-                "lmtime": 0,
+                "size": 2679,
+                "lmtime": 1524777976842,
                 "modified": false
               },
               "ProbaController.php": {
@@ -532,8 +588,8 @@
               },
               "UsersController.php": {
                 "type": "-",
-                "size": 3617,
-                "lmtime": 0,
+                "size": 3547,
+                "lmtime": 1524777976856,
                 "modified": false
               }
             },
@@ -736,9 +792,9 @@
               },
               "DaytypesController.php": {
                 "type": "-",
-                "size": 1411,
+                "size": 1441,
                 "lmtime": 0,
-                "modified": false
+                "modified": true
               },
               "NH_UserdaysController.php": {
                 "type": "-",
@@ -826,9 +882,9 @@
               },
               "WorkersController.php": {
                 "type": "-",
-                "size": 6482,
+                "size": 6584,
                 "lmtime": 1522030913755,
-                "modified": false
+                "modified": true
               },
               "WorkertimesController.php": {
                 "type": "-",
@@ -875,6 +931,18 @@
                 "lmtime": 0,
                 "modified": false
               },
+              "GroupdaytimesController.php": {
+                "type": "-",
+                "size": 6843,
+                "lmtime": 1522062470790,
+                "modified": true
+              },
+              "GroupsController.php": {
+                "type": "-",
+                "size": 8072,
+                "lmtime": 1522031929938,
+                "modified": true
+              },
               "NH_ChworkerdayController.php": {
                 "type": "-",
                 "size": 3495,
@@ -884,6 +952,12 @@
               "NH_ChworkertimesController.php": {
                 "type": "-",
                 "size": 4026,
+                "lmtime": 0,
+                "modified": false
+              },
+              "NH_GroupdaytimesController.php": {
+                "type": "-",
+                "size": 6843,
                 "lmtime": 0,
                 "modified": false
               },
@@ -929,6 +1003,12 @@
                 "lmtime": 1522027005147,
                 "modified": false
               },
+              "WorkerdaytimesController.php": {
+                "type": "-",
+                "size": 7759,
+                "lmtime": 1525082364780,
+                "modified": false
+              },
               "WorkertimeframesController.php": {
                 "type": "-",
                 "size": 4179,
@@ -937,8 +1017,8 @@
               },
               "WorkertimesController.php": {
                 "type": "-",
-                "size": 3728,
-                "lmtime": 1522027718985,
+                "size": 5518,
+                "lmtime": 1525132484317,
                 "modified": false
               },
               "WorkertimeswishController.php": {
@@ -959,22 +1039,28 @@
                 "lmtime": 0,
                 "modified": false
               },
-              "GroupdaytimesController.php": {
+              "WrolesController.php": {
                 "type": "-",
-                "size": 5508,
-                "lmtime": 1522062470790,
+                "size": 4293,
+                "lmtime": 0,
                 "modified": false
               },
-              "GroupsController.php": {
+              "WroletimessController.php": {
                 "type": "-",
-                "size": 2806,
-                "lmtime": 1522031929938,
+                "size": 2633,
+                "lmtime": 0,
                 "modified": false
               },
-              "WorkerdaytimesController.php": {
+              "SavecalsController.php": {
                 "type": "-",
-                "size": 6431,
-                "lmtime": 1522072657635,
+                "size": 5296,
+                "lmtime": 1525299845668,
+                "modified": false
+              },
+              "SolverController.php": {
+                "type": "-",
+                "size": 5198,
+                "lmtime": 1524504782244,
                 "modified": false
               }
             },
@@ -993,8 +1079,8 @@
               },
               "NaptarController.php": {
                 "type": "-",
-                "size": 7389,
-                "lmtime": 1522024647841,
+                "size": 7980,
+                "lmtime": 1525020286527,
                 "modified": false
               },
               "WorkerdaysController.1.php": {
@@ -1005,8 +1091,8 @@
               },
               "WorkerdaysController.php": {
                 "type": "-",
-                "size": 2928,
-                "lmtime": 0,
+                "size": 2946,
+                "lmtime": 1524506808317,
                 "modified": false
               },
               "WorkersController.php": {
@@ -1180,15 +1266,15 @@
         },
         "Worker.php": {
           "type": "-",
-          "size": 2692,
+          "size": 2775,
           "lmtime": 1522031915227,
-          "modified": false
+          "modified": true
         },
         "Workerday.php": {
           "type": "-",
-          "size": 1032,
+          "size": 1038,
           "lmtime": 0,
-          "modified": false
+          "modified": true
         },
         "Workerdaywish.php": {
           "type": "-",
@@ -1240,9 +1326,9 @@
         },
         "Workerwrole.php": {
           "type": "-",
-          "size": 925,
+          "size": 985,
           "lmtime": 0,
-          "modified": false
+          "modified": true
         },
         "Workerwroleunit.php": {
           "type": "-",
@@ -1252,15 +1338,15 @@
         },
         "Wrole.php": {
           "type": "-",
-          "size": 859,
+          "size": 1078,
           "lmtime": 0,
-          "modified": false
+          "modified": true
         },
         "Wroletime.php": {
           "type": "-",
-          "size": 733,
+          "size": 1011,
           "lmtime": 0,
-          "modified": false
+          "modified": true
         },
         "Wroleunit.php": {
           "type": "-",
@@ -1311,6 +1397,30 @@
           "size": 1525,
           "lmtime": 0,
           "modified": false
+        },
+        "NH_Solver.php": {
+          "type": "-",
+          "size": 976,
+          "lmtime": 1524504691687,
+          "modified": false
+        },
+        "Savecal.php": {
+          "type": "-",
+          "size": 762,
+          "lmtime": 1524971148705,
+          "modified": false
+        },
+        "SavecalDay.php": {
+          "type": "-",
+          "size": 854,
+          "lmtime": 1524970742430,
+          "modified": false
+        },
+        "SavecalTime.php": {
+          "type": "-",
+          "size": 693,
+          "lmtime": 1524971071780,
+          "modified": false
         }
       },
       "artisan": {
@@ -1347,8 +1457,8 @@
           },
           "services.php": {
             "type": "-",
-            "size": 12543,
-            "lmtime": 0,
+            "size": 12840,
+            "lmtime": 1524777976702,
             "modified": false
           }
         }
@@ -1361,15 +1471,15 @@
       },
       "composer.json": {
         "type": "-",
-        "size": 1700,
-        "lmtime": 0,
+        "size": 1789,
+        "lmtime": 1524777761497,
         "modified": false
       },
       "config": {
         "app.php": {
           "type": "-",
-          "size": 10218,
-          "lmtime": 0,
+          "size": 10495,
+          "lmtime": 1524777817126,
           "modified": false
         },
         "auth.php": {
@@ -1454,6 +1564,24 @@
           "type": "-",
           "size": 1004,
           "lmtime": 0,
+          "modified": false
+        },
+        "dompdf.php": {
+          "type": "-",
+          "size": 10625,
+          "lmtime": 1524765217907,
+          "modified": false
+        },
+        "image.php": {
+          "type": "-",
+          "size": 508,
+          "lmtime": 1524777976815,
+          "modified": false
+        },
+        "pdf.php": {
+          "type": "-",
+          "size": 331,
+          "lmtime": 1524777976910,
           "modified": false
         }
       },
@@ -2752,6 +2880,30 @@
             "lmtime": 1521245760566,
             "modified": false
           },
+          "1522165844.jpg": {
+            "type": "-",
+            "size": 140281,
+            "lmtime": 0,
+            "modified": false
+          },
+          "1522165862.jpg": {
+            "type": "-",
+            "size": 149960,
+            "lmtime": 0,
+            "modified": false
+          },
+          "1522184761.jpg": {
+            "type": "-",
+            "size": 55620,
+            "lmtime": 0,
+            "modified": false
+          },
+          "1522184805.jpg": {
+            "type": "-",
+            "size": 142768,
+            "lmtime": 0,
+            "modified": false
+          },
           "thumb": {
             "1516205951.jpg": {
               "type": "-",
@@ -2871,6 +3023,30 @@
               "type": "-",
               "size": 4479,
               "lmtime": 1521245760602,
+              "modified": false
+            },
+            "1522165844.jpg": {
+              "type": "-",
+              "size": 6823,
+              "lmtime": 0,
+              "modified": false
+            },
+            "1522165862.jpg": {
+              "type": "-",
+              "size": 6997,
+              "lmtime": 0,
+              "modified": false
+            },
+            "1522184761.jpg": {
+              "type": "-",
+              "size": 5135,
+              "lmtime": 0,
+              "modified": false
+            },
+            "1522184805.jpg": {
+              "type": "-",
+              "size": 6929,
+              "lmtime": 0,
               "modified": false
             }
           },
@@ -4219,14 +4395,14 @@
             "roles": {
               "create.blade.php": {
                 "type": "-",
-                "size": 1317,
-                "lmtime": 0,
+                "size": 1272,
+                "lmtime": 1524777976874,
                 "modified": false
               },
               "edit.blade.php": {
                 "type": "-",
-                "size": 1503,
-                "lmtime": 0,
+                "size": 1456,
+                "lmtime": 1524777976879,
                 "modified": false
               },
               "form.blade.php": {
@@ -4237,14 +4413,14 @@
               },
               "index.blade.php": {
                 "type": "-",
-                "size": 4091,
-                "lmtime": 0,
+                "size": 4009,
+                "lmtime": 1524777976886,
                 "modified": false
               },
               "show.blade.php": {
                 "type": "-",
-                "size": 2421,
-                "lmtime": 0,
+                "size": 2377,
+                "lmtime": 1524777976891,
                 "modified": false
               },
               "table.blade.php": {
@@ -4374,8 +4550,8 @@
             },
             "calendar.blade.php": {
               "type": "-",
-              "size": 3870,
-              "lmtime": 1521976716510,
+              "size": 3729,
+              "lmtime": 1524975177823,
               "modified": false
             },
             "days.blade.php": {
@@ -4386,20 +4562,44 @@
             },
             "ev_ho.blade.php": {
               "type": "-",
-              "size": 3039,
-              "lmtime": 1522023543471,
+              "size": 2220,
+              "lmtime": 1524507163920,
               "modified": false
             },
             "pdf_print.blade.php": {
               "type": "-",
-              "size": 1071,
-              "lmtime": 1520424822708,
+              "size": 1072,
+              "lmtime": 1524779955558,
               "modified": false
             },
             "style.blade.php": {
               "type": "-",
               "size": 1061,
               "lmtime": 1520424822723,
+              "modified": false
+            },
+            "checkbutton.blade.php": {
+              "type": "-",
+              "size": 1481,
+              "lmtime": 1523837327282,
+              "modified": false
+            },
+            "day_times.blade.php": {
+              "type": "-",
+              "size": 3389,
+              "lmtime": 1525022001728,
+              "modified": false
+            },
+            "NH_days.blade.php": {
+              "type": "-",
+              "size": 885,
+              "lmtime": 1524975076312,
+              "modified": false
+            },
+            "print.blade.php": {
+              "type": "-",
+              "size": 725,
+              "lmtime": 1524780909326,
               "modified": false
             }
           },
@@ -4418,9 +4618,9 @@
             },
             "index.blade.php": {
               "type": "-",
-              "size": 3078,
+              "size": 3742,
               "lmtime": 1522064319621,
-              "modified": false
+              "modified": true
             },
             "listbuttons.blade.php": {
               "type": "-",
@@ -4637,9 +4837,9 @@
             },
             "backend.blade.php": {
               "type": "-",
-              "size": 5964,
+              "size": 6070,
               "lmtime": 1521194832755,
-              "modified": false
+              "modified": true
             },
             "backend.blade2.php": {
               "type": "-",
@@ -4673,8 +4873,14 @@
             },
             "sidebar.blade.php": {
               "type": "-",
-              "size": 4793,
-              "lmtime": 1522063484778,
+              "size": 5197,
+              "lmtime": 1524670741288,
+              "modified": false
+            },
+            "backend_pdf.blade.php": {
+              "type": "-",
+              "size": 1874,
+              "lmtime": 1524754487499,
               "modified": false
             }
           },
@@ -5001,21 +5207,33 @@
             "workers": {
               "create.blade.php": {
                 "type": "-",
-                "size": 7125,
+                "size": 7101,
                 "lmtime": 0,
-                "modified": false
+                "modified": true
               },
               "edit.blade.php": {
                 "type": "-",
-                "size": 6937,
+                "size": 6878,
+                "lmtime": 0,
+                "modified": true
+              },
+              "edit_form.blade.php": {
+                "type": "-",
+                "size": 7518,
                 "lmtime": 0,
                 "modified": false
               },
+              "editform.blade.php": {
+                "type": "-",
+                "size": 7519,
+                "lmtime": 1522029597660,
+                "modified": true
+              },
               "form.blade.php": {
                 "type": "-",
-                "size": 7549,
+                "size": 7488,
                 "lmtime": 0,
-                "modified": false
+                "modified": true
               },
               "index.blade.php": {
                 "type": "-",
@@ -5033,12 +5251,6 @@
                 "type": "-",
                 "size": 1939,
                 "lmtime": 1520628100406,
-                "modified": false
-              },
-              "editform.blade.php": {
-                "type": "-",
-                "size": 7549,
-                "lmtime": 1522029597660,
                 "modified": false
               },
               "workerlist.blade.php": {
@@ -5105,6 +5317,12 @@
               "NM_wrlunit_table.blade.php": {
                 "type": "-",
                 "size": 1994,
+                "lmtime": 0,
+                "modified": false
+              },
+              "baseinfo.blade.php": {
+                "type": "-",
+                "size": 10,
                 "lmtime": 0,
                 "modified": false
               },
@@ -5293,6 +5511,14 @@
             }
           },
           "vendor": {
+            "laravel-admin": {
+              "generator.blade.php": {
+                "type": "-",
+                "size": 7692,
+                "lmtime": 1524777976901,
+                "modified": false
+              }
+            },
             "mail": {
               "html": {
                 "button.blade.php": {
@@ -5577,8 +5803,8 @@
               },
               "table.blade.php": {
                 "type": "-",
-                "size": 5227,
-                "lmtime": 1522027499345,
+                "size": 3452,
+                "lmtime": 1524173341348,
                 "modified": false
               }
             },
@@ -5711,8 +5937,8 @@
               },
               "table.blade.php": {
                 "type": "-",
-                "size": 5572,
-                "lmtime": 1522027797284,
+                "size": 8215,
+                "lmtime": 1525132271074,
                 "modified": false
               }
             },
@@ -5782,6 +6008,18 @@
               }
             },
             "groups": {
+              "calendar.blade.php": {
+                "type": "-",
+                "size": 3491,
+                "lmtime": 0,
+                "modified": false
+              },
+              "editdays.blade.php": {
+                "type": "-",
+                "size": 1692,
+                "lmtime": 0,
+                "modified": false
+              },
               "form.blade.php": {
                 "type": "-",
                 "size": 1296,
@@ -5796,9 +6034,9 @@
               },
               "table.blade.php": {
                 "type": "-",
-                "size": 2292,
+                "size": 2638,
                 "lmtime": 1521418943864,
-                "modified": false
+                "modified": true
               },
               "workermodal.blade.php": {
                 "type": "-",
@@ -5808,6 +6046,12 @@
               }
             },
             "workerdaytimes": {
+              "calendar.blade.php": {
+                "type": "-",
+                "size": 6691,
+                "lmtime": 1525023683176,
+                "modified": false
+              },
               "editdays.blade.php": {
                 "type": "-",
                 "size": 1691,
@@ -5816,14 +6060,116 @@
               },
               "form.blade.php": {
                 "type": "-",
-                "size": 2706,
+                "size": 3338,
                 "lmtime": 1522072428484,
+                "modified": true
+              },
+              "table.blade.php": {
+                "type": "-",
+                "size": 1257,
+                "lmtime": 1522063215353,
+                "modified": true
+              },
+              "NH_editdays.blade.php": {
+                "type": "-",
+                "size": 1691,
+                "lmtime": 1524976225680,
+                "modified": false
+              },
+              "NH_form.blade.php": {
+                "type": "-",
+                "size": 3338,
+                "lmtime": 1524130129691,
+                "modified": false
+              }
+            },
+            "NH_groupdaytimes": {
+              "days.blade.php": {
+                "type": "-",
+                "size": 870,
+                "lmtime": 0,
+                "modified": false
+              },
+              "editdays.blade.php": {
+                "type": "-",
+                "size": 1692,
+                "lmtime": 0,
+                "modified": false
+              },
+              "form.blade.php": {
+                "type": "-",
+                "size": 3279,
+                "lmtime": 0,
                 "modified": false
               },
               "table.blade.php": {
                 "type": "-",
-                "size": 1665,
-                "lmtime": 1522063215353,
+                "size": 1689,
+                "lmtime": 0,
+                "modified": false
+              },
+              "workermodal.blade.php": {
+                "type": "-",
+                "size": 2168,
+                "lmtime": 0,
+                "modified": false
+              }
+            },
+            "savecal": {
+              "calendar.blade.php": {
+                "type": "-",
+                "size": 41,
+                "lmtime": 1524824083311,
+                "modified": false
+              },
+              "editdays.blade.php": {
+                "type": "-",
+                "size": 1691,
+                "lmtime": 1523814507474,
+                "modified": false
+              },
+              "form.blade.php": {
+                "type": "-",
+                "size": 3921,
+                "lmtime": 1524177806942,
+                "modified": false
+              },
+              "table.blade.php": {
+                "type": "-",
+                "size": 1162,
+                "lmtime": 1524175511857,
+                "modified": false
+              }
+            },
+            "wroles": {
+              "baseinfo.blade.php": {
+                "type": "-",
+                "size": 10,
+                "lmtime": 0,
+                "modified": false
+              },
+              "editform.blade.php": {
+                "type": "-",
+                "size": 4202,
+                "lmtime": 0,
+                "modified": false
+              },
+              "form.blade.php": {
+                "type": "-",
+                "size": 946,
+                "lmtime": 0,
+                "modified": false
+              },
+              "show.blade.php": {
+                "type": "-",
+                "size": 2308,
+                "lmtime": 0,
+                "modified": false
+              },
+              "table.blade.php": {
+                "type": "-",
+                "size": 1821,
+                "lmtime": 0,
                 "modified": false
               }
             }
@@ -5836,10 +6182,28 @@
                 "lmtime": 0,
                 "modified": false
               },
+              "days.blade.php": {
+                "type": "-",
+                "size": 953,
+                "lmtime": 1522027641318,
+                "modified": false
+              },
+              "editdays.blade.php": {
+                "type": "-",
+                "size": 1692,
+                "lmtime": 1522025444878,
+                "modified": true
+              },
               "ev_ho.blade.php": {
                 "type": "-",
                 "size": 1678,
                 "lmtime": 0,
+                "modified": false
+              },
+              "form.blade.php": {
+                "type": "-",
+                "size": 5198,
+                "lmtime": 1525023640666,
                 "modified": false
               },
               "index.blade.php": {
@@ -5862,26 +6226,26 @@
               },
               "table.blade.php": {
                 "type": "-",
-                "size": 46,
-                "lmtime": 1521410534429,
+                "size": 414,
+                "lmtime": 1524781026927,
                 "modified": false
               },
-              "days.blade.php": {
+              "NH_days.blade.php": {
                 "type": "-",
                 "size": 953,
-                "lmtime": 1522027641318,
+                "lmtime": 1524975882600,
                 "modified": false
               },
-              "editdays.blade.php": {
+              "NH_editdays.blade.php": {
                 "type": "-",
-                "size": 1691,
-                "lmtime": 1522025444878,
+                "size": 1618,
+                "lmtime": 1524975842148,
                 "modified": false
               },
-              "form.blade.php": {
+              "pdf.blade.php": {
                 "type": "-",
-                "size": 2609,
-                "lmtime": 1521975592828,
+                "size": 347,
+                "lmtime": 1524750768536,
                 "modified": false
               }
             },
@@ -6044,9 +6408,9 @@
               },
               "table.blade.php": {
                 "type": "-",
-                "size": 3522,
+                "size": 3084,
                 "lmtime": 0,
-                "modified": false
+                "modified": true
               }
             },
             "workerwroleunits": {
@@ -6093,8 +6457,8 @@
         },
         "baseroutes.php": {
           "type": "-",
-          "size": 5009,
-          "lmtime": 1522063282228,
+          "size": 5952,
+          "lmtime": 1525128740051,
           "modified": false
         },
         "channels.php": {
@@ -6183,22 +6547,58 @@
               "lmtime": 0,
               "modified": false
             },
-            "H9frx8Ts4Z0qNUkdhdssvCseKyrXCOUV4aCIeAj2": {
+            "Grsp0yI4bVZlOVJrjtXbG9t31BTQUWcIPHU3artn": {
               "type": "-",
-              "size": 268,
+              "size": 191,
               "lmtime": 0,
-              "modified": true
-            },
-            "mUOUHTufHTD6sJ0XWe2rdi915GzMNeJsBWSJp1Tn": {
-              "type": "-",
-              "size": 314,
-              "lmtime": 1522073339713,
               "modified": false
             },
-            "Y18U9A55H4HKkK4uDKSH1BevoC0ITwmV6tYu16xz": {
+            "Rcu51HBMPOT8vegabSSMSgB6INnmsnt1F7CF50Su": {
               "type": "-",
-              "size": 811,
-              "lmtime": 1522032498787,
+              "size": 191,
+              "lmtime": 0,
+              "modified": false
+            },
+            "Sspk4Rt1yUX4fCgGYET2srHT68m2pQti2Kf1viUx": {
+              "type": "-",
+              "size": 191,
+              "lmtime": 0,
+              "modified": false
+            },
+            "TV1scUb9j6gH9lSyeMWi9Tn5z4hx2bjOjT9FWmcs": {
+              "type": "-",
+              "size": 191,
+              "lmtime": 0,
+              "modified": false
+            },
+            "VewUjCFxBuXD2Q9HrAqd10IUwXHg3QKv1hAJi3UP": {
+              "type": "-",
+              "size": 191,
+              "lmtime": 0,
+              "modified": false
+            },
+            "ed3RNTycUs3ys0cPOPyoi7UmFnnwzxtDizkUpxR5": {
+              "type": "-",
+              "size": 191,
+              "lmtime": 0,
+              "modified": false
+            },
+            "kWd9jReeTea0asHIhGuRFOdjbBIMFgSIMEVyLOMB": {
+              "type": "-",
+              "size": 191,
+              "lmtime": 0,
+              "modified": false
+            },
+            "EjKnrgNY4LhpBxe4TDXvrqa8702ROC0rjTYWSITZ": {
+              "type": "-",
+              "size": 263,
+              "lmtime": 1525132529773,
+              "modified": false
+            },
+            "glGWYbgrKG1xGnjQsJh2UQQO50mpCkcfN5CkEYui": {
+              "type": "-",
+              "size": 263,
+              "lmtime": 1525112504208,
               "modified": false
             }
           },
@@ -6237,7 +6637,19 @@
             },
             "01af5f81c17a481e019c3634d100df8e5f38e1d1.php": {
               "type": "-",
-              "size": 2869,
+              "size": 2957,
+              "lmtime": 0,
+              "modified": true
+            },
+            "01cbbb69060335b55bf80fef66a198315ff1ae3c.php": {
+              "type": "-",
+              "size": 1418,
+              "lmtime": 0,
+              "modified": false
+            },
+            "0351e2d0070ec1cb349cd4b87496177666e8de44.php": {
+              "type": "-",
+              "size": 3602,
               "lmtime": 0,
               "modified": false
             },
@@ -6245,6 +6657,12 @@
               "type": "-",
               "size": 2370,
               "lmtime": 1521250806412,
+              "modified": false
+            },
+            "05b04e020b7e736b7fae3a0b8c1f7077db431c06.php": {
+              "type": "-",
+              "size": 1072,
+              "lmtime": 1524779967309,
               "modified": false
             },
             "05e67df250e046b744366aeef73d99f8b5044696.php": {
@@ -6283,6 +6701,18 @@
               "lmtime": 0,
               "modified": false
             },
+            "09e1699430c6abab780284a31e3a3cd9ca267e5f.php": {
+              "type": "-",
+              "size": 3350,
+              "lmtime": 1524505688025,
+              "modified": false
+            },
+            "0a7ab8315ad0a6d0cc80f2e5e06a91b693bae6ea.php": {
+              "type": "-",
+              "size": 4321,
+              "lmtime": 1524178217605,
+              "modified": false
+            },
             "0a95f5b738c3b43da61192c02a4abfa813e99c19.php": {
               "type": "-",
               "size": 1002,
@@ -6313,10 +6743,22 @@
               "lmtime": 0,
               "modified": false
             },
+            "0d4030fbe78023fef39cb08d39f5692ae3537a09.php": {
+              "type": "-",
+              "size": 2835,
+              "lmtime": 1524778222341,
+              "modified": false
+            },
             "0db18cd80dc61bf5082b41f822036e222caf3fef.php": {
               "type": "-",
               "size": 3045,
               "lmtime": 0,
+              "modified": false
+            },
+            "0ec8206507ffb5772be1ef635b5439104d95c79f.php": {
+              "type": "-",
+              "size": 7137,
+              "lmtime": 1525025068808,
               "modified": false
             },
             "0f1fc2b593bc25ded8fd19c2d9bcf3bd3b43d3a4.php": {
@@ -6325,9 +6767,21 @@
               "lmtime": 0,
               "modified": false
             },
+            "0f9a2b79b8976ad5baee961180f06f95137a3bdb.php": {
+              "type": "-",
+              "size": 2726,
+              "lmtime": 0,
+              "modified": false
+            },
             "107840be00f69cbcf6556f213294d4de472cb0ad.php": {
               "type": "-",
               "size": 1762,
+              "lmtime": 0,
+              "modified": false
+            },
+            "10accbbbd0f54169761f0ea0e1326a043da42005.php": {
+              "type": "-",
+              "size": 8456,
               "lmtime": 0,
               "modified": false
             },
@@ -6376,6 +6830,18 @@
             "1427ecc7bdf06dd8d08b75da8a807660957aabba.php": {
               "type": "-",
               "size": 3791,
+              "lmtime": 0,
+              "modified": false
+            },
+            "14c1d3af93fd36036fa3606e4657e741fc890d44.php": {
+              "type": "-",
+              "size": 1546,
+              "lmtime": 1524528511736,
+              "modified": false
+            },
+            "159eaa36c8ee26b6253033156b25cd6334c1c9bd.php": {
+              "type": "-",
+              "size": 2452,
               "lmtime": 0,
               "modified": false
             },
@@ -6447,9 +6913,9 @@
             },
             "1b1772b5931bb64ae503e026c73e4467db20d162.php": {
               "type": "-",
-              "size": 3706,
+              "size": 3705,
               "lmtime": 0,
-              "modified": false
+              "modified": true
             },
             "1c12f185d4a1d85bb594d2ee5da5dafe54d9c64e.php": {
               "type": "-",
@@ -6475,10 +6941,22 @@
               "lmtime": 0,
               "modified": false
             },
+            "2024ef3c2ce4552a670e1bbf8b33db1e77f73190.php": {
+              "type": "-",
+              "size": 4301,
+              "lmtime": 1524505602231,
+              "modified": false
+            },
             "2161ea6a9454021c37b6f7e04378a7edab043039.php": {
               "type": "-",
               "size": 2722,
               "lmtime": 0,
+              "modified": false
+            },
+            "21793cdc384248ebdd34137ce302b8da22b536b1.php": {
+              "type": "-",
+              "size": 1760,
+              "lmtime": 1524528514840,
               "modified": false
             },
             "21b82966b4d684af12ec3b19e69d663a4708e68c.php": {
@@ -6499,11 +6977,17 @@
               "lmtime": 0,
               "modified": false
             },
+            "22752d717fdb9fa37efeedde5860108a851da253.php": {
+              "type": "-",
+              "size": 7272,
+              "lmtime": 1524147564951,
+              "modified": false
+            },
             "22c3489c4bf64f4689aa7d8662c1e27518624ec4.php": {
               "type": "-",
-              "size": 4440,
+              "size": 246,
               "lmtime": 0,
-              "modified": false
+              "modified": true
             },
             "230214b6898bb27a2afeacd708a48119f61bfef6.php": {
               "type": "-",
@@ -6526,6 +7010,12 @@
             "238c01b7f13c6b07fe8c429ebcbe61cee1e922e9.php": {
               "type": "-",
               "size": 1903,
+              "lmtime": 0,
+              "modified": false
+            },
+            "2498344928f3080a812605aca499392393f9a4df.php": {
+              "type": "-",
+              "size": 2126,
               "lmtime": 0,
               "modified": false
             },
@@ -6557,6 +7047,12 @@
               "type": "-",
               "size": 2292,
               "lmtime": 0,
+              "modified": false
+            },
+            "27be20da8c760524e90c4130761a5974e0ee2058.php": {
+              "type": "-",
+              "size": 1415,
+              "lmtime": 1524778238065,
               "modified": false
             },
             "287cbdf6ec1831cb95db8d0b522a404642c72e27.php": {
@@ -6637,6 +7133,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "2f2edfbbb8eb160f7f08d10cc94348e5a77c91c2.php": {
+              "type": "-",
+              "size": 4734,
+              "lmtime": 0,
+              "modified": false
+            },
             "2f33311367549c9557e9d76a5e38989cccdf98f5.php": {
               "type": "-",
               "size": 2949,
@@ -6645,8 +7147,8 @@
             },
             "2f8219c6fc1685423c2009f3947d25bbd9ef1e53.php": {
               "type": "-",
-              "size": 4734,
-              "lmtime": 1521976719672,
+              "size": 4270,
+              "lmtime": 1524133140440,
               "modified": false
             },
             "30f3e240289d8e0cb15c7fd7e54065b0437fd0de.php": {
@@ -6691,6 +7193,24 @@
               "lmtime": 0,
               "modified": false
             },
+            "334c171d287e27510c678b9fcdae24958fd29519.php": {
+              "type": "-",
+              "size": 1035,
+              "lmtime": 0,
+              "modified": false
+            },
+            "335d8b5a5a32d1f032b7d44f7eca878126b4b243.php": {
+              "type": "-",
+              "size": 4232,
+              "lmtime": 1524505635260,
+              "modified": false
+            },
+            "33d774167cc1d8eea7f60e68bae3d7a44f962e12.php": {
+              "type": "-",
+              "size": 709,
+              "lmtime": 1524750785906,
+              "modified": false
+            },
             "33ef95a5cc4ecb056a4f1a4ed963b211095e5788.php": {
               "type": "-",
               "size": 1762,
@@ -6705,9 +7225,9 @@
             },
             "34ab96c987c40913d304e73cd7d797dd6ade0192.php": {
               "type": "-",
-              "size": 5084,
+              "size": 6290,
               "lmtime": 0,
-              "modified": false
+              "modified": true
             },
             "36c8c569aa3ac5cc8b8c0006ee8796a271bd7e94.php": {
               "type": "-",
@@ -6723,9 +7243,9 @@
             },
             "381acece66d9e473341854a839f88dfc8321e5a4.php": {
               "type": "-",
-              "size": 3178,
+              "size": 3612,
               "lmtime": 0,
-              "modified": false
+              "modified": true
             },
             "389e9c538b453cc9165bebd1e3bc034fae42e9b0.php": {
               "type": "-",
@@ -6741,8 +7261,8 @@
             },
             "39ad0311128d04c1ae96c1fbdf1f0577be2b9bb2.php": {
               "type": "-",
-              "size": 3132,
-              "lmtime": 1522023552572,
+              "size": 2294,
+              "lmtime": 1524133703360,
               "modified": false
             },
             "39d655686cbee82a5b62d851a6344375e476b127.php": {
@@ -6781,10 +7301,22 @@
               "lmtime": 0,
               "modified": false
             },
+            "3cdd3d7cf72b5e04b0aae5347629ccdc1e88f630.php": {
+              "type": "-",
+              "size": 2099,
+              "lmtime": 0,
+              "modified": false
+            },
             "3d4676feb438bf917a0c7dceab958ffae9e58eb4.php": {
               "type": "-",
               "size": 2706,
               "lmtime": 0,
+              "modified": false
+            },
+            "3d66bb284454088b16aad9247a5ee2532572400a.php": {
+              "type": "-",
+              "size": 3767,
+              "lmtime": 1525021570030,
               "modified": false
             },
             "3ddfc0d262e49194f0cf7b166bce6b0ebff2749e.php": {
@@ -6803,6 +7335,12 @@
               "type": "-",
               "size": 3691,
               "lmtime": 0,
+              "modified": false
+            },
+            "3ee85e145a45301d3cae0757e722d047099b6fde.php": {
+              "type": "-",
+              "size": 3889,
+              "lmtime": 1524505690363,
               "modified": false
             },
             "3f14c4fa9c634d18de355a399a82c61cd25d4283.php": {
@@ -6841,6 +7379,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "4153294b554cec277a5c0af21af3f34dd0a80d2b.php": {
+              "type": "-",
+              "size": 1924,
+              "lmtime": 0,
+              "modified": false
+            },
             "4183d45fe26a30ed08abe140da5ca89f1ee78370.php": {
               "type": "-",
               "size": 1816,
@@ -6851,6 +7395,12 @@
               "type": "-",
               "size": 1395,
               "lmtime": 0,
+              "modified": false
+            },
+            "4243e8c09cdb5d05c491b29a6f0bc9a0530c6643.php": {
+              "type": "-",
+              "size": 2958,
+              "lmtime": 1524507324880,
               "modified": false
             },
             "42863c351f1f7a0e10e0aacf6faa5814cbec4bc5.php": {
@@ -6877,6 +7427,18 @@
               "lmtime": 0,
               "modified": false
             },
+            "43b21457e72d7a5ac7495ebfca4df62496c5f555.php": {
+              "type": "-",
+              "size": 4500,
+              "lmtime": 1525022026707,
+              "modified": false
+            },
+            "442d7cc04acdf73da1f9e337a19dbd4f9234089e.php": {
+              "type": "-",
+              "size": 1760,
+              "lmtime": 1523837349648,
+              "modified": false
+            },
             "44b0a9cd896d9ee4b993a5ba28044a1165536468.php": {
               "type": "-",
               "size": 2620,
@@ -6891,9 +7453,9 @@
             },
             "4738d3d281530f89a34c574ec9a213c95cb96b91.php": {
               "type": "-",
-              "size": 2968,
+              "size": 3602,
               "lmtime": 1522072680704,
-              "modified": false
+              "modified": true
             },
             "4768a602819511060638805ec030074a5114a40a.php": {
               "type": "-",
@@ -6922,6 +7484,12 @@
             "482a26ba95671d74d612280e2670f6857956c7d6.php": {
               "type": "-",
               "size": 4575,
+              "lmtime": 0,
+              "modified": false
+            },
+            "4845e9990dbc556dcc611cfc9d57b20b84d75ef6.php": {
+              "type": "-",
+              "size": 627,
               "lmtime": 0,
               "modified": false
             },
@@ -6969,8 +7537,8 @@
             },
             "4b5ec4d30e7bbedca3c39e95f84c66574f23383e.php": {
               "type": "-",
-              "size": 5831,
-              "lmtime": 1522063749013,
+              "size": 5927,
+              "lmtime": 1524061566863,
               "modified": false
             },
             "4b7e6e8697e6a4179478832e506dd85b8de0bd9e.php": {
@@ -6988,6 +7556,18 @@
             "4c036c374f1991a302f814c39f0f4333a879b072.php": {
               "type": "-",
               "size": 2471,
+              "lmtime": 0,
+              "modified": false
+            },
+            "4c376d874943ce979980d0db947b2fec721bf07a.php": {
+              "type": "-",
+              "size": 1924,
+              "lmtime": 0,
+              "modified": false
+            },
+            "4ca6e6a739c3e7d75be1ad6baa95fa68da492794.php": {
+              "type": "-",
+              "size": 1760,
               "lmtime": 0,
               "modified": false
             },
@@ -7023,9 +7603,9 @@
             },
             "54e1311f419ac679392232dc3b336bd697f6c61d.php": {
               "type": "-",
-              "size": 5787,
+              "size": 5910,
               "lmtime": 0,
-              "modified": false
+              "modified": true
             },
             "553e4e711f04dfb2b741551d99cfd5a79094e071.php": {
               "type": "-",
@@ -7051,6 +7631,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "56e35cdc832c63a59aefdfb2409690026ca4af2e.php": {
+              "type": "-",
+              "size": 1002,
+              "lmtime": 0,
+              "modified": false
+            },
             "56e9a06f37b95ae04c0fa29cd5ea2acd4aec9178.php": {
               "type": "-",
               "size": 3688,
@@ -7059,9 +7645,9 @@
             },
             "5763ae42bc729fb1a3bb9e13e179e5845d4b2be7.php": {
               "type": "-",
-              "size": 3094,
+              "size": 2925,
               "lmtime": 0,
-              "modified": false
+              "modified": true
             },
             "57c1d0a1565d2e56c5147bf593d34a87587d582b.php": {
               "type": "-",
@@ -7123,6 +7709,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "5c94cccb43792ca599c667318fc3e04277bf1dbd.php": {
+              "type": "-",
+              "size": 10,
+              "lmtime": 0,
+              "modified": false
+            },
             "5cf08f1576383e01d1a983b682edff3b3c9877e7.php": {
               "type": "-",
               "size": 7766,
@@ -7137,13 +7729,31 @@
             },
             "5d5bdea550a6034d2df042dae6091991474e35a7.php": {
               "type": "-",
-              "size": 3523,
+              "size": 4232,
               "lmtime": 1522064607384,
-              "modified": false
+              "modified": true
             },
             "5d892454b76822cbbcffbbc7103c82a28cd46d8d.php": {
               "type": "-",
               "size": 2972,
+              "lmtime": 0,
+              "modified": false
+            },
+            "5e0fe87a35fcd0d449781cca546835c8046b6e0b.php": {
+              "type": "-",
+              "size": 1915,
+              "lmtime": 1524754509758,
+              "modified": false
+            },
+            "5e278c25a97e209b7991e0cf4a079f77a3ac6ba5.php": {
+              "type": "-",
+              "size": 1794,
+              "lmtime": 1524778135550,
+              "modified": false
+            },
+            "5e37a7512b5b8403c15c661b94f7dc27cdcd22fb.php": {
+              "type": "-",
+              "size": 10,
               "lmtime": 0,
               "modified": false
             },
@@ -7153,10 +7763,22 @@
               "lmtime": 1521410544285,
               "modified": false
             },
+            "5f706905614ca15ba758bce2b86b4e8c45413525.php": {
+              "type": "-",
+              "size": 1902,
+              "lmtime": 0,
+              "modified": false
+            },
             "611e29f52c49543ee9cee35a8ef7640941be6afc.php": {
               "type": "-",
-              "size": 6172,
+              "size": 6290,
               "lmtime": 1521194841181,
+              "modified": true
+            },
+            "613b9d365fa2bd6ebcf3e1cedb4646fdc0893760.php": {
+              "type": "-",
+              "size": 2947,
+              "lmtime": 1525128134022,
               "modified": false
             },
             "61bae24cc7a4c853bab667a92cb08826544f67f9.php": {
@@ -7201,6 +7823,18 @@
               "lmtime": 0,
               "modified": false
             },
+            "666c9c928ad662abf1a87a78d847d18c26dea2a8.php": {
+              "type": "-",
+              "size": 1762,
+              "lmtime": 1524505635280,
+              "modified": false
+            },
+            "66867bff39a9698fd8030754050e2c3f56240d6b.php": {
+              "type": "-",
+              "size": 1451,
+              "lmtime": 1524505635339,
+              "modified": false
+            },
             "6701347d7cec2a0ccfd98bec290beef093035b11.php": {
               "type": "-",
               "size": 2270,
@@ -7225,6 +7859,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "682b6d98e6a8602264b4668ab95da868ae366e13.php": {
+              "type": "-",
+              "size": 696,
+              "lmtime": 1524781045002,
+              "modified": false
+            },
             "69d4568d2aa533c443a54f257489ccde15a4a7e7.php": {
               "type": "-",
               "size": 1213,
@@ -7239,15 +7879,15 @@
             },
             "6ada1e44af7104bcb7d00897a77efc9866e45bf1.php": {
               "type": "-",
-              "size": 2477,
+              "size": 2835,
               "lmtime": 1521418947109,
-              "modified": false
+              "modified": true
             },
             "6b0f2d6f28b6a5c0c059327e6add52de49055770.php": {
               "type": "-",
-              "size": 3738,
+              "size": 3350,
               "lmtime": 0,
-              "modified": false
+              "modified": true
             },
             "6b132715ae7316e4247e309eca35f9e756cafe9e.php": {
               "type": "-",
@@ -7269,9 +7909,9 @@
             },
             "6d0b2412aea77f836fd548c2aedffdc9eb9e4821.php": {
               "type": "-",
-              "size": 2516,
+              "size": 3531,
               "lmtime": 1521321445752,
-              "modified": false
+              "modified": true
             },
             "6ecd5e50ab43d6035d6200c76d2b761c2a283cf3.php": {
               "type": "-",
@@ -7309,6 +7949,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "7314e221dbabc5765ad08ea94a8234e8dda35b1a.php": {
+              "type": "-",
+              "size": 2730,
+              "lmtime": 0,
+              "modified": false
+            },
             "745f780d40108fcb5ce16c303918f8cb52a8345f.php": {
               "type": "-",
               "size": 3059,
@@ -7318,6 +7964,12 @@
             "7486185b4c68c0276d6b0216e6bd37f288a02dfc.php": {
               "type": "-",
               "size": 2714,
+              "lmtime": 0,
+              "modified": false
+            },
+            "74bab25e7b50920a1b08a4c52509e0bc9cc2d7c2.php": {
+              "type": "-",
+              "size": 2097,
               "lmtime": 0,
               "modified": false
             },
@@ -7339,6 +7991,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "7579f3505012e53a451f1f12f0c333defc2fbd10.php": {
+              "type": "-",
+              "size": 4377,
+              "lmtime": 1524975237457,
+              "modified": false
+            },
             "75d88f8492f2363680d1e12a7493a88ddeca41f2.php": {
               "type": "-",
               "size": 2241,
@@ -7349,6 +8007,18 @@
               "type": "-",
               "size": 2220,
               "lmtime": 0,
+              "modified": false
+            },
+            "76e945a8bdf1029d0a81b5513f268dd17548ad12.php": {
+              "type": "-",
+              "size": 131,
+              "lmtime": 1524824508822,
+              "modified": false
+            },
+            "76ec394b044e5e32b49fa0726562d332147683ba.php": {
+              "type": "-",
+              "size": 6290,
+              "lmtime": 1524505635362,
               "modified": false
             },
             "7741413dd739886734e4f38bc8822980c7a51fba.php": {
@@ -7363,6 +8033,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "77886f85da71133e7d4dc874093ea9cc45defe05.php": {
+              "type": "-",
+              "size": 725,
+              "lmtime": 1524780916748,
+              "modified": false
+            },
             "788d46cfaf42c258d8e423ae0539ad9c67cbaca6.php": {
               "type": "-",
               "size": 5608,
@@ -7375,9 +8051,21 @@
               "lmtime": 0,
               "modified": false
             },
+            "794eb70edc8a60ee272310440f7cbeaa2e1b5f72.php": {
+              "type": "-",
+              "size": 3767,
+              "lmtime": 0,
+              "modified": false
+            },
             "7964ec5d45ad3fabf3d8b96d05dd5dabb24a2257.php": {
               "type": "-",
               "size": 1451,
+              "lmtime": 0,
+              "modified": false
+            },
+            "7a2f2c91c8a036977195af21ba4a4aad38d53e02.php": {
+              "type": "-",
+              "size": 1281,
               "lmtime": 0,
               "modified": false
             },
@@ -7477,6 +8165,18 @@
               "lmtime": 0,
               "modified": false
             },
+            "82827736432d1021dbed41cb2340a5af6dfc7f98.php": {
+              "type": "-",
+              "size": 2730,
+              "lmtime": 1524778233092,
+              "modified": false
+            },
+            "8340b4002d48ee89b0db67f73f01ecc496c8e1be.php": {
+              "type": "-",
+              "size": 2835,
+              "lmtime": 0,
+              "modified": false
+            },
             "835ac1380b136cc8a828032b76247c578ef2ec1f.php": {
               "type": "-",
               "size": 1042,
@@ -7549,6 +8249,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "8d49f92796f34be8b3022bfe90d201373f8d9d2d.php": {
+              "type": "-",
+              "size": 1415,
+              "lmtime": 0,
+              "modified": false
+            },
             "8d785d292c9fb63c11eedcf01b6b6b383b6f0c66.php": {
               "type": "-",
               "size": 2640,
@@ -7615,6 +8321,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "90f7c73d97841afd38255942ace3fd7d206b7fd2.php": {
+              "type": "-",
+              "size": 3927,
+              "lmtime": 0,
+              "modified": false
+            },
             "916f39c6824773ca8401951e36d461bfd1b78da7.php": {
               "type": "-",
               "size": 1434,
@@ -7666,6 +8378,12 @@
             "96fc684bb5bf371e6993c8331aa2d9c138188b73.php": {
               "type": "-",
               "size": 2773,
+              "lmtime": 0,
+              "modified": false
+            },
+            "971bf1cdac3515f856ff691d2a0bd6858646fe87.php": {
+              "type": "-",
+              "size": 1796,
               "lmtime": 0,
               "modified": false
             },
@@ -7743,9 +8461,9 @@
             },
             "9ea6776ae392ab19a2502904e37ebebbd86caa5a.php": {
               "type": "-",
-              "size": 8487,
+              "size": 8426,
               "lmtime": 0,
-              "modified": false
+              "modified": true
             },
             "9fb09545118c70b1b4c2501b15a86d17ade720f8.php": {
               "type": "-",
@@ -7843,6 +8561,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "aaa53c3a54d095642f20d99038a0c4b849e47052.php": {
+              "type": "-",
+              "size": 5747,
+              "lmtime": 1524652596756,
+              "modified": false
+            },
             "ab39f31af4095f74366a7474f7b5cd4cacb97c0a.php": {
               "type": "-",
               "size": 4177,
@@ -7885,9 +8609,21 @@
               "lmtime": 0,
               "modified": false
             },
+            "afa5a1ba9730ae1bb322c90be84434e70231d249.php": {
+              "type": "-",
+              "size": 3706,
+              "lmtime": 1524505602205,
+              "modified": false
+            },
             "afb0e207cf851529a29fac98ad30e07e74dd119e.php": {
               "type": "-",
               "size": 4658,
+              "lmtime": 0,
+              "modified": false
+            },
+            "afb90cfe9bdbcbd0c99a1b80877a1ca28a55ffcb.php": {
+              "type": "-",
+              "size": 1508,
               "lmtime": 0,
               "modified": false
             },
@@ -7909,6 +8645,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "b1203efa7c26261c6c529f95f1deae16b805e164.php": {
+              "type": "-",
+              "size": 1451,
+              "lmtime": 1524175517945,
+              "modified": false
+            },
             "b1fa76349dbaaa173af5b406787ecde37c2be7fe.php": {
               "type": "-",
               "size": 1071,
@@ -7925,6 +8667,18 @@
               "type": "-",
               "size": 15494,
               "lmtime": 0,
+              "modified": false
+            },
+            "b31efe9df2ec01e37308b6b698582b70612bbcc9.php": {
+              "type": "-",
+              "size": 1071,
+              "lmtime": 0,
+              "modified": false
+            },
+            "b34dc820b94b6fc21e9199856fd7c4fd7be123b8.php": {
+              "type": "-",
+              "size": 2965,
+              "lmtime": 1524505690429,
               "modified": false
             },
             "b36d6717074b4cc3b82d1a063e50752cf0503a04.php": {
@@ -7967,6 +8721,12 @@
               "type": "-",
               "size": 3776,
               "lmtime": 0,
+              "modified": false
+            },
+            "b7a305598231bf0ba9da71250903b70c20cdb910.php": {
+              "type": "-",
+              "size": 3613,
+              "lmtime": 1524506859990,
               "modified": false
             },
             "b7f58b46328ce40311af45a41bf1f189e1624890.php": {
@@ -8071,9 +8831,21 @@
               "lmtime": 0,
               "modified": false
             },
+            "be9b3cf6097b7690a342da94f14811b537341292.php": {
+              "type": "-",
+              "size": 6247,
+              "lmtime": 1524670750458,
+              "modified": false
+            },
             "becb80b137e5aa260fefd963d955a0d69f5e74ec.php": {
               "type": "-",
-              "size": 3610,
+              "size": 4235,
+              "lmtime": 0,
+              "modified": true
+            },
+            "bfaae1da66d71ed82e31e7c41abff897d01ebd1e.php": {
+              "type": "-",
+              "size": 2222,
               "lmtime": 0,
               "modified": false
             },
@@ -8085,8 +8857,14 @@
             },
             "c03e2656026ed8c879b6764d8e7c424363f2e0b4.php": {
               "type": "-",
-              "size": 2857,
+              "size": 3608,
               "lmtime": 1521975596175,
+              "modified": true
+            },
+            "c14655cc4e276571b9c108fec7accacbdf6d5084.php": {
+              "type": "-",
+              "size": 1281,
+              "lmtime": 1524505671086,
               "modified": false
             },
             "c1f4c428e4634732110cf53c3119b0b7ef3cae22.php": {
@@ -8101,9 +8879,21 @@
               "lmtime": 0,
               "modified": false
             },
+            "c32bb6228abe5f584d1aed9a07cd069f09db5d1c.php": {
+              "type": "-",
+              "size": 1213,
+              "lmtime": 1524848370495,
+              "modified": false
+            },
             "c33e1b8ce85cd7f7cd2cea8535263ca27676a3be.php": {
               "type": "-",
               "size": 4611,
+              "lmtime": 0,
+              "modified": false
+            },
+            "c3aea72b8de8374982e509032c294b4dffc7021c.php": {
+              "type": "-",
+              "size": 3767,
               "lmtime": 0,
               "modified": false
             },
@@ -8137,9 +8927,21 @@
               "lmtime": 0,
               "modified": false
             },
+            "c5eb88855b3dcf0b9288229a1d56f0c835c7114e.php": {
+              "type": "-",
+              "size": 3531,
+              "lmtime": 0,
+              "modified": false
+            },
             "c5f98e26fc4c146da0f9559c8e9f0c244386453e.php": {
               "type": "-",
               "size": 1887,
+              "lmtime": 0,
+              "modified": false
+            },
+            "c69e0fac2cf68829a55e7c527ed020b1baac45e4.php": {
+              "type": "-",
+              "size": 2099,
               "lmtime": 0,
               "modified": false
             },
@@ -8153,6 +8955,12 @@
               "type": "-",
               "size": 2725,
               "lmtime": 0,
+              "modified": false
+            },
+            "c8943fe10334c9a4ec1e76ff681eef2bb532ee56.php": {
+              "type": "-",
+              "size": 1061,
+              "lmtime": 1524505671060,
               "modified": false
             },
             "ca16ccc924057cec3f074b2b2e025339fb265ea0.php": {
@@ -8197,6 +9005,18 @@
               "lmtime": 0,
               "modified": false
             },
+            "cd7ab12be02abd7a83de80d8aa5d271dcbeeff1c.php": {
+              "type": "-",
+              "size": 1061,
+              "lmtime": 0,
+              "modified": false
+            },
+            "cdb7e7ef581e4343bc4c15acf5d1d2e64892ea90.php": {
+              "type": "-",
+              "size": 3767,
+              "lmtime": 1524778227967,
+              "modified": false
+            },
             "cee6c1c126fa5d7d8f26c2ac46d048f5fdad95e6.php": {
               "type": "-",
               "size": 4655,
@@ -8209,6 +9029,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "cf068b5e43fe96180db159a7b99cfbb347a2024f.php": {
+              "type": "-",
+              "size": 2220,
+              "lmtime": 0,
+              "modified": false
+            },
             "cf2fea51a86c8d0f4001a87f9703150758fd8b0d.php": {
               "type": "-",
               "size": 4284,
@@ -8218,6 +9044,18 @@
             "cf4c18bbe4758b69e840853f9cd389675e44dcd2.php": {
               "type": "-",
               "size": 3965,
+              "lmtime": 0,
+              "modified": false
+            },
+            "cf6ac805d4633606bbfb20ff09cc1bfc52e10bcc.php": {
+              "type": "-",
+              "size": 2099,
+              "lmtime": 1524507324982,
+              "modified": false
+            },
+            "cf6e4dadc43b2199f6de2de3977486259a7d4b04.php": {
+              "type": "-",
+              "size": 5449,
               "lmtime": 0,
               "modified": false
             },
@@ -8281,6 +9119,18 @@
               "lmtime": 0,
               "modified": false
             },
+            "d3ffbca0f89153e54ce0de9aecece395bb096612.php": {
+              "type": "-",
+              "size": 8480,
+              "lmtime": 1525132276628,
+              "modified": false
+            },
+            "d42e84fe7ecb900b8a76809b7b427b4909365ebc.php": {
+              "type": "-",
+              "size": 5798,
+              "lmtime": 0,
+              "modified": false
+            },
             "d58cafdd1e638d525f78ad13dc203e4c9d432b08.php": {
               "type": "-",
               "size": 1895,
@@ -8301,9 +9151,9 @@
             },
             "d74bc686db528d0a5eb6bad6fdf349a6b797dd61.php": {
               "type": "-",
-              "size": 3738,
+              "size": 3350,
               "lmtime": 0,
-              "modified": false
+              "modified": true
             },
             "d825edfbacd4fb621672328c3df4680e8f3b45ae.php": {
               "type": "-",
@@ -8377,6 +9227,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "e03688132561cca1899da640992fb1ed94bd6ed2.php": {
+              "type": "-",
+              "size": 3608,
+              "lmtime": 0,
+              "modified": false
+            },
             "e100051e64d7c7bf923aab0df02bc93c40700a77.php": {
               "type": "-",
               "size": 627,
@@ -8386,6 +9242,12 @@
             "e15977fdc07f8a9c6ed91a94105888f02e1c4e37.php": {
               "type": "-",
               "size": 329,
+              "lmtime": 0,
+              "modified": false
+            },
+            "e171c6cac38caafffecee498625cca3f03cbdb18.php": {
+              "type": "-",
+              "size": 8431,
               "lmtime": 0,
               "modified": false
             },
@@ -8437,6 +9299,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "e50b602ade409e30830352a51e008bf6f235ab97.php": {
+              "type": "-",
+              "size": 1952,
+              "lmtime": 0,
+              "modified": false
+            },
             "e560d05f3de0db9baa21d0c4dae41c2b0efec686.php": {
               "type": "-",
               "size": 1428,
@@ -8461,11 +9329,17 @@
               "lmtime": 0,
               "modified": false
             },
+            "e86d4f2747890d7a3588be31d6e4a715250814bf.php": {
+              "type": "-",
+              "size": 2099,
+              "lmtime": 0,
+              "modified": false
+            },
             "e97184a7ffb9b0cc32600cacdb5a056f09512397.php": {
               "type": "-",
-              "size": 2097,
+              "size": 2099,
               "lmtime": 1522025448498,
-              "modified": false
+              "modified": true
             },
             "ed73b48efe548feef78b516ddc105cc33a18166a.php": {
               "type": "-",
@@ -8527,6 +9401,12 @@
               "lmtime": 0,
               "modified": false
             },
+            "f6917c33d22c8dfd99647633d93bbffce1127de1.php": {
+              "type": "-",
+              "size": 4675,
+              "lmtime": 0,
+              "modified": false
+            },
             "f6eb4eb901b8175ff956d6017c7810332ea7f8df.php": {
               "type": "-",
               "size": 2913,
@@ -8539,10 +9419,22 @@
               "lmtime": 0,
               "modified": false
             },
+            "f75979f1ffd06637955497da97c748b95490efaf.php": {
+              "type": "-",
+              "size": 3713,
+              "lmtime": 0,
+              "modified": false
+            },
             "f83cc4fc71e33067a57337fca10b9540e914d03c.php": {
               "type": "-",
               "size": 1684,
               "lmtime": 0,
+              "modified": false
+            },
+            "f8b11eae9771bd089a666b9c32b7ecca064c37e3.php": {
+              "type": "-",
+              "size": 2773,
+              "lmtime": 1521504834462,
               "modified": false
             },
             "f944c972b310aa8f5d8d6c26f4a06c7b2050e08e.php": {
@@ -8554,6 +9446,12 @@
             "f998afe2abe5c8b68f3c81a0aaae2b642f81b089.php": {
               "type": "-",
               "size": 1446,
+              "lmtime": 0,
+              "modified": false
+            },
+            "fa25f21ab839be8c7c2797cad7abb246f9749130.php": {
+              "type": "-",
+              "size": 4675,
               "lmtime": 0,
               "modified": false
             },
@@ -8613,9 +9511,9 @@
             },
             "fe0689058620f4379765fdc4d1309939bf5b52a3.php": {
               "type": "-",
-              "size": 136,
+              "size": 246,
               "lmtime": 1521410544267,
-              "modified": false
+              "modified": true
             },
             "fedfe15a96d862062498b915ff8467e7868808bb.php": {
               "type": "-",
@@ -8641,6 +9539,18 @@
               "lmtime": 0,
               "modified": false
             },
+            "ff35b3ba4114061d675843d05ee8985049329156.php": {
+              "type": "-",
+              "size": 1281,
+              "lmtime": 1522027647379,
+              "modified": false
+            },
+            "ff3a08972a8484270abe8b20d4936b5c3d06ceae.php": {
+              "type": "-",
+              "size": 1546,
+              "lmtime": 1522063854905,
+              "modified": true
+            },
             "ff7317b82f5a72aec77c14779ac51d5c9d421fe3.php": {
               "type": "-",
               "size": 3589,
@@ -8653,22 +9563,40 @@
               "lmtime": 0,
               "modified": false
             },
-            "f8b11eae9771bd089a666b9c32b7ecca064c37e3.php": {
+            "e78a18543f1fe5564c48d5a7e57a33dc64331b1f.php": {
               "type": "-",
-              "size": 2773,
-              "lmtime": 1521504834462,
+              "size": 1002,
+              "lmtime": 1524778169351,
               "modified": false
             },
-            "ff35b3ba4114061d675843d05ee8985049329156.php": {
+            "ec43fbe351a728db912ddfc864fd039433de53cb.php": {
               "type": "-",
-              "size": 1281,
-              "lmtime": 1522027647379,
+              "size": 2926,
+              "lmtime": 1524778169313,
               "modified": false
             },
-            "ff3a08972a8484270abe8b20d4936b5c3d06ceae.php": {
+            "ecc2b091434ad273a738749c3bee385ba8f91ad9.php": {
               "type": "-",
-              "size": 1902,
-              "lmtime": 1522063854905,
+              "size": 2295,
+              "lmtime": 1524507260232,
+              "modified": false
+            },
+            "f7b83bf1bd3ca70545ddba33f71a738c90e43930.php": {
+              "type": "-",
+              "size": 2292,
+              "lmtime": 1524843556634,
+              "modified": false
+            },
+            "fe47a48df5623cd41237def97db7b4e8f19df296.php": {
+              "type": "-",
+              "size": 1961,
+              "lmtime": 1524505602213,
+              "modified": false
+            },
+            "fe80d41fed915f4d828d43cffcb45899b63aa997.php": {
+              "type": "-",
+              "size": 1750,
+              "lmtime": 1524778149299,
               "modified": false
             }
           }
@@ -8682,7 +9610,7 @@
           },
           "laravel.log": {
             "type": "-",
-            "size": 7767005,
+            "size": 34432228,
             "lmtime": 0,
             "modified": true
           }
@@ -102287,12 +103215,42 @@
               }
             }
           }
-        }
+        },
+        "dompdf": {},
+        "mpdf": {},
+        "niklasravnsborg": {},
+        "phenx": {
+          "php-svg-lib": {
+            "src": {
+              "Svg": {
+                "Gradient": {},
+                "Surface": {},
+                "Tag": {}
+              }
+            },
+            "tests": {}
+          }
+        },
+        "sabberworm": {},
+        "setasign": {},
+        "vsmoraes": {}
       },
       "webpack.mix.js": {
         "type": "-",
         "size": 564,
         "lmtime": 0,
+        "modified": false
+      },
+      "composer.lock": {
+        "type": "-",
+        "size": 186111,
+        "lmtime": 1524777945893,
+        "modified": false
+      },
+      "NNNNNNNNNcomposer.lock": {
+        "type": "-",
+        "size": 171732,
+        "lmtime": 1524721889742,
         "modified": false
       }
     }
