@@ -16,10 +16,12 @@
                                                 !!}
                                                 {!!
                                                      MoHandF::delButton([
-                                                    'tip'=>'del',
                                                     'link'=>MoHandF::url($param['routes']['base'].'/'.$item->id,$getT),
-                                                    'fa'=>'trash-o']) 
+                                                    //'confirm'=>'Confirm delete?',
+                                                   ]) 
                                                 !!} 
+                                     
+
                                         </td>
                                     </tr>
                                 @endforeach

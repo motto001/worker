@@ -51,9 +51,8 @@ $menuT=[
 ['/worker/workerdays',  'Napok'],  
 ['/worker/workertimes', 'Munkaidők'],
 //['/worker/workerwroleunits', 'Műszakcsere'],
-
 ['/worker/naptar',  'Naptár'],
-
+['/worker/chpasswd',  'Jelszó változtatás'],
 //['/worker/workerdays', 'Szabadság, betegállomány'],
 //['/workadmin/workerdays', 'kiküldetés'],
 //['/workadmin/workerdays', 'Munkaidő nyilvántartás'],
@@ -114,7 +113,7 @@ if(empty($worker)){$workerbool=false;}
                @endforeach
        </div> 
        @endif 
-        @if ($workerbool)   
+        @if (Auth::user()->hasRole('worker'))   
         <a  class="btn btn-primary menucsoport"
         data-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample" >
         <i class="fa fa-edit "> </i>Dolgozói menü  <span class="badge"> lenyiló </span>

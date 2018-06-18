@@ -53,12 +53,18 @@ $cancel_label=$param['label']['cancel'] ??  trans('mo.cancel');
                     <div class="panel-body">
                         <br/>
                         <br/>
-                        @if($cancel_button)
- 
-                        <a href="{{ $cancelUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i>{{ $cancel_label }}</button></a>
-                        
-                        @endif   
+ @if(isset($param['show_info_button_link']))  
+
+<a href="{{ $param['show_info_button_link'] }}" title="Info" style="float:right;" data-toggle="modal" data-target="#myModal">
+        <i class="fa fa-info-circle fa-3x"></i>
+</a>       
+@endif 
+@if($cancel_button)
+
+<a href="{{ $cancelUrl }}" title="Cancel"><button class="btn btn-warning btn-sm">
+<i class="fa fa-arrow-left" aria-hidden="true"></i>{{ $cancel_label }}</button></a>
+
+@endif   
 
 @if($showcontent)
 @include($showcontent) 

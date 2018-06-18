@@ -20,6 +20,8 @@ class UsersController extends MoController
     use \App\Handler\trt\property\MoControllerBase; //PAR és BASE 
    use \App\Handler\trt\set\Orm; // with, where, order_by
     protected $par= [
+         'info_button_link' => '/manager/info/users/baseinfo', // role/controller/viewdir/blade
+      //  'create_info_button_link' => '/root/info/roles/infocreate', // role/controller/viewdir/blade
          'get_key'=>'user',
         'routes'=>['base'=>'manager/users'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
@@ -75,6 +77,10 @@ class UsersController extends MoController
         $this->validate($this->BASE['request'],[
         'name' => 'unique:users,name,'.$this->BASE['data']['id'],
         'email' => 'unique:users,email,'.$this->BASE['data']['id']]);
+      //  $data = $request->except('password');
+        if (empty($this->BASE['data']['password'])) { unset($this->BASE['data']['password']);
+        }else{ $this->BASE['data']['password'] = bcrypt($this->BASE['data']['password']);}
+
     }
     public function update_set()
     {     

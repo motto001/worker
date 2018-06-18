@@ -5,28 +5,31 @@ Route::get('admin','Admin\AdminController@index',function(){
 })->middleware('checklogin');
 */
 
-Route::group(['prefix' => '/admin','middleware' => ['auth', 'roles'], 'roles' => 'worker'],function()
+Route::group(['prefix' => '/admin','middleware' => ['auth', 'roles'], 'roles' => 'workadmin'],function()
 {
     Route::resource('/', 'Admin\AdminController'); 
-});   
+});  
+Route::group(['prefix' => '/','middleware' => ['auth', 'roles'], 'roles' => 'worker'],function()
+{
+    Route::resource('/', 'Admin\AdminController'); 
+});  
 //root-----------------------------------------------------------
 Route::group(['prefix' => '/root','middleware' => ['auth', 'roles'], 'roles' => 'admin'],function()
 {
-   
-    Route::resource('/proba', 'Admin\ProbaController');
-   
-    Route::resource('/users', 'Admin\UsersController');
-    
-    Route::resource('/conf', 'Admin\ConfController');  
+  Route::get('/info/{dir}/{file}',  'admin\\InfoController@index');  
+  //  Route::resource('/proba', 'Admin\ProbaController');
+ //   Route::resource('/users', 'Admin\UsersController');  
+    Route::resource('/conf', 'Admin\\ConfController');  
     Route::resource('/roles', 'Admin\\RolesController');
-    Route::resource('/permissions', 'Admin\PermissionsController'); 
-    Route::get('/give-role-permissions', 'Admin\AdminController@getGiveRolePermissions');
-    Route::get('/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
+//    Route::resource('/permissions', 'Admin\PermissionsController'); 
+//    Route::get('/give-role-permissions', 'Admin\AdminController@getGiveRolePermissions');
+//    Route::get('/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
 
 });
 //manageer---------------------------------------------------------------
 Route::group(['prefix' => '/manager','middleware' => ['auth', 'roles'], 'roles' => 'manager'],function()
 {
+  Route::get('/info/{dir}/{file}',  'manager\\InfoController@index');  
     Route::resource('/users', 'Manager\\UsersController');
     //Route::resource('/workers', 'Manager\\WorkersController');
     Route::resource('/workers', 'Manager\\WorkersController');
@@ -60,6 +63,7 @@ Route::group(['prefix' => '/manager','middleware' => ['auth', 'roles'], 'roles' 
 
 Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles' => 'workadmin'],function()
 {
+  Route::get('/info/{dir}/{file}',  'workadmin\\InfoController@index');  
     Route::resource('/savecal', 'Workadmin\\SavecalsController');
     Route::get('/savecal/calendar/{id}', 'Workadmin\\SavecalsController@calendar');
     Route::get('/savecal/solver/{id}', 'Workadmin\\SavecalsController@solver');
@@ -90,6 +94,7 @@ Route::group(['prefix' => '/workadmin','middleware' => ['auth', 'roles'], 'roles
 });
 Route::group(['prefix' => '/worker','middleware' => ['auth', 'roles'], 'roles' => 'worker'],function()
 { 
+  Route::get('/info/{dir}/{file}',  'worker\\InfoController@index');  
     Route::resource('/workerwroleunits', 'Worker\\WorkerwroleunitsController');
   //  Route::resource('/workerdayswish', 'Worker\\WorkertimeswishController');
     Route::resource('/workertimes', 'Worker\\WorkertimesController');
@@ -98,7 +103,8 @@ Route::group(['prefix' => '/worker','middleware' => ['auth', 'roles'], 'roles' =
   Route::get('/naptarpdf', 'Worker\\NaptarController@pdf');
 
     Route::resource('/personal', 'Worker\\WorkersController');
-    
+    Route::get('/chpasswd', 'Worker\\WorkersController@chPasswd');
+    Route::any('/updatepasswd', 'Worker\\WorkersController@updatePasswd');
   //  Route::get('/worktimes/{year}/{month}/{day}/{user}', 'Worker\\WorktimesController@index2');
   //  Route::get('/worktimes/create/{year}/{month}/{day}/{user}', 'Worker\\WorktimesController@create');
 });

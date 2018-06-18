@@ -109,7 +109,7 @@ public function button($button=[])
 
 return $res;
 }
-public function delButton($button=[])
+public function delButton_old($button=[])
 {    
     $size=  $button['size'] ?? 'xs';
     if(!isset($button['class'])){$button['class'] = 'btn btn-danger btn-'.$size;}
@@ -124,7 +124,24 @@ public function delButton($button=[])
 
 return $res;
 }
+public function delButton($button=[])
+{   
+    $res= \Form::open([
+        'method'=>'DELETE',
+       // 'url' => [$param['routes']['base'], $item->id],
+        'url' => [$button['link']],
+        'style' => 'display:inline'
+    ]);
+    $res.=\Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
+                'type' => 'submit',
+                'class' => 'btn btn-danger btn-xs',
+                'title' => 'Delete Conf',
+                'onclick'=>'return confirm("Biztos hogy törli?")'
+    ));
+    $res.=\Form::close();
 
+return $res;
+}
 
 //url manipulation--------------------------------------------------------------------
 /**

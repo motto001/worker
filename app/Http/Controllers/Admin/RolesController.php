@@ -13,6 +13,8 @@ class RolesController extends MoController
     use \App\Handler\trt\redirect\Base;
 
     protected $PAR = [
+      'info_button_link' => '/root/info/roles/info', // role/controller/viewdir/blade
+      'create_info_button_link' => '/root/info/roles/infocreate', // role/controller/viewdir/blade
         'routes' =>  ['base' => 'root/roles'], 
         'view' =>  ['base' => 'crudbase', 'include' => 'admin.roles'], //lehet tömb is pl view/base traitel
        //A view ek keret twemplétjei. Ha tudnak majd formot és táblát generálni ez lesz a view

@@ -5,19 +5,18 @@
 if(!isset($data)) {$data=[];}
 $getT=$param['getT'] ?? [];
 $list=$data['list'] ?? [];
+//$role=$param['role'] ?? explode('/',$param['routes']['base'])[0]
 $pagin_appends='';
 if(!is_array($list)){$pagin_appends=$list->appends(['search' => Request::get('search')])->render() ;}
 $pagination=$param['pagination']=true;
-$tableview=$param['view']['table'] ??  $param['view']['include'].'.table'; 
+$tableview=$param['view']['table'] ?? $param['view']['include'].'.table'; 
 //urlek------------------------
-$infoUrl=$param['routes']['info'] ?? MoHandF::url($param['routes']['base'].'/info/baseinfo',$getT);
 $createUrl=$param['routes']['create'] ?? MoHandF::url($param['routes']['base'].'/create',$getT);
 $cancelUrl=$param['routes']['cancel'] ?? MoHandF::url($param['routes']['base'],$getT);
 $formurl=$param['routes']['form'] ?? MoHandF::url($param['routes']['base'],$getT);
 //gombok,mezők----------------------------------
 $search= $param['search'] ?? false;
 //$search=  false;
-$info_button=$param['info_button'] ?? true;
 $create_button=$param['create_button'] ?? true;
 $cancel_button=$param['cancel_button'] ?? false;
 //feliratok----------------------
@@ -40,9 +39,9 @@ $addbutton_label=$param['addbutton_label'] ?? trans('mo.new').' '.$cim;
                     <div class="panel-heading">
                          {!!  $cim  !!}
                       
-                        @if($info_button)  
+                        @if(isset($param['info_button_link']))  
             
-                            <a href="{{ $infoUrl }}" title="Cancel" style="float:right;" data-toggle="modal" data-target="#myModal">
+                            <a href="{{ $param['info_button_link'] }}" title="Info" style="float:right;" data-toggle="modal" data-target="#myModal">
                                     <i class="fa fa-info-circle fa-3x"></i>
                            </a>       
                         @endif   
