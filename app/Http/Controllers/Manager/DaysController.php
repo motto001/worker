@@ -21,6 +21,7 @@ class DaysController extends MoController
     use \App\Handler\trt\set\Orm; // with, where, order_by
     //use \App\Handler\trt\set\GetT;
     protected $par = [
+        'info_button_link' => '/manager/info/days/baseinfo',
         'routes' => ['base' => 'manager/days'],
         'view' => ['base' => 'crudbase', 'include' => 'manager.days'], //lehet tömb is pl view/base traitel.
         'search' => false, // ha false kikapcsolja az index táblázat kereső mezőjét

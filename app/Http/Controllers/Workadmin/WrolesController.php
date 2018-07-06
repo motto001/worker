@@ -23,7 +23,7 @@ class WrolesController extends MoController
     use \App\Handler\trt\crud\Task;
 
     protected $par= [
-       //  'get_key'=>'worktime',
+        'info_button_link' => '/workadmin/info/wroles/baseinfo',
         'routes'=>['base'=>'workadmin/wroles'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
         'view' => ['base' => 'crudbase', 'include' => 'workadmin.wroles',

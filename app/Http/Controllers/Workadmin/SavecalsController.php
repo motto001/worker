@@ -39,6 +39,7 @@ class SavecalsController extends MoController
     use \App\Handler\trt\calendar\Savecal;
     protected $par= [
         // 'create_button'=>false,
+        'info_button_link' => '/workadmin/info/savecal/baseinfo',
        'addbutton_label'=>'Naptár mentés',
         'cancel_button'=>false,
         //'create_button'=>false,

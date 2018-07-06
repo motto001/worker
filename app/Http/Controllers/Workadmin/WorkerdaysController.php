@@ -27,12 +27,13 @@ class WorkerdaysController extends MoController
 
     protected $par = [
         //'baseroute'=>'workadmin/workerdays',
+        'info_button_link' => '/workadmin/info/workerdays/baseinfo',
         'routes' => ['base' => 'workadmin/workerdays', 'worker' => 'manager/worker'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
         'view' => ['base' => 'crudbase', 'include' => 'workadmin.workerdays',
         'editform' => 'workadmin.workerdays.edit'
         ,'pub' => 'crudbase.index','unpub' => 'crudbase.index'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
-        'cim' => 'Dolgozói napok',
+        'cim' => 'Dolgozói napok jóváhagyása',
        // 'getT' => ['w_id' => 0],
         'pubval' => 2,
         'show' => ['auto' ],

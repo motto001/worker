@@ -35,6 +35,7 @@ class GroupsController extends MoController
 
 
     protected $par = [
+        'info_button_link' => '/workadmin/info/groups/baseinfo',
         'cancel_button' => false,
         'routes' => ['base' => 'workadmin/groups'],
         'view' => ['base' => 'crudbase', 'include' => 'workadmin.groups','show2' => 'crudbase.show','calendar' => 'crudbase.index',

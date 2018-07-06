@@ -10,12 +10,6 @@
        {!! Form::number('szorzo', null, ['class' => 'form-control','type'=>'range','min' =>'0' ,'max'=>'10' ,'step'=>'0.01']) !!}
         {!! $errors->first('szorzo', '<p class="help-block">:message</p>') !!}
     </div>
-</div><div class="form-group {{ $errors->has('fixplusz') ? 'has-error' : ''}}">
-    {!! Form::label('fixplusz', 'Fixplusz', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        {!! Form::number('fixplusz', null, ['class' => 'form-control']) !!}
-        {!! $errors->first('fixplusz', '<p class="help-block">:message</p>') !!}
-    </div>
 </div><div class="form-group {{ $errors->has('color') ? 'has-error' : ''}}">
     {!! Form::label('color', 'Color', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">

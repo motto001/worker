@@ -74,7 +74,7 @@ if(empty($worker)){$workerbool=false;}
                 <h5 class="centered">{{ Auth::user()->name }} </h5>
            
             </ul> 
-   <!-- superadmin**************************************************** -->    
+   <!-- superadmin****************************************************  
    @if (Auth::user()->hasRole('admin'))      
     <a class="btn btn-primary menucsoport"
     data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample" >
@@ -86,7 +86,7 @@ if(empty($worker)){$workerbool=false;}
             <a href="{{$menu[0]}}" style="background-color:#214761;"  class="btn btn-primary menugomb">{{$menu[1]}}</a>
             @endforeach
     </div>  
-    @endif      
+    @endif      -->   
     @if (Auth::user()->hasRole('manager'))      
      <!-- Manager**************************************************** -->
      <a  class="btn btn-primary menucsoport"

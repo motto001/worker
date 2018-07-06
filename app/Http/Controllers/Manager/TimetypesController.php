@@ -23,6 +23,7 @@ class TimetypesController extends MoController
 
 
     protected $par = [
+        'info_button_link' => '/manager/info/timetypes/baseinfo',
         'routes' => ['base' => 'manager/timetypes'],
         'view' => ['base' => 'crudbase', 'include' => 'manager.timetypes'], //innen csatolják be a taskok a vieweket lényegében form és tabla. A crudview-et egészítik ki
         'cim' => 'Munkaidőtipusok',

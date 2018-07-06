@@ -38,6 +38,7 @@ class WorkerdaytimesController extends MoController
     use \App\Handler\trt\calendar\Change; //wrolechange(), daytypechange(),daytypedel(),timeadd()....
     protected $par= [
         // 'create_button'=>false,
+        'info_button_link' => '/workadmin/info/workerdaytimes/baseinfo',
        'addbutton_label'=>'Naptár sterkesztése',
         'cancel_button'=>false,
         'create_button'=>false,

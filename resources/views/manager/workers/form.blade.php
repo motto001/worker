@@ -1,6 +1,7 @@
-
+<div data-toggle="tooltip" data-placement="top" title="Egy dolgozóhoz egy felhasználót lehet kapcsolni.">
+    <i class="fa fa-comment fa-1x"> </i><span style="color:red;"> *</span></div>
 <div class="form-group {{ $errors->has('user_id') ? 'has-error' : ''}}">
-    {!! Form::label('user_id', 'Naptipus', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('user_id', 'Felhasználó', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
       
           {!! Form::select('user_id',$data['user'],

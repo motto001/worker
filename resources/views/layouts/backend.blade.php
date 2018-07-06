@@ -44,11 +44,15 @@ $modaltitle=$param['modal']['title'] ?? '' ;
   <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
- <script>
+<script>
     window.Laravel = <?php echo json_encode([
         'csrfToken' => csrf_token(),
     ]); ?>
-</script>
+
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip(); 
+    });
+    </script>
  
  </head>
 

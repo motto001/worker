@@ -63,8 +63,9 @@ class WorkertimesController extends MoController
      public function construct_set()
      {    
         $user_id = \Auth::id();
-        $this->BASE['data']['worker_id']=Worker::select('id')->where('user_id','=',$user_id)->first()->id;
-        $this->BASE['where'][]= ['worker_id', '=', $this->BASE['data']['worker_id']];
+        $worker=Worker::select('id')->where('user_id','=',$user_id)->first();
+        $this->BASE['data']['worker_id']=$worker->id ?? 0;
+      
     }
      public function index_set()
      {

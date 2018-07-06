@@ -27,6 +27,7 @@ class WorkertimesController extends MoController
     use \App\Handler\trt\set\Date;
     protected $par= [
          'get_key'=>'worktime',
+         'info_button_link' => '/workadmin/info/workertimes/baseinfo',
         'routes'=>['base'=>'workadmin/workertimes','worker'=>'manager/worker'],
         //'baseview'=>'workadmin.workerdays', //nem használt a view helyettesíti
         'view' => ['base' => 'crudbase', 'include' => 'workadmin.workertimes',

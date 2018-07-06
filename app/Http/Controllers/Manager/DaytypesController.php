@@ -21,6 +21,7 @@ class DaytypesController extends MoController
     use \App\Handler\trt\property\MoControllerBase; //PAR és BASE propertyk hogy legyen mit kiegéaszíteni
    
     protected $par = [
+        'info_button_link' => '/manager/info/daytypes/baseinfo',
         'routes' => ['base' => 'manager/daytypes'],
         'view' => ['base' => 'crudbase', 'include' => 'manager.daytypes'], //lehet tömb is pl view/base traitel.
         'cim' => 'Naptípusok', //a templétben megjelenő cím
